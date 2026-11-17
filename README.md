@@ -38,8 +38,10 @@ flowchart LR
 
 - TCP 帧：`CMD:u,v,w,p,q,r,arm,estop,depth,loop\n`（10 个字段）。
 - ROS 话题：`control/cmd`，消息 `uw_robot_interfaces/ControlCommand`。
-- 满杆量程：`u = v = 1.0 m/s`、`w = 0.25 m/s`（等于 `MAX_DEPTH_CHANGE_RATE`）、`p/q/r = 25/22/20 °/s`。
-- 满杆推力等于参考实现的 `MAX_BODY_FORCE = 20/6/10 N`，故 `damping = 20/6/40 N/(m/s)`。
+- 满杆量程：`u = v = w = 1.0`、`p/q/r = 25/25/25 °/s`（三个线轴同一标尺）。
+- 满杆推力：`u = 30 N`、`v = 10 N`、`w = 10 N`，故 `damping = 30/10/10 N/(m/s)`；
+  定深目标变化率由 `depth_change_mps = 0.25` 单独给出（同参考实现）。
+- 注意：闭环平移增益是手感调校值，不再等于参考实现的 `MAX_BODY_FORCE(20/6/10)`；姿态与角速度环仍与参考实现逐项一致。
 - 控制节点只做六轴速度跟踪、解锁/急停/超时仲裁和最终限幅，不再解析摇杆轴。
 
 ## MuJoCo仿真后端

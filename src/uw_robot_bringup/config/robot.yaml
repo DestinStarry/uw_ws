@@ -1,17 +1,18 @@
-# 共享名义参数：全部取自实物参考实现 stm32/orange.10.20/ctrl_solver.py（已上水标定）。
+# 共享名义参数：姿态/角速度环取自实物参考实现 ctrl_solver.py，平移增益按手感单独调校。
 # 控制节点只跟踪 control/cmd 的机体系六轴速度；轴映射与手柄整形在发送端完成。
-# damping = 满杆推力 / 满杆速度：闭环 20/6/10 N ÷ 1.0/1.0/0.25 m/s = 20/6/40，
-# 开环 60/20/30 N ÷ 同上 = 60/20/120；rate_ff = MANUAL_MOMENT_KP。
+# 三个线轴满杆指令统一为 1.0，所以 damping 直接就是满杆推力：闭环 30/10/10 N，
+# 开环 60/20/30 N（同参考实现）；定深目标变化率由 depth_change_mps 单独给出。
+# 注：闭环满杆推力已不再是 MAX_BODY_FORCE（20/6/10），是当前的调校值。
 control_node:
   ros__parameters:
     damping:
-    - 20.0
-    - 6.0
-    - 40.0
+    - 30.0
+    - 10.0
+    - 10.0
     open_damping:
     - 60.0
     - 20.0
-    - 120.0
+    - 30.0
     rate_ff:
     - 1.3
     - 1.5
@@ -22,8 +23,8 @@ control_node:
     - 5.0
     rate_full_scale_rad_s:
     - 0.436332313
-    - 0.3839724354
-    - 0.3490658504
+    - 0.436332313
+    - 0.436332313
     body_moment:
     - 3.0
     - 5.0
@@ -32,12 +33,25 @@ control_node:
     - 0.8
     - 1.2
     - 1.2
+    # 静水扶正前馈的物理参数（实物请填实测值）
+    water_density_kg_m3: 1000.0
+    displaced_volume_m3: 0.0121265
+    buoyancy_offset_m:
+    - 0.0
+    - 0.0
+    - 0.02
+    # 补偿效率标定：1.0 = 完全抵消 ρVg×浮心偏移；实测 0.768 与对象匹配
+    hydrostatic_comp_scale: 0.768
+    attitude_ki:
+    - 0.0
+    - 0.0
+    - 0.0
     attitude_deadzone_rad:
-    - 0.13962634015954636
-    - 0.05235987755982989
-    - 0.08726646259971647
+    - 0.03490658503988659
+    - 0.03490658503988659
+    - 0.03490658503988659
     rate_kp:
-    - 1.0
+    - 2.0
     - 1.5
     - 1.5
     rate_ki:
@@ -63,17 +77,15 @@ control_node:
     depth_ki: 2.0
     depth_kd: 2.0
     depth_force: 8.0
+    depth_change_mps: 0.25
     cmd_timeout_s: 0.35
     imu_timeout_s: 0.1
     depth_timeout_s: 1.5
     release_center_time_s: 0.25
     yaw_hold: true
     roll_hold: true
+    manual_rate_mode: true
     prioritize_hold_on_release: true
-    buoyancy_moment_coeff_nm:
-    - 0.0
-    - 0.0
-    - 1.82795956
     smooth_deadband: false
     gyro_filter_alpha: 0.25
     rate_deadzone_rad_s:

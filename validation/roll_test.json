@@ -1,0 +1,78 @@
+{
+  "config_file": "/tmp/vf.yaml",
+  "trials": [
+    {
+      "trial": 1,
+      "roll_start_deg": 0.0,
+      "roll_end_deg": -82.98,
+      "delta_roll_deg": -82.98,
+      "mean_rate_dps": 27.54,
+      "std_rate_dps": 1.29,
+      "peak_rate_dps": 30.15,
+      "min_rate_dps": 25.44,
+      "rise_time_s": 0.5,
+      "mean_mx_nm": -1.669,
+      "std_mx_nm": 0.023,
+      "rate_crossings": 3,
+      "delta_pitch_deg": 1.07,
+      "delta_yaw_deg": 0.9,
+      "mean_gx_dps": 27.54,
+      "mean_gy_dps": -0.36,
+      "mean_gz_dps": 0.0,
+      "mean_my_nm": 0.049,
+      "mean_mz_nm": -0.0,
+      "delta_pos_m": [
+        -0.019,
+        -0.017,
+        -0.009
+      ],
+      "mean_vel_mps": [
+        -0.007,
+        -0.004,
+        -0.007
+      ],
+      "duration_s": 10.0
+    },
+    {
+      "trial": 2,
+      "roll_start_deg": -5.98,
+      "roll_end_deg": -79.64,
+      "delta_roll_deg": -77.63,
+      "mean_rate_dps": 21.53,
+      "std_rate_dps": 23.52,
+      "peak_rate_dps": 51.19,
+      "min_rate_dps": -19.21,
+      "rise_time_s": 0.37,
+      "mean_mx_nm": -1.656,
+      "std_mx_nm": 0.292,
+      "rate_crossings": 2,
+      "delta_pitch_deg": 1.18,
+      "delta_yaw_deg": 0.21,
+      "mean_gx_dps": 21.53,
+      "mean_gy_dps": -0.54,
+      "mean_gz_dps": 0.01,
+      "mean_my_nm": 0.044,
+      "mean_mz_nm": 0.002,
+      "delta_pos_m": [
+        0.016,
+        -0.017,
+        -0.005
+      ],
+      "mean_vel_mps": [
+        -0.004,
+        -0.004,
+        -0.008
+      ],
+      "duration_s": 10.01
+    }
+  ],
+  "cmd_dps": 25.0,
+  "ok": true,
+  "summary": {
+    "trials": 2,
+    "mean_rate_dps": 24.54,
+    "spread_between_trials_dps": 6.01,
+    "mean_std_within_trial_dps": 12.4,
+    "cmd_dps": 25.0
+  }
+}

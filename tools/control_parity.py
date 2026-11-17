@@ -17,7 +17,7 @@ original._allocate = lambda *args, **kwargs: None
 
 # 发送端满杆量程：必须与外部 CMD 发送端和 robot.yaml 的 gain 定义一致。
 LINEAR_FULL = 1.0   # u, v 满杆 m/s
-HEAVE_FULL = 0.25   # w 满杆 m/s
+HEAVE_FULL = 1.0    # w 满杆（三个线轴统一 1.0）
 RATE_FULL = (np.deg2rad(25.0), np.deg2rad(22.0), np.deg2rad(20.0))
 
 lines = []

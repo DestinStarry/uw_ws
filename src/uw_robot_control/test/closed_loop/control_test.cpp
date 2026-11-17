@@ -48,7 +48,7 @@ int main() {
   check(depth_control.depth_hold, "depth hold enabled");
   check(std::abs(depth_control.depth_target_m() - 1.25) < 1e-12, "capture actual depth target");
   depth_cmd.depth_toggle = false;
-  depth_cmd.velocity[2] = .25;
+  depth_cmd.velocity[2] = 1.0;   // 满杆升沉；定深目标按 depth_change_mps 移动
   depth_control.update(depth_cmd, depth_imu, sample, 2.04, true);
   check(std::abs(depth_control.depth_target_m() - 1.245) < 1e-12, "report changing depth target");
   depth_cmd.velocity[2] = 0;
@@ -142,7 +142,6 @@ int main() {
   ControlConfig wet_config;
   wet_config.moment_sign.setOnes();
   wet_config.prioritize_hold_on_release = true;
-  wet_config.buoyancy_moment_coeff = V3(0, 0, 1.828);
   wet_config.attitude_kp.setZero();
   wet_config.rate_ki.setZero();
   Controller wet(wet_config);
@@ -161,8 +160,8 @@ int main() {
   check(!wet_output.recenter, "tilted closed loop must not cut thrust on release");
   for (int i = 0; i < 20; ++i)
     wet_output = wet.update(wet_cmd, wet_imu, wet_depth, 50.06 + i * .02, true);
-  check(std::abs(wet_output.wrench[4] - 1.828 * std::sin(.3)) < 1e-8,
-        "static restoring moment compensation");
+  // 控制侧不再提供静水力前馈：无力矩输入时不应凭空产生力矩。
+  check(std::abs(wet_output.wrench[4]) < 1e-8, "no hydrostatic feedforward in control");
   wet_cmd.depth_toggle = true;
   wet.update(wet_cmd, wet_imu, wet_depth, 50.48, true);
   wet_cmd.depth_toggle = false;

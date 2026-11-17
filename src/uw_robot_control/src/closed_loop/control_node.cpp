@@ -85,6 +85,22 @@ private:
     v3("body_moment", c.moment);
     v3("attitude_kp", c.attitude_kp);
     v3("attitude_deadzone_rad", c.attitude_deadzone);
+    v3("attitude_ki", c.attitude_ki);
+    // 静水扶正前馈：用物理量算，不用拟合常数
+    const double rho = declare_parameter("water_density_kg_m3", 1000.0);
+    const double volume = declare_parameter("displaced_volume_m3", 0.0);
+    const double scale = declare_parameter("hydrostatic_comp_scale", 1.0);
+    auto offset = declare_parameter<std::vector<double>>("buoyancy_offset_m", {0.0, 0.0, 0.0});
+    if (offset.size() != 3)
+      throw std::runtime_error("buoyancy_offset_m requires 3 entries");
+    for (double v : offset)
+      if (!std::isfinite(v))
+        throw std::runtime_error("buoyancy_offset_m nonfinite");
+    if (!std::isfinite(rho) || rho <= 0 || !std::isfinite(volume) || volume < 0 ||
+        !std::isfinite(scale) || scale < 0)
+      throw std::runtime_error("invalid hydrostatic parameters");
+    c.hydrostatic_coeff =
+        uw::V3(offset[0], offset[1], offset[2]) * (rho * volume * 9.80665 * scale);
     v3("rate_kp", c.rate_kp);
     v3("rate_ki", c.rate_ki);
     v3("rate_deadzone_rad_s", c.rate_deadzone);
@@ -99,7 +115,6 @@ private:
         c.gyro_filter_alpha > 1 || (c.rate_deadzone.array() < 0).any())
       throw std::runtime_error("invalid feedback filter/deadzone");
     v3("moment_sign", c.moment_sign);
-    v3("buoyancy_moment_coeff_nm", c.buoyancy_moment_coeff);
     c.prioritize_hold_on_release = declare_parameter("prioritize_hold_on_release", false);
     v3("inner_rate_rad_s", c.inner_rate);
     auto wr = declare_parameter<std::vector<double>>("wrench_rate", {150, 150, 150, 8, 8, 8});
@@ -114,18 +129,21 @@ private:
     c.depth_ki = declare_parameter("depth_ki", c.depth_ki);
     c.depth_kd = declare_parameter("depth_kd", c.depth_kd);
     c.depth_force = declare_parameter("depth_force", c.depth_force);
+    c.depth_change = declare_parameter("depth_change_mps", c.depth_change);
     c.release_center_time = declare_parameter("release_center_time_s", c.release_center_time);
     c.yaw_hold = declare_parameter("yaw_hold", true);
     c.roll_hold = declare_parameter("roll_hold", true);
+    c.manual_rate_mode = declare_parameter("manual_rate_mode", true);
     cmd_timeout_ = declare_parameter("cmd_timeout_s", .35);
     imu_timeout_ = declare_parameter("imu_timeout_s", .1);
     depth_timeout_ = declare_parameter("depth_timeout_s", 1.5);
-    for (double value : {c.depth_kp, c.depth_ki, c.depth_kd, c.depth_force, c.release_center_time,
+    for (double value : {c.depth_kp, c.depth_ki, c.depth_kd, c.depth_force, c.depth_change,
+                         c.release_center_time,
                          cmd_timeout_, imu_timeout_, depth_timeout_})
       if (!std::isfinite(value) || value <= 0)
         throw std::runtime_error("invalid scalar parameter");
     for (int i = 0; i < 3; ++i) {
-      if (c.damping[i] <= 0 || c.open_damping[i] <= 0 || c.moment[i] <= 0 || c.rate_ff[i] <= 0 ||
+      if (c.attitude_ki[i] < 0 || c.damping[i] <= 0 || c.open_damping[i] <= 0 || c.moment[i] <= 0 || c.rate_ff[i] <= 0 ||
           c.open_moment[i] <= 0 || c.rate_full_scale[i] <= 0 || c.attitude_kp[i] < 0 ||
           c.rate_kp[i] < 0 || c.rate_ki[i] < 0 || c.inner_rate[i] <= 0 ||
           std::abs(c.moment_sign[i]) != 1)

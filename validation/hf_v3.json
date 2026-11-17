@@ -1,0 +1,53 @@
+{
+  "config_file": "/tmp/hf_v3.yaml",
+  "trials": [
+    {
+      "axis": "p 横滚",
+      "trial": 1,
+      "angle_at_release_deg": 34.89,
+      "drift_after_release_deg": -2.53,
+      "drift_rate_dps": -2.25,
+      "residual_rate_dps": 33.86
+    },
+    {
+      "axis": "p 横滚",
+      "trial": 2,
+      "angle_at_release_deg": 25.94,
+      "drift_after_release_deg": 6.29,
+      "drift_rate_dps": 2.34,
+      "residual_rate_dps": 31.86
+    },
+    {
+      "axis": "q 俯仰",
+      "trial": 1,
+      "angle_at_release_deg": 23.15,
+      "drift_after_release_deg": 3.07,
+      "drift_rate_dps": -0.76,
+      "residual_rate_dps": 0.8
+    },
+    {
+      "axis": "q 俯仰",
+      "trial": 2,
+      "angle_at_release_deg": 32.69,
+      "drift_after_release_deg": 3.87,
+      "drift_rate_dps": -0.71,
+      "residual_rate_dps": 0.7
+    },
+    {
+      "axis": "r 偏航",
+      "trial": 1,
+      "angle_at_release_deg": 20.31,
+      "drift_after_release_deg": 6.37,
+      "drift_rate_dps": -0.07,
+      "residual_rate_dps": 0.85
+    },
+    {
+      "axis": "r 偏航",
+      "trial": 2,
+      "angle_at_release_deg": 56.71,
+      "drift_after_release_deg": 2.88,
+      "drift_rate_dps": -0.81,
+      "residual_rate_dps": 0.81
+    }
+  ]
+}

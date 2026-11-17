@@ -1,0 +1,53 @@
+{
+  "config_file": "/tmp/vq.yaml",
+  "trials": [
+    {
+      "axis": "p 横滚",
+      "trial": 1,
+      "angle_at_release_deg": 29.55,
+      "drift_after_release_deg": -2.89,
+      "drift_rate_dps": -4.91,
+      "residual_rate_dps": 26.71
+    },
+    {
+      "axis": "p 横滚",
+      "trial": 2,
+      "angle_at_release_deg": 34.62,
+      "drift_after_release_deg": 5.58,
+      "drift_rate_dps": 4.06,
+      "residual_rate_dps": 26.28
+    },
+    {
+      "axis": "q 俯仰",
+      "trial": 1,
+      "angle_at_release_deg": 18.01,
+      "drift_after_release_deg": 3.83,
+      "drift_rate_dps": -0.81,
+      "residual_rate_dps": 0.8
+    },
+    {
+      "axis": "q 俯仰",
+      "trial": 2,
+      "angle_at_release_deg": 32.92,
+      "drift_after_release_deg": 3.82,
+      "drift_rate_dps": -0.71,
+      "residual_rate_dps": 0.69
+    },
+    {
+      "axis": "r 偏航",
+      "trial": 1,
+      "angle_at_release_deg": 14.41,
+      "drift_after_release_deg": 4.18,
+      "drift_rate_dps": -1.03,
+      "residual_rate_dps": 1.31
+    },
+    {
+      "axis": "r 偏航",
+      "trial": 2,
+      "angle_at_release_deg": 49.78,
+      "drift_after_release_deg": 3.6,
+      "drift_rate_dps": -0.81,
+      "residual_rate_dps": 0.79
+    }
+  ]
+}

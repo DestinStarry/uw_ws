@@ -1,0 +1,53 @@
+{
+  "config_file": "/tmp/vr.yaml",
+  "trials": [
+    {
+      "axis": "p 横滚",
+      "trial": 1,
+      "angle_at_release_deg": 29.18,
+      "drift_after_release_deg": 4.74,
+      "drift_rate_dps": -0.82,
+      "residual_rate_dps": 24.67
+    },
+    {
+      "axis": "p 横滚",
+      "trial": 2,
+      "angle_at_release_deg": 29.69,
+      "drift_after_release_deg": 6.14,
+      "drift_rate_dps": 5.91,
+      "residual_rate_dps": 26.58
+    },
+    {
+      "axis": "q 俯仰",
+      "trial": 1,
+      "angle_at_release_deg": 23.37,
+      "drift_after_release_deg": 3.88,
+      "drift_rate_dps": -0.79,
+      "residual_rate_dps": 0.82
+    },
+    {
+      "axis": "q 俯仰",
+      "trial": 2,
+      "angle_at_release_deg": 33.57,
+      "drift_after_release_deg": 3.57,
+      "drift_rate_dps": -0.83,
+      "residual_rate_dps": 0.83
+    },
+    {
+      "axis": "r 偏航",
+      "trial": 1,
+      "angle_at_release_deg": 29.38,
+      "drift_after_release_deg": 3.35,
+      "drift_rate_dps": -0.75,
+      "residual_rate_dps": 1.06
+    },
+    {
+      "axis": "r 偏航",
+      "trial": 2,
+      "angle_at_release_deg": 62.96,
+      "drift_after_release_deg": 3.68,
+      "drift_rate_dps": -0.84,
+      "residual_rate_dps": 0.83
+    }
+  ]
+}

@@ -5,6 +5,7 @@ void Controller::stop() {
   depth_hold = false;
   ++epoch;
   integral.setZero();
+  attitude_integral.setZero();
   filtered_gyro.setZero();
   target.setZero();
   depth_i = 0;
@@ -26,6 +27,7 @@ V3 Controller::attitude_moment(const V3 &rate_ref, const Imu &imu,
   if (was_angular && !angular) {
     target_q = q;
     integral.setZero();
+    attitude_integral.setZero();
   }
   was_angular = angular;
   for (int i = 0; i < 3; ++i) {
@@ -50,8 +52,19 @@ V3 Controller::attitude_moment(const V3 &rate_ref, const Imu &imu,
     error[0] = 0;
   if (!cfg.yaw_hold)
     error[2] = 0;
-  V3 feedback =
-      cfg.attitude_kp.cwiseProduct(error).cwiseMax(-cfg.inner_rate).cwiseMin(cfg.inner_rate);
+  // 角度误差积分：恒定扰动（浮心扶正、装配偏置）由它吸收，不依赖前馈常数。
+  attitude_integral = bounded<V3>(attitude_integral + error * dt,
+                                  -cfg.attitude_integral_limit, cfg.attitude_integral_limit);
+  V3 feedback = cfg.attitude_kp.cwiseProduct(error) +
+                cfg.attitude_ki.cwiseProduct(attitude_integral);
+  feedback = feedback.cwiseMax(-cfg.inner_rate).cwiseMin(cfg.inner_rate);
+  // 速率模式：有旋转指令的轴直接把指令角速度作为内环目标，不做姿态外环。
+  // 三轴同理——目标姿态若继续往前积分，绕过 90° 后必然失稳（实测俯仰/横滚都会）。
+  if (cfg.manual_rate_mode) {
+    for (int i = 0; i < 3; ++i)
+      if (std::abs(rate_ref[i]) > cfg.rate_full_scale[i] * .05)
+        feedback[i] = rate_ref[i];
+  }
   V3 rate_error = feedback - filtered_gyro;
   for (int i = 0; i < 3; ++i) {
     if (cfg.smooth_deadband || (i == 0 && cfg.roll_smooth_deadband))
@@ -76,13 +89,13 @@ V3 Controller::attitude_moment(const V3 &rate_ref, const Imu &imu,
 // 松开升沉指令、或深度数据恢复有效时，重新捕获当前深度。
 void Controller::apply_depth_hold(V3 &force, double w_ref, const Depth &depth,
                                   const Eigen::Quaterniond &q, bool depth_ok, double dt) {
-  bool vertical_active = std::abs(w_ref) > .0025;
+  bool vertical_active = std::abs(w_ref) > .01;
   if (depth_hold && depth_ok) {
     if (!depth_was_valid || (was_vertical && !vertical_active)) {
       depth_target = depth.value;
       depth_i = 0;
     } else
-      depth_target -= w_ref * dt;
+      depth_target -= w_ref * cfg.depth_change * dt;
     double error_depth = depth_target - depth.value;
     depth_i = clamp(depth_i + error_depth * dt, -1., 1.);
     double world_fz =
@@ -166,8 +179,9 @@ WrenchTarget Controller::update(const Command &cmd, const Imu &imu, const Depth 
   const double w_ref = cmd.velocity[2];
   if (closed_loop) {
     moment = attitude_moment(rate_ref, imu, q, dt);
-    // 被动扶正是外部静力矩。以相反力矩前馈补偿，避免松杆后先偏离目标才产生纠正。
-    const V3 hydrostatic = cfg.buoyancy_moment_coeff.cross(q.conjugate() * V3::UnitZ());
+    // 静水扶正力矩前馈：系数 = 浮心偏移 × ρVg，来自整车物理参数（不是拟合值）。
+    // 它抵消已知的恒定扶正力矩，剩余的不确定性由 attitude_ki 积分吸收。
+    const V3 hydrostatic = cfg.hydrostatic_coeff.cross(q.conjugate() * V3::UnitZ());
     moment = (moment - hydrostatic).cwiseMax(-cfg.moment).cwiseMin(cfg.moment);
     force = cfg.damping.cwiseProduct(cmd.velocity.head<3>());
     apply_depth_hold(force, w_ref, depth, q, depth_ok, dt);
