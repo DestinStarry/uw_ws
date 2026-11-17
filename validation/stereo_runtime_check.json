@@ -1,0 +1,38 @@
+{
+  "imu_frame": "imu_frame",
+  "imu_mount_m": [
+    0.06,
+    0.0,
+    0.04
+  ],
+  "left_position_m": [
+    0.285,
+    0.03,
+    0.0
+  ],
+  "right_position_m": [
+    0.285,
+    -0.03,
+    0.0
+  ],
+  "image_shape": [
+    360,
+    1280,
+    3
+  ],
+  "synchronized": true,
+  "right_projection_tx": -18.706148721743876,
+  "simulation_seconds": 9.353999999999793,
+  "rendered_frames": 40,
+  "wall_seconds": 12.097254798999998,
+  "health": {
+    "ready": true,
+    "error": "",
+    "synthetic": true,
+    "source": "mujoco_stereo",
+    "width": 1280,
+    "height": 360,
+    "capture_fps": 4.050529388475034,
+    "age_s": 0.4048203509999979
+  }
+}

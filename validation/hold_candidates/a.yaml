@@ -1,0 +1,183 @@
+control_node:
+  ros__parameters:
+    body_force:
+    - 20.0
+    - 6.0
+    - 10.0
+    open_force:
+    - 60.0
+    - 20.0
+    - 30.0
+    body_moment:
+    - 3.0
+    - 5.0
+    - 5.0
+    open_moment:
+    - 5.0
+    - 5.0
+    - 5.0
+    attitude_kp:
+    - 2.0
+    - 1.2
+    - 1.2
+    attitude_deadzone_rad:
+    - 0.00872664626
+    - 0.00872664626
+    - 0.00872664626
+    rate_kp:
+    - 0.35
+    - 1.5
+    - 1.5
+    rate_ki:
+    - 0.02
+    - 0.2
+    - 0.2
+    manual_kp:
+    - 1.3
+    - 1.5
+    - 1.5
+    manual_rate_rad_s:
+    - 0.436332313
+    - 0.3839724354
+    - 0.3490658504
+    inner_rate_rad_s:
+    - 1.5707963268
+    - 1.5707963268
+    - 1.0471975512
+    moment_sign:
+    - -1.0
+    - -1.0
+    - -1.0
+    wrench_rate:
+    - 150.0
+    - 150.0
+    - 150.0
+    - 8.0
+    - 8.0
+    - 8.0
+    depth_kp: 20.0
+    depth_ki: 2.0
+    depth_kd: 2.0
+    depth_force: 8.0
+    depth_change_mps: 0.25
+    joy_timeout_s: 0.35
+    imu_timeout_s: 0.1
+    depth_timeout_s: 1.5
+    release_center_time_s: 0.25
+    yaw_hold: true
+    roll_hold: true
+    prioritize_hold_on_release: true
+    buoyancy_moment_coeff_nm:
+    - 0.0
+    - 0.0
+    - 1.82795956
+    smooth_deadband: true
+    gyro_filter_alpha: 0.5
+    rate_deadzone_rad_s:
+    - 0.001745329252
+    - 0.001745329252
+    - 0.001745329252
+allocation_node:
+  ros__parameters:
+    thrust_rate_nps: 10.0
+    servo_rate_rad_s: 3.1415926536
+    plan_period_s: 0.5
+    plan_max_age_s: 1.0
+    plan_min_improvement: 0.01
+    wrench_timeout_s: 0.15
+    rotating_thrust_sites: true
+    geometry_center_of_mass:
+    - -0.00031829265557939906
+    - 7.024999463519339e-07
+    - -2.215471030042953e-07
+    geometry_sites:
+    - -0.223
+    - 0.0
+    - 0.123
+    - -0.223
+    - 0.0
+    - -0.123
+    - -0.223
+    - -0.123
+    - 0.0
+    - -0.223
+    - 0.123
+    - 0.0
+    geometry_hinges:
+    - -0.151557
+    - 0.000257849
+    - 0.0918483
+    - -0.151557
+    - 0.000257849
+    - -0.0921517
+    - -0.15156
+    - -0.091742
+    - -0.00015166
+    - -0.15156
+    - 0.092258
+    - -0.00015166
+    geometry_axes:
+    - 0.0
+    - 0.0
+    - 1.0
+    - 0.0
+    - 0.0
+    - -1.0
+    - 0.0
+    - -1.0
+    - 0.0
+    - -0.0
+    - -1.0
+    - -0.0
+    geometry_child_centers:
+    - 0.00323697
+    - 3.54399e-05
+    - -0.00306885
+    - 0.00322808
+    - 0.000242322
+    - 0.00306885
+    - 0.00323572
+    - 0.00306885
+    - 9.68801e-05
+    - 0.00323572
+    - -0.00306885
+    - 9.68761e-05
+    geometry_mass_fractions:
+    - 0.0005364806866952788
+    - 0.0005364806866952788
+    - 0.0005364806866952788
+    - 0.0005364806866952788
+hardware_node:
+  ros__parameters:
+    port: /dev/ttyAS5
+    baud: 115200
+    dry_run: true
+    command_timeout_s: 0.15
+    depth_timeout_s: 1.5
+imu_node:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    rate_hz: 100
+    algorithm: 6
+    zero_time_s: 2.0
+    stale_timeout_s: 0.1
+    frame_id: base_link
+tcp_bridge_node:
+  ros__parameters:
+    bind_address: 0.0.0.0
+    port: 8888
+camera_node:
+  ros__parameters:
+    device: /dev/video0
+    width: 2560
+    height: 720
+    fps: 30.0
+    jpeg_quality: 80
+    swap_eyes: true
+    stale_timeout_s: 2.0
+    http_host: 0.0.0.0
+    http_port: 8080
+    publish_rate_hz: 15.0
+    synthetic: false
+    left_frame_id: camera_left_optical_frame
+    right_frame_id: camera_right_optical_frame

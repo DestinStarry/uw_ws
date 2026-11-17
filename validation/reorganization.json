@@ -1,0 +1,16 @@
+{
+  "source_files_verified": 27,
+  "business_logic_unchanged": true,
+  "parameter_file_unchanged": true,
+  "packages": 5,
+  "nodes": 6,
+  "unit_tests": 8,
+  "numeric_controller_samples": 180,
+  "numeric_allocator_samples": 150,
+  "launch_smoke": true,
+  "synthetic_camera_http": true,
+  "pseudo_serial_integration": true,
+  "real_hardware_tested": false,
+  "external_camera_dds_tested": false,
+  "backup": "/home/zy/uw_ws_backups/before_business_grouping_20261103_174615"
+}

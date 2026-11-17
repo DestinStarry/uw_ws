@@ -1,0 +1,62 @@
+# 未测得推力曲线前，默认沿用当前 N 到归一化指令的线性假设，不附加臆测的死区/平方衰减。
+# 仿真被控对象参数，禁止作为控制器实时反馈。
+# 已确认：STM32 50Hz PWM、推力 1500±400us、舵角 1500±500us、CTRL 四位小数。
+# 估计待标定：延迟、推力曲线/死区、舵速/间隙、传感器噪声、深度采样率、浮心、水阻。
+# 本文件故意独立于 robot.yaml，避免用对象真值在线修正控制器。
+mujoco_node:
+  ros__parameters:
+    linear_drag:
+    - 15.0
+    - 40.0
+    - 40.0
+    angular_drag:
+    - 0.2
+    - 0.7
+    - 0.7
+    gravity_mps2: 9.80665
+    water_density_kg_m3: 1000.0
+    water_viscosity_pa_s: 0.001
+    displaced_volume_m3: 0.0
+    buoyancy_offset_m:
+    - 0.0
+    - 0.0
+    - 0.02
+    water_current_mps:
+    - 0.0
+    - 0.0
+    - 0.0
+    actuator_delay_s: 0.03
+    pwm_hz: 50.0
+    motor_time_constant_s: 0.12
+    motor_deadzone: 0.0
+    motor_curve_exponent: 1.0
+    servo_rate_rad_s: 3.1415926536
+    servo_time_constant_s: 0.05
+    servo_backlash_rad: 0.00523598776
+    imu_sample_hz: 100.0
+    depth_sample_hz: 2.0
+    imu_latency_s: 0.02
+    depth_latency_s: 0.05
+    imu_zero_time_s: 2.0
+    imu_angle_noise_deg: 0.15
+    imu_gyro_noise_rad_s: 0.002
+    imu_gyro_bias_rad_s:
+    - 0.005
+    - -0.003
+    - 0.004
+    depth_noise_m: 0.005
+    noise_seed: 1
+    publish_truth: false
+
+    # 仿真双目：60mm 已确认；位置、视场角为近似值，需按实物光心/标定更新。
+    camera_enabled: true
+    camera_position_m: [0.285, 0.0, 0.0]
+    camera_baseline_m: 0.06
+    camera_fovy_deg: 60.0
+    camera_width: 640
+    camera_height: 360
+    camera_fps: 10.0
+    camera_jpeg_quality: 80
+    camera_http_enabled: true
+    camera_http_host: '0.0.0.0'
+    camera_http_port: 8080

@@ -1,0 +1,17 @@
+{
+  "release": {
+    "inclination_at_release_deg": 31.12271636297229,
+    "min_inclination_first_second_deg": 31.542301727327693,
+    "fall_toward_level_first_second_deg": 0.0,
+    "release_command_count": 52,
+    "zero_thrust_command_count": 0,
+    "allocation_states": [
+      "ALLOCATING"
+    ]
+  },
+  "inclination_at_stop_deg": 33.363359912319126,
+  "inclination_after_8s_deg": 1.9543772052848047e-05,
+  "zero_thrust_during_recovery": true,
+  "no_attitude_controller_during_recovery": true,
+  "clean_shutdown": true
+}

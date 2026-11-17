@@ -1,0 +1,13 @@
+{
+  "backup": "/home/zy/uw_ws_backups/before_hardware_fidelity_20261106_173331",
+  "shared_profile": "src/uw_robot_bringup/config/robot.yaml",
+  "estimated_plant_profile": "src/uw_robot_bringup/config/plant.yaml",
+  "real_servo_feedback": false,
+  "online_plant_geometry_to_controller": false,
+  "truth_publishing_default": false,
+  "hardware_tested": false,
+  "remaining_backend_control_adapter": {
+    "moment_sign": "hardware -1,-1,-1; MuJoCo +1,+1,+1"
+  },
+  "calibration_document": "docs/实物迁移与标定.md"
+}

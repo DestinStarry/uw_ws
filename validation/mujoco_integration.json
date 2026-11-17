@@ -1,0 +1,9 @@
+{
+  "default_disarmed": true,
+  "tcp_arm": true,
+  "actuator_motion": true,
+  "forward_motion": true,
+  "imu_depth_feedback": true,
+  "cmd_timeout_off": true,
+  "clean_shutdown": true
+}

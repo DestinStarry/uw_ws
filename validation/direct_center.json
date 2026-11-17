@@ -1,0 +1,20 @@
+{
+  "lateral": {
+    "direct_zero_angles": true,
+    "zero_thrust_during_return": true,
+    "normal_control_resumed": true
+  },
+  "vertical": {
+    "direct_zero_angles": true,
+    "zero_thrust_during_return": true,
+    "normal_control_resumed": true
+  },
+  "roll": {
+    "direct_zero_angles": true,
+    "zero_thrust_during_return": true,
+    "normal_control_resumed": true
+  },
+  "depth_hold_survives_release": true,
+  "joy_timeout_still_stops": true,
+  "clean_shutdown": true
+}

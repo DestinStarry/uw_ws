@@ -1,0 +1,6 @@
+{
+  "samples": 150,
+  "max_force_error_n": 1.3276491017677472e-11,
+  "max_geometry_matrix_error": 5.551115123125783e-17,
+  "scope": "fixed-angle allocation and geometry only; nonlinear planner/hardware not certified"
+}

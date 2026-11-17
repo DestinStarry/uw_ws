@@ -1,0 +1,210 @@
+<mujoco model="auv-v3">
+  <!-- ============================================================
+       编译选项
+       ============================================================ -->
+  <compiler angle="radian"/>
+  <!-- 使用真实重力；sim_engine 在浮心施加浮力，默认按整机质量配置中性浮力。 -->
+  <option timestep="0.002" gravity="0 0 -9.80665" density="1000" viscosity="0.001" integrator="implicit"/>
+
+  <!-- ============================================================
+       默认参数
+       ============================================================ -->
+  <default>
+    <!-- STL 仅用于外观/碰撞，不分别拟合水动力椭球；整艇水动力由下方
+         位于总重心的 hull_fluid_proxy 统一描述，避免网格不对称伪力矩。 -->
+    <geom fluidshape="none"/>
+    <!-- 舵机关节：限位 ±90°（±π/2 rad）。
+         适当降低关节 armature / damping，并限制舵机输出力矩，
+         避免舵面快速转动时因内部反作用力矩引起机体不真实的反向摆动。 -->
+    <default class="servo">
+      <joint limited="true" range="-1.57079632679 1.57079632679" damping="0.05" armature="0.0001"/>
+      <position kp="2.0" ctrllimited="true" ctrlrange="-1.57079632679 1.57079632679"
+                forcelimited="true" forcerange="-0.6 0.6"/>
+    </default>
+    <!-- 推进器（螺旋桨）：gear 6D向量 [fx fy fz tx ty tz] 在 site 局部系。
+         gear=30，控制范围 [-24.5/30, 33/30] 对应实际静推力 [-24.5,+33] N。 -->
+    <default class="thruster">
+      <motor ctrllimited="true" ctrlrange="-0.8166666667 1.1" gear="30 0 0 0 0 0" user="0.02 0.5"/>
+    </default>
+  </default>
+
+  <!-- ============================================================
+       资源：STL 网格文件
+       ============================================================ -->
+  <asset>
+    <!-- 艇体 -->
+    <mesh name="base_link" file="base_link.STL"/>
+    <mesh name="5" file="5.STL"/>                          <!-- 艇艏部件 -->
+    <!-- 舵面（四个可旋转的推进器基座） -->
+    <!-- 编号统一为：从艇尾沿 +X 看，最上方开始顺时针 1(top),2(right),3(bottom),4(left)。 -->
+    <!-- STL 文件名沿用 CAD 的旧编号，因此这里通过 mesh name 做清晰映射。 -->
+    <mesh name="1" file="4.STL"/>
+    <mesh name="2" file="3.STL"/>
+    <mesh name="3" file="2.STL"/>
+    <mesh name="4" file="1.STL"/>
+    <!-- 推进器（螺旋桨/导管，固定在舵面上） -->
+    <mesh name="motor1" file="motor4.STL"/>
+    <mesh name="motor2" file="motor3.STL"/>
+    <mesh name="motor3" file="motor2.STL"/>
+    <mesh name="motor4" file="motor1.STL"/>
+  </asset>
+
+  <!-- ============================================================
+       运动树
+       ============================================================
+               world
+                 │
+              [base] ← freejoint（6自由度）
+               ├── base_link（艇体外观）
+               ├── 5（艇艏）
+               ├── [body 1] 顶部
+               ├── [body 2] 右侧
+               ├── [body 3] 底部
+               └── [body 4] 左侧
+       ============================================================ -->
+  <worldbody>
+    <!-- ============ 主艇体 ============ -->
+    <body name="base" pos="0 0 1">
+      <freejoint name="base_freejoint"/>               <!-- 让AUV可在水中自由浮动 -->
+      <!-- 总质量保持9.32kg。将四个转动组件的主要质量并入艇体，只给舵机
+           子体保留计算所需的小质量，避免转舵产生远大于实艇的反作用。
+           惯量包含原推进器组件相对艇体的平行轴贡献。 -->
+      <inertial pos="0 0 0" mass="9.30" quat="1 0 0 0"
+                diaginertia="0.044 0.203 0.203"/>
+      <!-- IMU 固定在 base 前方 6cm、上方 4cm，轴向与艇体一致；非整机重心。
+           传感器不要挂在 thrust1 上，否则 servo13 转动时会把推进器局部转动误当成机体姿态变化。 -->
+      <site name="imu_site" pos="0.06 0 0.04" quat="1 0 0 0" size="0.003" rgba="0 1 0 0"/>
+      <!-- 平行双目：安装在艇艏半圆罩前端附近，光轴沿 +X。
+           基线 60mm；MuJoCo 相机右轴=-Y、上轴=+Z、视线=-局部Z。
+           镜头位置是近似安装值；相机不增加刚体质量、碰撞或关节。 -->
+      <camera name="stereo_left" mode="fixed" pos="0.285 0.03 0"
+              xyaxes="0 -1 0 0 0 1" fovy="60"/>
+      <camera name="stereo_right" mode="fixed" pos="0.285 -0.03 0"
+              xyaxes="0 -1 0 0 0 1" fovy="60"/>
+      <!-- 整艇等效水动力椭球：长0.60m、横向/垂向直径0.21m。
+           mass=0 不改变9.32kg质量与惯量；中心放在离线标定的整机重心。
+           Kutta/Magnus设为0，先采用稳定的阻力+附加质量模型。 -->
+      <geom name="hull_fluid_proxy" type="ellipsoid"
+            pos="-0.0133683 0.0000295 -0.0000093" size="0.30 0.105 0.105"
+            mass="0" contype="0" conaffinity="0" rgba="0 0 0 0"
+            fluidshape="ellipsoid" fluidcoef="0.30 0.15 1.20 0 0"/>
+      <!-- 质心在主艇体坐标系原点 (0,0,0)；4个舵面（各0.21kg）使整机质心略偏后(~-1.3cm)
+           惯量修正：CAD 导出轴系与 MuJoCo 不一致，交换 Ixx↔Iyy
+           长条艇体绕 X 横滚惯量最小(0.037)，绕 Y/Z 俯仰偏航惯量大(0.182) -->
+
+      <!-- 艇体外壳（流线型：钝体阻力 0.3，细长体阻力 0.3） -->
+      <geom type="mesh" rgba="0.776471 0.756863 0.737255 1" mesh="base_link" fluidcoef="0.35 0.15 1.2 0.8 0.5"/>
+      <!-- 艇艏（流线型） -->
+      <geom pos="0.239056 -0.000492151 0.00318757"
+            quat="0.995696 0.00386822 0.0785573 -0.0490287"
+            type="mesh" rgba="1 1 1 1" mesh="5" fluidcoef="0.45 0.20 1.2 0.8 0.5"/>
+
+      <!-- ============ 舵面4：左侧（CAD旧1号） ============ -->
+      <body name="4" pos="-0.15156 0.092258 -0.00015166">
+        <inertial pos="0.00323572 -0.00306885 9.68761e-05"
+                  quat="0.430787 -0.0135049 -0.00644731 0.902329"
+                  mass="0.005" diaginertia="6.51e-7 5.18e-7 3.88e-7"/>
+        <joint name="4" pos="0 0 0" axis="0 1 0" class="servo"/>   <!-- 左侧舵面，绕 +Y 轴 -->
+        <site name="thrust4" pos="-0.07144 0.030742 0.00015166"/>      <!-- 绝对位置 (-0.223,+0.123,0) -->
+        <geom type="mesh" rgba="1 1 1 1" mesh="4" fluidcoef="0.8 0.4 1.5 0.8 0.5"/>  <!-- 舵面外壳（凸出艇体：阻力稍大） -->
+        <geom pos="-0.07144 0.030742 0.00015166"
+              quat="-3.67279e-06 -0.999888 5.49693e-08 -0.0149649"
+              type="mesh" rgba="1 1 1 1" mesh="motor4" fluidcoef="0.7 0.35 1.5 0.8 0.5"/>
+      </body>
+
+      <!-- ============ 舵面3：底部（CAD旧2号） ============ -->
+      <body name="3" pos="-0.151557 0.000257849 -0.0921517">
+        <inertial pos="0.00322808 0.000242322 0.00306885"
+                  quat="0.626257 0.649077 -0.280533 0.328333"
+                  mass="0.005" diaginertia="6.51e-7 5.18e-7 3.88e-7"/>
+        <joint name="3" pos="0 0 0" axis="0 0 -1" class="servo"/>   <!-- 底部舵面，绕 -Z 轴 -->
+        <site name="thrust3" pos="-0.071443 -0.000257849 -0.0308483"/>  <!-- 绝对位置 (-0.223,0,-0.123) -->
+        <geom type="mesh" rgba="1 1 1 1" mesh="3" fluidcoef="0.8 0.4 1.5 0.8 0.5"/>
+        <geom pos="-0.071443 -0.000257849 -0.0308483"
+              quat="0.999298 0 0 0.0374547"
+              type="mesh" rgba="1 1 1 1" mesh="motor3" fluidcoef="0.7 0.35 1.5 0.8 0.5"/>
+      </body>
+
+      <!-- ============ 舵面2：右侧（CAD旧3号） ============ -->
+      <body name="2" pos="-0.15156 -0.091742 -0.00015166">
+        <inertial pos="0.00323572 0.00306885 9.68801e-05"
+                  quat="0.902329 -0.00644765 -0.0135049 0.430787"
+                  mass="0.005" diaginertia="6.51e-7 5.18e-7 3.88e-7"/>
+        <joint name="2" pos="0 0 0" axis="0 -1 0" class="servo"/>   <!-- 右侧舵面，绕 -Y 轴 -->
+        <site name="thrust2" pos="-0.07144 -0.031258 0.00015166"/>      <!-- 绝对位置 (-0.223,-0.123,0) -->
+        <geom type="mesh" rgba="1 1 1 1" mesh="2" fluidcoef="0.8 0.4 1.5 0.8 0.5"/>
+        <geom pos="-0.07144 -0.031258 0.00015166"
+              quat="0.999888 0 -0.0149649 0"
+              type="mesh" rgba="1 1 1 1" mesh="motor2" fluidcoef="0.7 0.35 1.5 0.8 0.5"/>
+      </body>
+
+      <!-- ============ 舵面1：顶部（CAD旧4号） ============ -->
+      <body name="1" pos="-0.151557 0.000257849 0.0918483">
+        <inertial pos="0.00323697 3.54399e-05 -0.00306885"
+                  quat="0.301149 0.308135 -0.636438 0.639773"
+                  mass="0.005" diaginertia="6.51e-7 5.18e-7 3.88e-7"/>
+        <joint name="1" pos="0 0 0" axis="0 0 1" class="servo"/>    <!-- 顶部舵面，绕 +Z 轴 -->
+        <site name="thrust1" pos="-0.071443 -0.000257849 0.0311517"/>   <!-- 绝对位置 (-0.223,0,+0.123) -->
+        <geom type="mesh" rgba="1 1 1 1" mesh="1" fluidcoef="0.8 0.4 1.5 0.8 0.5"/>
+        <geom pos="-0.071443 -0.000257849 0.0311517"
+              quat="0.999985 0 0 0.00547347"
+              type="mesh" rgba="1 1 1 1" mesh="motor1" fluidcoef="0.7 0.35 1.5 0.8 0.5"/>
+      </body>
+    </body>
+  </worldbody>
+
+  <!-- ============================================================
+       关节耦合（用2个舵机控制4个舵面）
+       ============================================================
+       注意：1/3 的关节轴分别为 +Z/-Z，2/4 的关节轴分别为 -Y/+Y。
+       因此“物理旋转方向”与“关节 q 的正负号”不能直接等同。
+
+       servo13 = θ12：要求 1、3 推进器物理差动旋转。
+       由于 joint1/joint3 轴方向相反，需要 q3 = q1，才能让两者实际空间转向相反。
+
+       servo24 = θ34：要求 2、4 推进器物理同步旋转。
+       由于 joint2/joint4 轴方向相反，需要 q4 = -q2，才能让两者实际空间转向相同。
+       ============================================================ -->
+  <equality>
+    <joint name="c13" joint1="1" joint2="3" polycoef="0 1 0 0 0"/>    <!-- q3 = +q1：1/3物理差动 -->
+    <joint name="c24" joint1="2" joint2="4" polycoef="0 -1 0 0 0"/>   <!-- q4 = -q2：2/4物理同步 -->
+  </equality>
+
+  <!-- ============================================================
+       执行器（共6通道）
+       ============================================================
+       通道  名称        类型     范围        说明
+       ─────────────────────────────────────────
+       0    servo13     舵机    ±90°    控制θ12：舵面1和3物理差动旋转
+       1    servo24     舵机    ±90°    控制θ34：舵面2和4物理同步旋转
+       2    thruster1   螺旋桨  ±1      舵面1螺旋桨（扭矩驱动，流体动力产生推力）
+       3    thruster2   螺旋桨  ±1      舵面2螺旋桨
+       4    thruster3   螺旋桨  ±1      舵面3螺旋桨
+       5    thruster4   螺旋桨  ±1      舵面4螺旋桨
+       ============================================================ -->
+  <actuator>
+    <!-- 舵机：控制舵面偏转角度 -->
+    <position class="servo" name="servo13" joint="1"/>
+    <position class="servo" name="servo24" joint="2"/>
+    <!-- 螺旋桨推进器：site局部系 +X 方向为正推力。
+         θ12=θ34=0 且四推进器控制量均为正时，机器人沿机体系 +X 前进。
+         gear="30 0 0 0 0 0"，控制范围对应反向 -24.5 N、正向 +33 N。 -->
+    <motor class="thruster" name="thruster1" site="thrust1"/>
+    <motor class="thruster" name="thruster2" site="thrust2"/>
+    <motor class="thruster" name="thruster3" site="thrust3"/>
+    <motor class="thruster" name="thruster4" site="thrust4"/>
+  </actuator>
+
+  <!-- ============================================================
+       传感器（用于状态估计和反馈控制）
+       ============================================================ -->
+  <sensor>
+    <!-- 机体状态传感器固定在 base 上，避免把舵面/推进器自身转动混入机体姿态与角速度。 -->
+    <gyro name="body_gyro" site="imu_site" noise="0.001"/>
+    <accelerometer name="body_linacc" site="imu_site" noise="0.01"/>
+    <framequat name="body_quat" objtype="site" objname="imu_site"/>
+    <framepos name="body_pos" objtype="site" objname="imu_site" noise="0.0001"/>
+    <framelinvel name="body_vel" objtype="site" objname="imu_site" noise="0.001"/>
+    <frameangvel name="body_angvel" objtype="site" objname="imu_site" noise="0.001"/>
+  </sensor>
+</mujoco>

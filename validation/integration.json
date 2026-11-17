@@ -1,0 +1,9 @@
+{
+  "serial_depth_parse": true,
+  "default_off": true,
+  "arm_tcp_control_serial": true,
+  "imu_timeout_off": true,
+  "cmd_timeout_off": true,
+  "control_wrench_watchdog_off": true,
+  "allocation_exit_hardware_watchdog_off": true
+}

@@ -1,0 +1,178 @@
+<mujoco model="auv-v3">
+  <!-- ============================================================
+       编译选项
+       ============================================================ -->
+  <compiler angle="radian"/>
+  <!-- 海水流体参数：密度 1000 kg/m³，动力粘度 0.001 Pa·s，隐式积分保证水下稳定性 -->
+  <option timestep="0.002" gravity="0 0 0" density="1000" viscosity="0.005" integrator="implicit"/>
+
+  <!-- ============================================================
+       默认参数
+       ============================================================ -->
+  <default>
+    <!-- 全局流体形状：椭球体（适用于水下机器人流体动力学计算） -->
+    <geom fluidshape="ellipsoid"/>
+    <!-- 舵机关节：限位 ±180°（±π rad），带阻尼和弹簧回中 -->
+    <default class="servo">
+      <joint limited="true" range="-3.14159 3.14159" damping="0.5" armature="0.05"/>
+      <position kp="5.0" ctrllimited="true" ctrlrange="-3.14159 3.14159"/>
+    </default>
+    <!-- 推进器（螺旋桨）：归一化控制 [-1,1]，gear 6D向量 [fx fy fz tx ty tz] 在 site 局部系 -->
+    <!-- gear="30 0 0 0 0 0" → 控制量 ±1 对应 ±30N 沿 site-X 方向 -->
+    <default class="thruster">
+      <motor ctrllimited="true" ctrlrange="-1 1" gear="30 0 0 0 0 0" user="0.02 0.5"/>
+    </default>
+  </default>
+
+  <!-- ============================================================
+       资源：STL 网格文件
+       ============================================================ -->
+  <asset>
+    <!-- 艇体 -->
+    <mesh name="base_link" file="base_link.STL"/>
+    <mesh name="5" file="5.STL"/>                          <!-- 艇艏部件 -->
+    <!-- 舵面（四个可旋转的推进器基座） -->
+    <mesh name="1" file="1.STL"/>
+    <mesh name="2" file="2.STL"/>
+    <mesh name="3" file="3.STL"/>
+    <mesh name="4" file="4.STL"/>
+    <!-- 推进器（螺旋桨/导管，固定在舵面上） -->
+    <mesh name="motor1" file="motor1.STL"/>
+    <mesh name="motor2" file="motor2.STL"/>
+    <mesh name="motor3" file="motor3.STL"/>
+    <mesh name="motor4" file="motor4.STL"/>
+  </asset>
+
+  <!-- ============================================================
+       运动树
+       ============================================================
+               world
+                 │
+              [base] ← freejoint（6自由度）
+               ├── base_link（艇体外观）
+               ├── 5（艇艏）
+               ├── [body 1] ── joint 1（舵机，绕Y轴）── motor1
+               ├── [body 2] ── joint 2（舵机，绕Z轴）── motor2
+               ├── [body 3] ── joint 3（舵机，绕Y轴）── motor3
+               └── [body 4] ── joint 4（舵机，绕Z轴）── motor4
+       ============================================================ -->
+  <worldbody>
+    <!-- ============ 主艇体 ============ -->
+    <body name="base" pos="0 0 3">
+      <freejoint name="base_freejoint"/>               <!-- 让AUV可在水中自由浮动 -->
+      <!-- 总质量 9.32kg（艇体 8.48kg + 4个推进器 0.84kg）
+           主惯性矩来自 CAD（kg·m²），主轴近似对齐坐标系 -->
+      <inertial pos="0 0 -0.04" mass="8.48" quat="1 0 0 0"
+                diaginertia="0.037 0.182 0.182"/>
+      <!-- 质心在主艇体坐标系原点 (0,0,0)；4个舵面（各0.21kg）使整机质心略偏后(~-1.3cm)
+           惯量修正：CAD 导出轴系与 MuJoCo 不一致，交换 Ixx↔Iyy
+           长条艇体绕 X 横滚惯量最小(0.037)，绕 Y/Z 俯仰偏航惯量大(0.182) -->
+
+      <!-- 艇体外壳（流线型：钝体阻力 0.3，细长体阻力 0.3） -->
+      <geom type="mesh" rgba="0.776471 0.756863 0.737255 1" mesh="base_link" fluidcoef="0.8 0.6 2.0 1.0 0.8"/>
+      <!-- 艇艏（流线型） -->
+      <geom pos="0.239056 -0.000492151 0.00318757"
+            quat="0.995696 0.00386822 0.0785573 -0.0490287"
+            type="mesh" rgba="1 1 1 1" mesh="5" fluidcoef="1.4 1.2 2.0 1.0 0.8"/>
+
+      <!-- ============ 舵面1：左上 ============ -->
+      <body name="1" pos="-0.15156 0.092258 -0.00015166">
+        <inertial pos="0.00323572 -0.00306885 9.68761e-05"
+                  quat="0.430787 -0.0135049 -0.00644731 0.902329"
+                  mass="0.21" diaginertia="2.7355e-05 2.17673e-05 1.62861e-05"/>
+        <joint name="1" pos="0 0 0" axis="0 1 0" class="servo"/>   <!-- 绕Y轴左右摆动 -->
+        <site name="thrust1" pos="-0.07146 0.031002 -0.0021397"/>      <!-- 推力作用点（motor1原点） -->
+        <geom type="mesh" rgba="1 1 1 1" mesh="1" fluidcoef="1.0 0.6 2.0 1.0 0.8"/>  <!-- 舵面外壳（凸出艇体：阻力稍大） -->
+        <geom pos="-0.07146 0.031002 -0.0021397"
+              quat="-3.67279e-06 -0.999888 5.49693e-08 -0.0149649"
+              type="mesh" rgba="1 1 1 1" mesh="motor1" fluidcoef="0.8 0.5 2.0 1.0 1.1"/>  <!-- 螺旋桨（Magnus系数 1.1 产生推力） -->
+      </body>
+
+      <!-- ============ 舵面2：下左 ============ -->
+      <body name="2" pos="-0.151557 0.000257849 -0.0921517">
+        <inertial pos="0.00322808 0.000242322 0.00306885"
+                  quat="0.626257 0.649077 -0.280533 0.328333"
+                  mass="0.21" diaginertia="2.7355e-05 2.17673e-05 1.62861e-05"/>
+        <joint name="2" pos="0 0 0" axis="0 0 -1" class="servo"/>   <!-- 绕Z轴左右摆动 -->
+        <site name="thrust2" pos="-0.071303 -0.005352 -0.030998"/>      <!-- 推力作用点（motor2原点） -->
+        <geom type="mesh" rgba="1 1 1 1" mesh="2" fluidcoef="1.0 0.6 2.0 1.0 0.8"/>
+        <geom pos="-0.071303 -0.005352 -0.030998"
+              quat="0.999298 0 0 0.0374547"
+              type="mesh" rgba="1 1 1 1" mesh="motor2" fluidcoef="0.8 0.5 2.0 1.0 1.1"/>
+      </body>
+
+      <!-- ============ 舵面3：右下 ============ -->
+      <body name="3" pos="-0.15156 -0.091742 -0.00015166">
+        <inertial pos="0.00323572 0.00306885 9.68801e-05"
+                  quat="0.902329 -0.00644765 -0.0135049 0.430787"
+                  mass="0.21" diaginertia="2.7355e-05 2.17673e-05 1.62861e-05"/>
+        <joint name="3" pos="0 0 0" axis="0 -1 0" class="servo"/>   <!-- 绕-Y轴摆动（镜像1） -->
+        <site name="thrust3" pos="-0.07146 -0.030998 -0.0021397"/>      <!-- 推力作用点（motor3原点） -->
+        <geom type="mesh" rgba="1 1 1 1" mesh="3" fluidcoef="1.0 0.6 2.0 1.0 0.8"/>
+        <geom pos="-0.07146 -0.030998 -0.0021397"
+              quat="0.999888 0 -0.0149649 0"
+              type="mesh" rgba="1 1 1 1" mesh="motor3" fluidcoef="0.8 0.5 2.0 1.0 1.1"/>
+      </body>
+
+      <!-- ============ 舵面4：上右 ============ -->
+      <body name="4" pos="-0.151557 0.000257849 0.0918483">
+        <inertial pos="0.00323697 3.54399e-05 -0.00306885"
+                  quat="0.301149 0.308135 -0.636438 0.639773"
+                  mass="0.21" diaginertia="2.7355e-05 2.17673e-05 1.62861e-05"/>
+        <joint name="4" pos="0 0 0" axis="0 0 1" class="servo"/>    <!-- 绕Z轴摆动（同向2） -->
+        <site name="thrust4" pos="-0.071493 -0.000783 0.031002"/>      <!-- 推力作用点（motor4原点） -->
+        <geom type="mesh" rgba="1 1 1 1" mesh="4" fluidcoef="1.0 0.6 2.0 1.0 0.8"/>
+        <geom pos="-0.071493 -0.000783 0.031002"
+              quat="0.999985 0 0 0.00547347"
+              type="mesh" rgba="1 1 1 1" mesh="motor4" fluidcoef="0.8 0.5 2.0 1.0 1.1"/>
+      </body>
+    </body>
+  </worldbody>
+
+  <!-- ============================================================
+       关节耦合（用2个舵机控制4个舵面）
+       ============================================================
+       控制输入   →   舵面1   舵面2   舵面3   舵面4
+       servo1 (+)      +1     0       -1      0    ← 差动转向
+       servo2 (+)       0     +1       0      +1   ← 同向俯仰
+       ============================================================ -->
+  <equality>
+    <joint name="c13" joint1="1" joint2="3" polycoef="0 -1 0"/>   <!-- 关节3 = -1 × 关节1（反向） -->
+    <joint name="c24" joint1="2" joint2="4" polycoef="0 1 0"/>    <!-- 关节4 =  1 × 关节2（同向） -->
+  </equality>
+
+  <!-- ============================================================
+       执行器（共6通道）
+       ============================================================
+       通道  名称        类型     范围        说明
+       ─────────────────────────────────────────
+       0    servo1      舵机    ±180°   控制舵面1和3（差动转向）
+       1    servo2      舵机    ±180°   控制舵面2和4（俯仰）
+       2    thruster1   螺旋桨  ±1      舵面1螺旋桨（扭矩驱动，流体动力产生推力）
+       3    thruster2   螺旋桨  ±1      舵面2螺旋桨
+       4    thruster3   螺旋桨  ±1      舵面3螺旋桨
+       5    thruster4   螺旋桨  ±1      舵面4螺旋桨
+       ============================================================ -->
+  <actuator>
+    <!-- 舵机：控制舵面偏转角度 -->
+    <position class="servo" name="servo1" joint="1"/>
+    <position class="servo" name="servo2" joint="2"/>
+    <!-- 螺旋桨推进器：site局部系 -X 方向出力，gear="30 0 0 0 0 0" → 最大 ±30N -->
+    <motor class="thruster" name="thruster1" site="thrust1"/>
+    <motor class="thruster" name="thruster2" site="thrust2"/>
+    <motor class="thruster" name="thruster3" site="thrust3"/>
+    <motor class="thruster" name="thruster4" site="thrust4"/>
+  </actuator>
+
+  <!-- ============================================================
+       传感器（用于状态估计和反馈控制）
+       ============================================================ -->
+  <sensor>
+    <gyro name="body_gyro" site="thrust1" noise="0.001"/>          <!-- 角速度陀螺仪 -->
+    <accelerometer name="body_linacc" site="thrust1" noise="0.01"/>
+    <framequat name="body_quat" objtype="site" objname="thrust1"/>
+    <framepos name="body_pos" objtype="site" objname="thrust1" noise="0.0001"/>
+    <framelinvel name="body_vel" objtype="site" objname="thrust1" noise="0.001"/>
+    <frameangvel name="body_angvel" objtype="site" objname="thrust1" noise="0.001"/>
+  </sensor>
+</mujoco>

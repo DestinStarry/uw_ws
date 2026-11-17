@@ -1,0 +1,8 @@
+{
+  "synthetic_launch": true,
+  "ui_http_stream": true,
+  "full_size": true,
+  "clean_shutdown": true,
+  "usb_hardware_tested": false,
+  "external_dds_images": "Not validated: WSL external discovery/transport failures"
+}

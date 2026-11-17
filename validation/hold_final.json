@@ -1,0 +1,56 @@
+{
+  "pitch": {
+    "release_deg": 11.991241063550156,
+    "mean_deg": 11.548004642294222,
+    "peak_to_peak_deg": 0.5889551990358424,
+    "std_deg": 0.16693793508590815,
+    "drift_deg_s": -0.1331251576911345,
+    "detrended_std_deg": 0.06616395187619895,
+    "last_deg": 11.395010412827556,
+    "servo_total_travel_deg": [
+      0.0,
+      0.0
+    ],
+    "servo_peak_to_peak_deg": [
+      0.0,
+      0.0
+    ],
+    "servo_max_step_deg": 0.0,
+    "force_std_n": [
+      0.27460042171205545,
+      0.282735052457211,
+      0.2772841244942417,
+      0.2788045327512962
+    ],
+    "allocation_states": [
+      "ALLOCATING"
+    ]
+  },
+  "roll": {
+    "release_deg": 7.0150143872985815,
+    "mean_deg": 8.593450831864251,
+    "peak_to_peak_deg": 0.27517636131030976,
+    "std_deg": 0.06018967261335212,
+    "drift_deg_s": -0.031569621566944144,
+    "detrended_std_deg": 0.04785690345632115,
+    "last_deg": 8.60287796239533,
+    "servo_total_travel_deg": [
+      0.0,
+      0.0
+    ],
+    "servo_peak_to_peak_deg": [
+      0.0,
+      0.0
+    ],
+    "servo_max_step_deg": 0.0,
+    "force_std_n": [
+      0.02770991073046078,
+      0.02722915218195838,
+      0.02319576687919631,
+      0.023394873877882003
+    ],
+    "allocation_states": [
+      "ALLOCATING"
+    ]
+  }
+}

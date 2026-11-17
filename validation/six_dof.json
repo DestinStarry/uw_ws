@@ -1,0 +1,267 @@
+{
+  "config": {
+    "linear_hold_s": 3.0,
+    "angular_hold_s": 2.0,
+    "settle_s": 2.0,
+    "rate_hz": 30.0,
+    "full_scale": {
+      "u_mps": 1.0,
+      "v_mps": 1.0,
+      "w_mps": 0.25,
+      "p_dps": 25.0,
+      "q_dps": 22.0,
+      "r_dps": 20.0
+    }
+  },
+  "axes": [
+    {
+      "axis": "u 纵荡",
+      "angular": false,
+      "duration_s": 3.03,
+      "level_start_deg": [
+        -0.0,
+        0.0
+      ],
+      "delta_pos_m": [
+        1.3819,
+        0.0018,
+        0.0047
+      ],
+      "mean_speed_mps": [
+        0.4561,
+        0.0006,
+        0.0016
+      ],
+      "tail_speed_mps": [
+        0.5971,
+        0.0024,
+        0.0049
+      ],
+      "delta_euler_deg": [
+        -0.01,
+        -0.66,
+        0.42
+      ],
+      "tail_gyro_dps": [
+        0.09,
+        -0.13,
+        0.12
+      ],
+      "settle_drift_m": [
+        0.7807,
+        0.0066,
+        0.0091
+      ],
+      "depth_delta_m": 0.0036,
+      "state_after": "ATTITUDE_HOLD"
+    },
+    {
+      "axis": "v 横荡",
+      "angular": false,
+      "duration_s": 3.03,
+      "level_start_deg": [
+        0.0,
+        -0.11
+      ],
+      "delta_pos_m": [
+        0.0003,
+        0.2647,
+        -0.0005
+      ],
+      "mean_speed_mps": [
+        0.0001,
+        0.0874,
+        -0.0002
+      ],
+      "tail_speed_mps": [
+        -0.0024,
+        0.146,
+        -0.0003
+      ],
+      "delta_euler_deg": [
+        0.19,
+        1.11,
+        0.41
+      ],
+      "tail_gyro_dps": [
+        0.02,
+        0.25,
+        0.33
+      ],
+      "settle_drift_m": [
+        -0.0008,
+        0.107,
+        0.0002
+      ],
+      "depth_delta_m": 0.0019,
+      "state_after": "ATTITUDE_HOLD"
+    },
+    {
+      "axis": "w 升沉",
+      "angular": false,
+      "duration_s": 3.032,
+      "level_start_deg": [
+        0.14,
+        1.52
+      ],
+      "delta_pos_m": [
+        0.0439,
+        0.0032,
+        0.4176
+      ],
+      "mean_speed_mps": [
+        0.0145,
+        0.001,
+        0.1377
+      ],
+      "tail_speed_mps": [
+        0.0107,
+        0.0013,
+        0.2314
+      ],
+      "delta_euler_deg": [
+        -0.13,
+        0.73,
+        -0.69
+      ],
+      "tail_gyro_dps": [
+        -0.56,
+        -0.56,
+        -0.23
+      ],
+      "settle_drift_m": [
+        0.003,
+        0.0011,
+        0.1971
+      ],
+      "depth_delta_m": -0.3266,
+      "state_after": "ATTITUDE_HOLD"
+    },
+    {
+      "axis": "p 横滚",
+      "angular": true,
+      "duration_s": 2.009,
+      "level_start_deg": [
+        -0.0,
+        -0.17
+      ],
+      "delta_pos_m": [
+        0.0061,
+        -0.0022,
+        -0.0006
+      ],
+      "mean_speed_mps": [
+        0.003,
+        -0.0011,
+        -0.0003
+      ],
+      "tail_speed_mps": [
+        0.0188,
+        -0.0026,
+        -0.001
+      ],
+      "delta_euler_deg": [
+        31.29,
+        -0.04,
+        0.28
+      ],
+      "tail_gyro_dps": [
+        18.36,
+        0.16,
+        -0.12
+      ],
+      "settle_drift_m": [
+        0.0098,
+        -0.0025,
+        -0.0013
+      ],
+      "depth_delta_m": 0.0008,
+      "state_after": "ATTITUDE_HOLD"
+    },
+    {
+      "axis": "q 俯仰",
+      "angular": true,
+      "duration_s": 2.008,
+      "level_start_deg": [
+        6.74,
+        -0.1
+      ],
+      "delta_pos_m": [
+        -0.0152,
+        0.0257,
+        0.0016
+      ],
+      "mean_speed_mps": [
+        -0.0076,
+        0.0128,
+        0.0008
+      ],
+      "tail_speed_mps": [
+        -0.0064,
+        0.0059,
+        0.0016
+      ],
+      "delta_euler_deg": [
+        -3.19,
+        24.5,
+        0.32
+      ],
+      "tail_gyro_dps": [
+        0.45,
+        18.54,
+        0.03
+      ],
+      "settle_drift_m": [
+        -0.0133,
+        0.0163,
+        0.005
+      ],
+      "depth_delta_m": -0.0066,
+      "state_after": "ATTITUDE_HOLD"
+    },
+    {
+      "axis": "r 偏航",
+      "angular": true,
+      "duration_s": 2.01,
+      "level_start_deg": [
+        -0.0,
+        1.09
+      ],
+      "delta_pos_m": [
+        -0.0011,
+        -0.0001,
+        -0.0
+      ],
+      "mean_speed_mps": [
+        -0.0006,
+        -0.0,
+        -0.0
+      ],
+      "tail_speed_mps": [
+        -0.0005,
+        -0.0001,
+        0.0
+      ],
+      "delta_euler_deg": [
+        0.17,
+        0.13,
+        23.62
+      ],
+      "tail_gyro_dps": [
+        -0.09,
+        0.03,
+        17.6
+      ],
+      "settle_drift_m": [
+        -0.0044,
+        -0.0006,
+        0.0002
+      ],
+      "depth_delta_m": 0.0076,
+      "state_after": "ATTITUDE_HOLD"
+    }
+  ],
+  "armed": true,
+  "imu_valid": true,
+  "ok": true
+}

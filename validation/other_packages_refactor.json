@@ -1,0 +1,41 @@
+{
+  "backup": "/home/zy/uw_ws_backups/before_other_packages_refactor_20261104_153804",
+  "packages": [
+    "uw_robot_communication",
+    "uw_robot_sensors",
+    "uw_robot_mujoco",
+    "uw_robot_interfaces",
+    "uw_robot_bringup"
+  ],
+  "message_fields_unchanged": true,
+  "yaml_values_unchanged": true,
+  "launch_executable_ast_unchanged": true,
+  "imu_state_trace_equal": 380,
+  "simulation_trajectory_equal_steps": 900,
+  "camera_split_and_validation_equal": true,
+  "protocol_cases_equal": 2400,
+  "runtime_checks": {
+    "mujoco_unit": {
+      "exit_code": 0,
+      "log": "/home/zy/uw_ws/validation/refactor_mujoco_unit.log"
+    },
+    "package_layout": {
+      "exit_code": 0,
+      "log": "/home/zy/uw_ws/validation/refactor_package_layout.log"
+    },
+    "serial_tcp_integration": {
+      "exit_code": 0,
+      "log": "/home/zy/uw_ws/validation/refactor_serial_tcp_integration.log"
+    },
+    "camera_launch": {
+      "exit_code": 0,
+      "log": "/home/zy/uw_ws/validation/refactor_camera_launch.log"
+    },
+    "mujoco_integration": {
+      "exit_code": 0,
+      "log": "/home/zy/uw_ws/validation/refactor_mujoco_integration.log"
+    }
+  },
+  "build_and_reference_checks": "passed (validation/other_packages_build_test.log)",
+  "physical_hardware_tested": false
+}

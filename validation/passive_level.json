@@ -1,0 +1,7 @@
+{
+  "inclination_at_stop_deg": 22.829920724021353,
+  "inclination_after_8s_deg": 4.676310850554341e-06,
+  "zero_thrust_during_recovery": true,
+  "no_attitude_controller_during_recovery": true,
+  "clean_shutdown": true
+}

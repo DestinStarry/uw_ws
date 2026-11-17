@@ -1,0 +1,8 @@
+{
+  "packages": 6,
+  "business_packages": 3,
+  "nodes": 7,
+  "no_stale_packages": true,
+  "entry_points": true,
+  "dependency_boundaries": true
+}

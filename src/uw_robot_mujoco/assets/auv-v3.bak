@@ -1,0 +1,219 @@
+<!-- ==============================================
+AUV 水下机器人仿真模型 V3
+核心特性：
+1. 四推进器独立推力 + 双组桨叶角度耦合联动
+2. 真实 SW 导出惯量、质量、装配位姿
+3. 无重力水环境（中性浮力悬浮）
+4. 两套控制层：角度姿态耦合控制 + 四通道独立推力控制
+============================================== -->
+<mujoco model="auv-v3">
+  <!-- 编译器设置：全局角度单位统一为弧度（动力学仿真标准） -->
+  <compiler angle="radian"/>
+
+  <!-- 全局仿真物理参数 -->
+  <option 
+    timestep="0.005"        
+    gravity="0 0 0"
+    density="1000" viscosity="0.5"/>
+
+  <!-- 场景边界统计参数，用于相机自适应、碰撞包围盒优化 -->
+  <statistic center="0 0 0.1" extent="2" meansize=".05"/>
+
+  <!-- 可视化渲染配置（只影响画面，不参与物理计算） -->
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/> <!-- 场景基础光照 -->
+    <rgba haze="0.15 0.25 0.35 1"/> <!-- 水下蓝雾效果，模拟深水视觉 -->
+    <global azimuth="-20" elevation="-20" ellipsoidinertia="true"/> <!-- 初始视角 + 椭球惯性优化，适配流体仿真 -->
+  </visual>
+
+  <!-- 资源库：导入STL模型、纹理、材质 -->
+  <asset>
+    <!-- 机器人全部零部件网格模型 -->
+    <mesh name="base_link" file="base_link.STL"/>
+    <mesh name="1" file="1.STL"/>
+    <mesh name="2" file="2.STL"/>
+    <mesh name="3" file="3.STL"/>
+    <mesh name="4" file="4.STL"/>
+    <mesh name="5" file="5.STL"/>
+    <mesh name="motor1" file="motor1.STL"/>
+    <mesh name="motor2" file="motor2.STL"/>
+    <mesh name="motor3" file="motor3.STL"/>
+    <mesh name="motor4" file="motor4.STL"/>
+
+    <!-- 渐变天空盒：模拟深水黑暗环境 -->
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <!-- 水底棋盘格地面纹理 -->
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+
+    <!-- 机器人各部件材质配色 -->
+    <material name="robot_armor" rgba="0.78 0.76 0.74 1"/>  <!-- 机身金属色 -->
+    <material name="thruster" rgba="0.9 0.9 0.9 1"/>        <!-- 桨叶亮白色 -->
+    <material name="sensor" rgba="0.2 0.5 0.8 0.8"/>      <!-- 传感器半透蓝色 -->
+    <material name="motor" rgba="0.6 0.6 0.65 1"/>         <!-- 电机壳体灰色 -->
+  </asset>
+
+  <!-- 世界场景根节点 -->
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/> <!-- 顶部平行光源 -->
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/> <!-- 水底地面平面 -->
+
+    <!-- AUV整机主体刚体 -->
+    <body name="auv" pos="0 0 5">
+      <freejoint/> <!-- 6自由度悬浮：可平移+旋转，完全无约束，模拟水下机器人 -->
+      <!-- 整机真实惯性参数（由SolidWorks导出，真实动力学） -->
+      <inertial pos="-0.019398 -0.000281 -0.000050" mass="9.202" 
+                fullinertia="0.022886 0.203404 0.204277 -0.000410 0.001232 -0.000001"/>
+
+      <!-- 机身主体模型 -->
+      <geom name="body_damper" type="ellipsoid" size="0.2 0.1 0.1" 
+            pos="0 0 0" rgba="0 0 0 0" contype="0" conaffinity="0" group="3"
+            fluidshape="ellipsoid"/>
+
+      <geom type="mesh" material="robot_armor" mesh="base_link"/>
+      <!-- 传感器模型 + 精准装配位姿 -->
+      <geom type="mesh" material="sensor" mesh="5"
+            pos="0.239056 -0.000492151 0.00318757"
+            quat="0.995696 0.00386822 0.0785573 -0.0490287"/>
+
+      <!-- ==================================================
+                            1号推进器总成
+      结构：桨叶旋转关节 + 固定电机壳体 + 推力滑动关节
+      ================================================== -->
+      <body name="1" pos="-0.15156 0.092258 -0.00015166">
+        <!-- 桨叶真实惯量、质心、质量（SW导出） -->
+        <inertial pos="0.00323572 -0.00306885 9.68761e-05"
+                  quat="0.430787 -0.0135049 -0.00644731 0.902329"
+                  mass="0.21"
+                  diaginertia="8.2e-05 6.6e-05 5.7e-05"/>
+        <!-- 桨叶旋转关节：hinge旋转副，有限位、阻尼、关节惯量，仿真更真实 -->
+        <joint name="1" type="hinge" pos="0 0 0" axis="0 1 0"
+               range="-3.14 3.14" limited="true" damping="1.0" armature="0.05"/>
+        <!-- 电机外壳模型：固定不转，只随机体动 -->
+        <geom type="mesh" material="motor" mesh="motor1"
+              pos="-0.07146 0.03100 -0.00214"
+              quat="-3.67279e-06 -0.999888 5.49693e-08 -0.0149649"/>
+        <!-- 螺旋桨叶片模型 -->
+        <geom type="mesh" material="thruster" mesh="1"/>
+
+        <!-- 电机固定框架：跟随推进器整体同步运动（固定无相对运动） -->
+        <body name="motor_frame_1" pos="-0.07146 0.03100 -0.00214"
+              quat="-3.67279e-06 -0.999888 5.49693e-08 -0.0149649">
+          <!-- 推力作用点虚拟刚体 -->
+          <body name="thrust_point_1" pos="0 0 0">
+            <inertial pos="0 0 0" mass="0.01" diaginertia="1e-8 1e-8 1e-8"/>
+            <!-- 推力滑动关节：slide移动副，用于施加推进力，无行程限制 -->
+            <joint name="thrust_1" type="slide" axis="-1 0 0" limited="false" damping="0.5"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- ==================================================
+                            2号推进器总成
+      ================================================== -->
+      <body name="2" pos="-0.151557 0.000257849 -0.0921517">
+        <inertial pos="0.00322808 0.000242322 0.00306885"
+                  quat="0.626257 0.649077 -0.280533 0.328333"
+                  mass="0.21"
+                  diaginertia="8.2e-05 6.6e-05 5.7e-05"/>
+        <joint name="2" type="hinge" pos="0 0 0" axis="0 0 -1"
+               range="-3.14 3.14" limited="true" damping="1.0" armature="0.05"/>
+        <geom type="mesh" material="motor" mesh="motor2"
+              pos="-0.07130 -0.00535 -0.03100"
+              quat="0.999298 0 0 0.0374547"/>
+        <geom type="mesh" material="thruster" mesh="2"/>
+
+        <body name="motor_frame_2" pos="-0.07130 -0.00535 -0.03100"
+              quat="0.999298 0 0 0.0374547">
+          <body name="thrust_point_2" pos="0 0 0">
+            <inertial pos="0 0 0" mass="0.01" diaginertia="1e-8 1e-8 1e-8"/>
+            <joint name="thrust_1" type="slide" axis="-1 0 0" limited="false" damping="0.5"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- ==================================================
+                            3号推进器总成
+      ================================================== -->
+      <body name="3" pos="-0.15156 -0.091742 -0.00015166">
+        <inertial pos="0.00323572 0.00306885 9.68801e-05"
+                  quat="0.902329 -0.00644765 -0.0135049 0.430787"
+                  mass="0.21"
+                  diaginertia="8.2e-05 6.6e-05 5.7e-05"/>
+        <joint name="3" type="hinge" pos="0 0 0" axis="0 -1 0"
+               range="-3.14 3.14" limited="true" damping="1.0" armature="0.05"/>
+        <geom type="mesh" material="motor" mesh="motor3"
+              pos="-0.07146 -0.03100 -0.00214"
+              quat="0.999888 0 -0.0149649 0"/>
+        <geom type="mesh" material="thruster" mesh="3"/>
+
+        <body name="motor_frame_3" pos="-0.07146 -0.03100 -0.00214"
+              quat="0.999888 0 -0.0149649 0">
+          <body name="thrust_point_3" pos="0 0 0">
+            <inertial pos="0 0 0" mass="0.01" diaginertia="1e-8 1e-8 1e-8"/>
+            <joint name="thrust_3" type="slide" axis="-1 0 0" limited="false" damping="0.5"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- ==================================================
+                            4号推进器总成
+      ================================================== -->
+      <body name="4" pos="-0.151557 0.000257849 0.0918483">
+        <inertial pos="0.00323697 3.54399e-05 -0.00306885"
+                  quat="0.301149 0.308135 -0.636438 0.639773"
+                  mass="0.21"
+                  diaginertia="8.2e-05 6.6e-05 5.7e-05"/>
+        <joint name="4" type="hinge" pos="0 0 0" axis="0 0 1"
+               range="-3.14 3.14" limited="true" damping="1.0" armature="0.05"/>
+        <geom type="mesh" material="motor" mesh="motor4"
+              pos="-0.07149 -0.00078 0.03100"
+              quat="0.999985 0 0 0.00547347"/>
+        <geom type="mesh" material="thruster" mesh="4"/>
+
+        <body name="motor_frame_4" pos="-0.07149 -0.00078 0.03100"
+              quat="0.999985 0 0 0.00547347">
+          <body name="thrust_point_4" pos="0 0 0">
+            <inertial pos="0 0 0" mass="0.01" diaginertia="1e-8 1e-8 1e-8"/>
+            <joint name="thrust_4" type="slide" axis="-1 0 0" limited="false" damping="0.5"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <!-- ==================================================
+                肌腱耦合系统（姿态联动核心）
+  作用：4个桨叶 -> 两路姿态控制指令，大幅简化控制器
+  ================================================== -->
+
+  <!-- ==================================================
+                    双层控制系统
+  1. position：桨叶角度姿态控制（耦合联动）
+  2. motor：四通道独立推力控制（前进/后退动力）
+  ================================================== -->
+  <tendon>
+    <fixed name="couple_13">
+      <!-- 1和3: 轴相反→同系数使世界坐标相反旋转,反作用力抵消 -->
+      <joint joint="1" coef="1"/>
+      <joint joint="3" coef="-1"/>
+    </fixed>
+    <fixed name="couple_24">
+      <!-- 2和4: 轴相反→异系数使世界坐标相同旋转 -->
+      <joint joint="2" coef="1"/>
+      <joint joint="4" coef="1"/>
+    </fixed>
+  </tendon>
+
+  <actuator>
+    <position name="angle_13" tendon="couple_13" kp="50" kv="10" ctrlrange="-6.28 6.28"/>
+    <position name="angle_24" tendon="couple_24" kp="50" kv="10" ctrlrange="-6.28 6.28"/>
+
+    <motor name="thrust_1" joint="thrust_1" ctrlrange="-30 30"/>
+    <motor name="thrust_2" joint="thrust_2" ctrlrange="-30 30"/>
+    <motor name="thrust_3" joint="thrust_3" ctrlrange="-30 30"/>
+    <motor name="thrust_4" joint="thrust_4" ctrlrange="-30 30"/>
+  </actuator>
+
+</mujoco>

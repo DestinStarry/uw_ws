@@ -1,0 +1,8 @@
+{
+  "backup": "/home/zy/uw_ws_backups/before_business_grouping_20261103_174615",
+  "packages": 5,
+  "business_packages": 3,
+  "control_logic_changed": false,
+  "topic_names_changed": false,
+  "old_build_preserved": true
+}

@@ -1,0 +1,7 @@
+{
+  "bringup_started": true,
+  "default_dry_run": true,
+  "clean_shutdown": true,
+  "scope": "process lifecycle only; topic behavior tested separately by integration.py",
+  "wsl_external_topic_discovery_intermittent": true
+}

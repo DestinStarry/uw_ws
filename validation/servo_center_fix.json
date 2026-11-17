@@ -1,0 +1,6 @@
+{
+  "backup": "/home/zy/uw_ws_backups/before_servo_center_fix_20261104_190431",
+  "reproduced_paused_cycles_before": 8,
+  "paused_cycles_after": 0,
+  "scenario": "center request toggles; no fresh planner result"
+}

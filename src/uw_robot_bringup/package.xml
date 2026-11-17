@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>uw_robot_bringup</name><version>0.2.0</version>
+  <description>Underwater robot bringup</description>
+  <maintainer email="zy@example.com">zy</maintainer><license>Proprietary</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+  <depend>ament_index_python</depend>
+  <depend>ros2bag</depend>
+  <depend>uw_robot_control</depend>
+  <depend>uw_robot_communication</depend>
+  <depend>uw_robot_sensors</depend>
+  <exec_depend>uw_robot_mujoco</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

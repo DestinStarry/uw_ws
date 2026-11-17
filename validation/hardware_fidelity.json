@@ -1,0 +1,12 @@
+{
+  "calibrated_imu_startup": true,
+  "shared_control_profile": true,
+  "no_pose_or_joint_feedback": true,
+  "tcp_motion_command": true,
+  "estop_command": true,
+  "truth_topic_disabled": true,
+  "observed_imu_age_s": 0.028110742568969727,
+  "pressure_samples_slower_than_imu": true,
+  "joy_timeout_off": true,
+  "clean_shutdown": true
+}

@@ -1,0 +1,11 @@
+{
+  "initial_closed_mode": true,
+  "open_mode": true,
+  "target_matches_controller": true,
+  "initial_target_m": 0.121265,
+  "target_updates_with_vertical_input": true,
+  "released_target_matches_controller": true,
+  "recaptured_target_m": 0.158369,
+  "disable_depth_hold": true,
+  "clean_shutdown": true
+}

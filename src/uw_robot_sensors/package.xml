@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>uw_robot_sensors</name><version>0.2.0</version>
+  <description>Underwater robot sensors</description>
+  <maintainer email="zy@example.com">zy</maintainer><license>Proprietary</license>
+  <buildtool_depend>ament_python</buildtool_depend>
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>python3-serial</depend>
+  <depend>python3-opencv</depend>
+  <depend>python3-numpy</depend>
+  <test_depend>python3-pytest</test_depend>
+  <export><build_type>ament_python</build_type></export>
+</package>

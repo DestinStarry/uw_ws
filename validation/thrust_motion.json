@@ -1,0 +1,86 @@
+{
+  "forward": {
+    "displacement_m": {
+      "x": 1.0987360207625039,
+      "y": 0.000999974906536901,
+      "z": 0.0013817617274978211
+    },
+    "requested_direction_distance_m": 1.0987360207625039,
+    "direction_ok": true,
+    "peak_tilt_deg": 0.21401838696137043,
+    "max_command_thrust_n": 5.258183438197274,
+    "allocation_states": [
+      "ALLOCATING"
+    ]
+  },
+  "backward": {
+    "displacement_m": {
+      "x": -1.1127400886158434,
+      "y": 0.0011753054707226687,
+      "z": -0.0019113917104051081
+    },
+    "requested_direction_distance_m": 1.1127400886158434,
+    "direction_ok": true,
+    "peak_tilt_deg": 0.49409175189326954,
+    "max_command_thrust_n": 7.0749366101715365,
+    "allocation_states": [
+      "ALLOCATING"
+    ]
+  },
+  "left": {
+    "displacement_m": {
+      "x": -0.002091101399986172,
+      "y": 0.17938947853494874,
+      "z": -0.00012751433670055157
+    },
+    "requested_direction_distance_m": 0.17938947853494874,
+    "direction_ok": true,
+    "peak_tilt_deg": 0.9801549143991456,
+    "max_command_thrust_n": 2.244414765955956,
+    "allocation_states": [
+      "ALLOCATING"
+    ]
+  },
+  "right": {
+    "displacement_m": {
+      "x": -0.004239865264978777,
+      "y": -0.17836754409067537,
+      "z": -0.0006599511998377494
+    },
+    "requested_direction_distance_m": 0.17836754409067537,
+    "direction_ok": true,
+    "peak_tilt_deg": 1.0061436042842271,
+    "max_command_thrust_n": 2.248155736602708,
+    "allocation_states": [
+      "ALLOCATING"
+    ]
+  },
+  "up": {
+    "displacement_m": {
+      "x": 0.02744612886640881,
+      "y": 0.0015569723598805423,
+      "z": 0.2974852924409619
+    },
+    "requested_direction_distance_m": 0.2974852924409619,
+    "direction_ok": true,
+    "peak_tilt_deg": 0.5739344518686902,
+    "max_command_thrust_n": 4.884493569000635,
+    "allocation_states": [
+      "ALLOCATING"
+    ]
+  },
+  "down": {
+    "displacement_m": {
+      "x": 0.02603300609049206,
+      "y": 0.0016907198147810378,
+      "z": -0.30204796439326076
+    },
+    "requested_direction_distance_m": 0.30204796439326076,
+    "direction_ok": true,
+    "peak_tilt_deg": 0.5533351561088174,
+    "max_command_thrust_n": 4.915397709580615,
+    "allocation_states": [
+      "ALLOCATING"
+    ]
+  }
+}

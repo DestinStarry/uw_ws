@@ -1,0 +1,22 @@
+{
+  "left": {
+    "peak_roll_deg": 0.44012255201221484,
+    "peak_pitch_deg": 0.9661533863517083,
+    "mean_last_second_tilt_deg": 0.6005333055803049
+  },
+  "right": {
+    "peak_roll_deg": 0.2770605470479127,
+    "peak_pitch_deg": 0.9705754382421229,
+    "mean_last_second_tilt_deg": 0.5672095560986758
+  },
+  "up": {
+    "peak_roll_deg": 0.3751569166405247,
+    "peak_pitch_deg": 0.46831638337882214,
+    "mean_last_second_tilt_deg": 0.42507631207337
+  },
+  "down": {
+    "peak_roll_deg": 0.2719613708261093,
+    "peak_pitch_deg": 0.451485246149313,
+    "mean_last_second_tilt_deg": 0.24631822357480615
+  }
+}
