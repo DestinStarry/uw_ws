@@ -20,6 +20,10 @@ struct ControlConfig {
   V3 hydrostatic_coeff = V3::Zero();
   double attitude_integral_limit = .5;
   V3 rate_kp{1, 1.5, 1.5}, rate_ki{.06, .20, .20};
+  // 角速度误差的微分项：给速率环加相位超前，压制"到位后持续抖动"的极限环。
+  // 单位 N·m/(rad/s^2)；必须配合低通，否则放大陀螺噪声。
+  V3 rate_kd = V3::Zero();
+  double rate_kd_filter = .3;
   V3 inner_rate{pi / 2, pi / 2, pi / 3};
   V3 moment_sign{-1, -1, -1};
   V6 wrench_rate = (V6() << 150, 150, 150, 8, 8, 8).finished();
@@ -71,6 +75,8 @@ private:
   ControlConfig cfg;
   Eigen::Quaterniond target_q = Eigen::Quaterniond::Identity();
   V3 integral = V3::Zero(), filtered_gyro = V3::Zero();
+  V3 previous_rate_error = V3::Zero(), rate_error_dot = V3::Zero();
+  bool rate_error_seen = false;
   V3 attitude_integral = V3::Zero();
   double depth_i = 0, depth_target = 0, last_time = -1;
   bool previous_arm = false, previous_depth = false, previous_loop = false;

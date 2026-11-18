@@ -7,6 +7,9 @@ void Controller::stop() {
   integral.setZero();
   attitude_integral.setZero();
   filtered_gyro.setZero();
+  rate_error_dot.setZero();
+  previous_rate_error.setZero();
+  rate_error_seen = false;
   target.setZero();
   depth_i = 0;
   centering = false;

@@ -176,6 +176,14 @@ private:
       for (int i = 0; i < 6; ++i) {
         status.achievable_wrench[i] = allocator_->attainable[i];
         status.achieved_wrench[i] = allocator_->achieved[i];
+        status.target_wrench[i] = allocator_->target[i];
+      }
+      for (int i = 0; i < 4; ++i)
+        status.thruster_forces[i] = allocator_->thruster_forces()[i];
+      for (int i = 0; i < 2; ++i) {
+        status.servo_target_rad[i] = allocator_->servo_target()[i];
+        status.servo_estimated_rad[i] = allocator_->servo_estimated()[i];
+        status.gate[i] = allocator_->gate_state()[i];
       }
       status.state = allocator_->state;
       status_pub_->publish(status);

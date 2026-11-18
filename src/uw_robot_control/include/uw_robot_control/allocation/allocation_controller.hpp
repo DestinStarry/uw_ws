@@ -21,6 +21,11 @@ public:
   uint64_t epoch = 0;
   V6 target = V6::Zero(), attainable = V6::Zero(), achieved = V6::Zero();
   std::string state = "DISABLED";
+  // ---- 诊断只读访问 ----
+  const V2 &servo_target() const { return solver_angles; }
+  const V2 &servo_estimated() const { return estimated; }
+  const V2 &gate_state() const { return gate; }
+  const V4 &thruster_forces() const { return forces; }
 
 private:
   void update_plan(bool center, double now, const std::optional<Plan> &result);
