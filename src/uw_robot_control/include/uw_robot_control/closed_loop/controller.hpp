@@ -22,6 +22,8 @@ struct ControlConfig {
   V3 rate_kp{1, 1.5, 1.5}, rate_ki{.06, .20, .20};
   // 角速度误差的微分项：给速率环加相位超前，压制"到位后持续抖动"的极限环。
   // 单位 N·m/(rad/s^2)；必须配合低通，否则放大陀螺噪声。
+  // 速率环积分限幅（rad/s^2*s）：决定积分项能提供多少持续力矩。
+  double rate_integral_limit = .8;
   V3 rate_kd = V3::Zero();
   double rate_kd_filter = .3;
   V3 inner_rate{pi / 2, pi / 2, pi / 3};

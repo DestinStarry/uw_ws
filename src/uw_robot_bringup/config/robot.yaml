@@ -13,10 +13,11 @@ control_node:
     - 60.0
     - 20.0
     - 30.0
+    # 手柄前馈已从控制律移除，参数保留仅为兼容，不参与计算。
     rate_ff:
-    - 1.3
-    - 1.5
-    - 1.5
+    - 0.0
+    - 0.0
+    - 0.0
     open_moment:
     - 5.0
     - 5.0
@@ -41,7 +42,7 @@ control_node:
     - 0.0
     - 0.02
     # 补偿效率标定：1.0 = 完全抵消 ρVg×浮心偏移；实测 0.768 与对象匹配
-    hydrostatic_comp_scale: 0.768
+    hydrostatic_comp_scale: 0.0
     attitude_ki:
     - 0.0
     - 0.0
@@ -54,12 +55,15 @@ control_node:
     - 0.5
     - 1.5
     - 1.5
+    # 偏航积分加大（实测 17 -> 22 °/s）；横滚/俯仰保持小积分，避免积分反噬。
     rate_ki:
-    - 0.06
-    - 0.2
-    - 0.2
+    - 2.0
+    - 2.5
+    - 2.5
     # 角速度误差微分项 N·m/(rad/s^2)：给速率环加相位超前。
     # 实测：横滚 0.1 可小幅改善抖动，0.3 反而变差；默认关闭。
+    # 速率环积分限幅：ki x 该值 = 积分可提供的最大持续力矩（N·m）。
+    rate_integral_limit: 30.0
     rate_kd:
     - 0.0
     - 0.0
@@ -103,7 +107,7 @@ control_node:
     roll_gyro_filter_alpha: 0.25
 allocation_node:
   ros__parameters:
-    thrust_rate_nps: 10.0
+    thrust_rate_nps: 30.0
     servo_rate_rad_s: 3.1415926536
     plan_period_s: 0.5
     plan_max_age_s: 1.0

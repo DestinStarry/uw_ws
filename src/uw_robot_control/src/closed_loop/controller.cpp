@@ -10,6 +10,9 @@ void Controller::stop() {
   rate_error_dot.setZero();
   previous_rate_error.setZero();
   rate_error_seen = false;
+  rate_error_dot.setZero();
+  previous_rate_error.setZero();
+  rate_error_seen = false;
   target.setZero();
   depth_i = 0;
   centering = false;
@@ -76,13 +79,27 @@ V3 Controller::attitude_moment(const V3 &rate_ref, const Imu &imu,
     else if (std::abs(rate_error[i]) < cfg.rate_deadzone[i])
       rate_error[i] = 0;
   }
-  integral = bounded<V3>(integral + rate_error * dt, -.8, .8);
+  integral = bounded<V3>(integral + rate_error * dt, -cfg.rate_integral_limit,
+                         cfg.rate_integral_limit);
   if (!cfg.roll_hold)
     integral[0] = 0;
   if (!cfg.yaw_hold)
     integral[2] = 0;
+  // 微分项：对死区后的角速度误差求导并低通，给速率环加相位超前。
+  // 首个周期不计算，避免解锁瞬间的微分冲击。
+  if (cfg.rate_kd.squaredNorm() > 0) {
+    if (rate_error_seen) {
+      for (int i = 0; i < 3; ++i) {
+        const double raw = (rate_error[i] - previous_rate_error[i]) / dt;
+        rate_error_dot[i] += cfg.rate_kd_filter * (raw - rate_error_dot[i]);
+      }
+    }
+    previous_rate_error = rate_error;
+    rate_error_seen = true;
+  }
+  // 手柄前馈已移除：力矩 = kp*误差 + ki*积分 + kd*误差导数。
   V3 moment = cfg.rate_kp.cwiseProduct(rate_error) + cfg.rate_ki.cwiseProduct(integral) +
-              cfg.rate_ff.cwiseProduct(manual);
+              cfg.rate_kd.cwiseProduct(rate_error_dot);
   moment = moment.cwiseMax(-cfg.moment).cwiseMin(cfg.moment);
 
   return moment;

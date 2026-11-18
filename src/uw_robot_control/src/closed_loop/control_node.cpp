@@ -103,6 +103,14 @@ private:
         uw::V3(offset[0], offset[1], offset[2]) * (rho * volume * 9.80665 * scale);
     v3("rate_kp", c.rate_kp);
     v3("rate_ki", c.rate_ki);
+    v3("rate_kd", c.rate_kd);
+    c.rate_kd_filter = declare_parameter("rate_kd_filter", c.rate_kd_filter);
+    c.rate_integral_limit =
+        declare_parameter("rate_integral_limit", c.rate_integral_limit);
+    if (!std::isfinite(c.rate_kd_filter) || c.rate_kd_filter <= 0 || c.rate_kd_filter > 1)
+      throw std::runtime_error("invalid rate_kd_filter");
+    if (!std::isfinite(c.rate_integral_limit) || c.rate_integral_limit <= 0)
+      throw std::runtime_error("invalid rate_integral_limit");
     v3("rate_deadzone_rad_s", c.rate_deadzone);
     c.smooth_deadband = declare_parameter("smooth_deadband", false);
     c.roll_smooth_deadband = declare_parameter("roll_smooth_deadband", false);
@@ -143,9 +151,9 @@ private:
       if (!std::isfinite(value) || value <= 0)
         throw std::runtime_error("invalid scalar parameter");
     for (int i = 0; i < 3; ++i) {
-      if (c.attitude_ki[i] < 0 || c.damping[i] <= 0 || c.open_damping[i] <= 0 || c.moment[i] <= 0 || c.rate_ff[i] <= 0 ||
+      if (c.attitude_ki[i] < 0 || c.damping[i] <= 0 || c.open_damping[i] <= 0 || c.moment[i] <= 0 || c.rate_ff[i] < 0 ||
           c.open_moment[i] <= 0 || c.rate_full_scale[i] <= 0 || c.attitude_kp[i] < 0 ||
-          c.rate_kp[i] < 0 || c.rate_ki[i] < 0 || c.inner_rate[i] <= 0 ||
+          c.rate_kp[i] < 0 || c.rate_ki[i] < 0 || c.rate_kd[i] < 0 || c.inner_rate[i] <= 0 ||
           std::abs(c.moment_sign[i]) != 1)
         throw std::runtime_error("invalid vector gain/sign");
     }
