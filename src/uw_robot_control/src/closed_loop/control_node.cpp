@@ -1,3 +1,9 @@
+/// @file control_node.cpp
+/// @brief 控制节点：订阅指令/IMU/深度，按 50 Hz 输出 wrench 与状态。
+///
+/// 仲裁：arm 边沿、estop 电平、指令/IMU/深度超时，任一失效即停机；
+/// 参数集中在 load_config()，启动时一次性校验，非法即退出。
+
 #include <rclcpp/rclcpp.hpp>
 #include <cmath>
 #include <sensor_msgs/msg/imu.hpp>

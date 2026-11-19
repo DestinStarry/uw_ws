@@ -18,6 +18,12 @@ def euler(q):
             math.atan2(2*(w*z+x*y),1-2*(y*y+z*z)))
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--axis', default='roll', choices=['roll','pitch','yaw'])
+    a = ap.parse_args()
+    vidx = {'roll':3,'pitch':4,'yaw':5}[a.axis]
+    eidx = {'roll':0,'pitch':1,'yaw':2}[a.axis]
     log = (ROOT/'validation/shake_launch.log').open('w')
     proc = subprocess.Popen(['ros2','launch','uw_robot_bringup','simulation.launch.py',
         'headless:=true','camera:=false','publish_truth:=true','tcp_port:=18872'],
@@ -45,9 +51,8 @@ def main():
             if rec:
                 e=euler(st['q'])
                 rows.append({'t':round(time.monotonic()-t0,3),
-                             'roll_deg':round(math.degrees(e[0]),3),
-                             'roll_dps':round(math.degrees(st['g'][0]),2),
-                             'pitch_deg':round(math.degrees(e[1]),3)})
+                             'roll_deg':round(math.degrees(e[eidx]),3),
+                             'roll_dps':round(math.degrees(st['g'][eidx]),2)})
             time.sleep(.02)
     try:
         end=time.monotonic()+40
@@ -63,7 +68,8 @@ def main():
             if st['s'] and st['s'].armed: break
         hold(1.0,zero)
         rate=math.radians(25.0)
-        hold(3.0,(0.0,0.0,0.0,rate,0.0,0.0))
+        cmd=[0.0]*6; cmd[vidx]=rate
+        hold(3.0,tuple(cmd))
         t0=time.monotonic()
         hold(6.0,zero,rec=True,t0=t0)   # 松手保持 6 s
     finally:
@@ -85,8 +91,9 @@ def main():
     rates=[abs(r['roll_dps']) for r in late]
     angs=[r['roll_deg'] for r in late]
     rms=math.sqrt(sum(x*x for x in rates)/len(rates))
-    print('保持段(4~6 s)：滚转角 %.1f~%.1f°  滚转率 |max|=%.1f  rms=%.1f °/s  角度摆幅=%.2f°'
-          % (min(angs), max(angs), max(rates), rms, max(angs)-min(angs)))
+    print('保持段(4~6 s)：角度 %.1f~%.1f°  角速度 |max|=%.1f  rms=%.1f °/s  摆幅=%.2f°  首点 %.1f°'
+          % (min(angs), max(angs), max(rates), rms, max(angs)-min(angs),
+             rows[0]['roll_deg'] if rows else 0.0))
 
 if __name__ == '__main__':
     raise SystemExit(main())

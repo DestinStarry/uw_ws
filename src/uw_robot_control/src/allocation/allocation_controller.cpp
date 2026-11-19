@@ -1,3 +1,8 @@
+/// @file allocation_controller.cpp
+/// @brief 分配控制器实现：舵角规划采纳、推力求解、门控降额与诊断。
+///
+/// epoch/session 使过期规划失效；规划结果只在其时效内被采纳。
+
 #include "uw_robot_control/allocation/allocation_controller.hpp"
 namespace uw {
 void AllocationController::stop() {

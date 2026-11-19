@@ -1,3 +1,7 @@
+/// @file allocation_test.cpp
+/// @brief 分配器单元测试：几何、门控、舵角规划与诊断字段。
+///
+
 #include "uw_robot_control/allocation/allocation_controller.hpp"
 #include <iostream>
 #include <stdexcept>

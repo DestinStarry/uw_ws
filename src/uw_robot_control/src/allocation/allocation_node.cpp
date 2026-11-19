@@ -1,3 +1,8 @@
+/// @file allocation_node.cpp
+/// @brief 分配节点：接收控制节点的 wrench，按固定频率下发执行器指令与诊断。
+///
+/// 规划在后台线程执行，主循环只做实时推力求解，避免阻塞。
+
 #include <rclcpp/rclcpp.hpp>
 #include <uw_robot_interfaces/msg/wrench_command.hpp>
 #include <uw_robot_interfaces/msg/thruster_command.hpp>

@@ -1,3 +1,8 @@
+/// @file protocol.cpp
+/// @brief STM32 串口协议实现（见同名头文件）。
+///
+/// 只做字符串编解码，不打开串口；读写与超时由 hardware_node 负责。
+
 #include "uw_robot_communication/stm32/protocol.hpp"
 #include <iomanip>
 #include <locale>

@@ -1,3 +1,10 @@
+/// @file tcp_bridge_node.cpp
+/// @brief TCP 服务端节点：把手柄指令转成 control/cmd，并把遥测回传给客户端。
+///
+/// 线程模型：单线程、非阻塞 socket，跟随 ROS executor 周期轮询；
+/// 安全策略：客户端断开、握手失败或 estop 帧一律发布急停，需要重新解锁；
+/// 回传缓冲有上限，客户端不读会主动断开（避免拖垮控制链路）。
+
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <sensor_msgs/msg/imu.hpp>

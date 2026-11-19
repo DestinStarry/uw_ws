@@ -1,3 +1,8 @@
+/// @file protocol.cpp
+/// @brief TCP 文本协议实现（见同名头文件的帧格式说明）。
+///
+/// 解析与格式化都保持纯函数：不碰 socket、不碰 ROS，便于单元测试。
+
 #include "uw_robot_communication/tcp/protocol.hpp"
 #include <cmath>
 #include <locale>

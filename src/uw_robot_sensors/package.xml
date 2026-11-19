@@ -6,7 +6,9 @@
   <buildtool_depend>ament_python</buildtool_depend>
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>
+  <depend>uw_robot_interfaces</depend>
   <depend>python3-serial</depend>
+  <depend>python3-smbus</depend>
   <depend>python3-opencv</depend>
   <depend>python3-numpy</depend>
   <test_depend>python3-pytest</test_depend>

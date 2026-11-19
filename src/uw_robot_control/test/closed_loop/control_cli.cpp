@@ -1,3 +1,7 @@
+/// @file control_cli.cpp
+/// @brief 控制算法命令行工具：读入 JSON/参数并打印 wrench，用于与参考实现对齐。
+///
+
 #include "uw_robot_control/closed_loop/controller.hpp"
 #include <iomanip>
 #include <iostream>

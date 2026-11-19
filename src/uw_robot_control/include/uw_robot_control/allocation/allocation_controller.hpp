@@ -1,3 +1,9 @@
+/// @file allocation_controller.hpp
+/// @brief 分配控制器接口：机体系 wrench → 四个推力 + 两个舵角，含门控与诊断。
+///
+/// 求解分两段：低频规划舵角（异步），高频求解推力（同步）；
+/// 门控在舵角未到位时降低发力，避免过渡期产生假力矩。
+
 #pragma once
 #include "uw_robot_control/allocation/allocator.hpp"
 #include <optional>

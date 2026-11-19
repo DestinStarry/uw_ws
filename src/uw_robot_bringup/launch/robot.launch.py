@@ -24,19 +24,25 @@ def generate_launch_description():
         config, {'dry_run': ParameterValue(LaunchConfiguration('dry_run'), value_type=bool)}], output='screen')
     imu = Node(package='uw_robot_sensors', executable='imu_node', parameters=[config],
                condition=IfCondition(LaunchConfiguration('imu')), output='screen')
+    depth = Node(package='uw_robot_sensors', executable='depth_node', parameters=[config],
+                 condition=IfCondition(LaunchConfiguration('depth')), output='screen')
     tcp = Node(package='uw_robot_communication', executable='tcp_bridge_node', parameters=[config],
                condition=IfCondition(LaunchConfiguration('tcp')), output='screen')
     camera = Node(package='uw_robot_sensors', executable='camera_node', parameters=[config],
                   condition=IfCondition(LaunchConfiguration('camera')), output='screen')
     handlers = [RegisterEventHandler(OnProcessExit(target_action=node,
         on_exit=[EmitEvent(event=Shutdown(reason='Required robot node exited'))]))
-        for node in (control, allocation, hardware, imu, tcp)]
+        for node in (control, allocation, hardware, imu, depth, tcp)]
     return LaunchDescription([
         DeclareLaunchArgument('config', default_value=default_config),
         DeclareLaunchArgument('dry_run', default_value='true'),
         DeclareLaunchArgument('imu', default_value='false'),
+        # 深度默认启动：hardware_node.publish_depth 已为 false，
+        # 两者必须恰好有一个深度源，否则 depth/state 要么无人发布、要么双发布。
+        DeclareLaunchArgument('depth', default_value='true',
+                              description='Start MS5837 over I2C; requires hardware_node.publish_depth=false'),
         DeclareLaunchArgument('tcp', default_value='true'),
         DeclareLaunchArgument('camera', default_value='false',
                               description='Start OpenCV stereo capture and HTTP preview'),
-        *handlers, control, allocation, hardware, imu, tcp, camera,
+        *handlers, control, allocation, hardware, imu, depth, tcp, camera,
     ])

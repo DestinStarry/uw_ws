@@ -8,5 +8,6 @@ setup(name='uw_robot_sensors', version='0.2.0', packages=find_packages(exclude=[
       description='IMU and OpenCV stereo camera sensors',
       entry_points={'console_scripts': [
           'imu_node = uw_robot_sensors.imu.imu_node:main',
+          'depth_node = uw_robot_sensors.depth.depth_node:main',
           'camera_node = uw_robot_sensors.camera.camera_node:main',
       ]})

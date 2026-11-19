@@ -182,6 +182,33 @@ hardware_node:
     dry_run: true
     command_timeout_s: 0.15
     depth_timeout_s: 1.5
+    # 深度改由 depth_node 经 Orin 的 I2C 直读 MS5837 后独占发布 depth/state，
+    # 因此 STM32 这条回传通路不再发布深度。若临时回退到解算板方案，改为 true。
+    publish_depth: false
+depth_node:
+  ros__parameters:
+    # 总线号随 Orin 型号与载板而变，先 i2cdetect -l 列出、再 i2cdetect -y -r N 扫到 0x76。
+    bus: 1
+    address: 118            # 0x76
+    # auto：启动时用同一组原始值按 02BA/30BA 各算一次，取接近水面气压者。
+    # 自动判型要求开机时传感器处在空气中；已在水下请显式写 02ba 或 30ba。
+    model: auto
+    oversampling: 4096      # 02BA 可到 8192；30BA 最高 4096
+    fluid_density: 997.0    # 淡水 997，海水 1029
+    # 0 表示上电后按 zero_time_s 自动标定水面零点；给定正值则跳过标定。
+    surface_pressure_mbar: 0.0
+    zero_time_s: 3.0
+    # 标定失败（典型场景：已在水下上电）时最多重试几轮，
+    # 超过后回退到 expected_surface_mbar 继续输出深度，避免永久无数据。
+    zero_attempts: 3
+    expected_surface_mbar: 1013.25
+    rate_hz: 20.0
+    stale_timeout_s: 0.5
+    max_failures: 5
+    # 无效时（标定中/读失败/未接传感器）以该频率发 valid=false 心跳帧，
+    # 让下游能区分"没有数据"和"传感器故障"，而不是只看到话题静默。
+    heartbeat_hz: 1.0
+    frame_id: base_link
 imu_node:
   ros__parameters:
     port: /dev/ttyUSB0

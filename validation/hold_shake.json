@@ -1,1700 +1,1432 @@
 [
  {
   "t": 0.001,
-  "roll_deg": 93.714,
-  "roll_dps": 44.94,
-  "pitch_deg": 0.044
+  "roll_deg": 58.005,
+  "roll_dps": 24.53
  },
  {
   "t": 0.022,
-  "roll_deg": 93.714,
-  "roll_dps": 45.17,
-  "pitch_deg": 0.044
+  "roll_deg": 58.005,
+  "roll_dps": 24.32
  },
  {
   "t": 0.043,
-  "roll_deg": 95.482,
-  "roll_dps": 45.17,
-  "pitch_deg": 0.043
+  "roll_deg": 59.511,
+  "roll_dps": 24.32
  },
  {
-  "t": 0.064,
-  "roll_deg": 95.482,
-  "roll_dps": 45.17,
-  "pitch_deg": 0.043
+  "t": 0.065,
+  "roll_deg": 59.511,
+  "roll_dps": 24.32
  },
  {
-  "t": 0.085,
-  "roll_deg": 95.482,
-  "roll_dps": 45.92,
-  "pitch_deg": 0.043
+  "t": 0.086,
+  "roll_deg": 59.511,
+  "roll_dps": 24.4
  },
  {
   "t": 0.107,
-  "roll_deg": 98.343,
-  "roll_dps": 45.92,
-  "pitch_deg": 0.044
+  "roll_deg": 61.069,
+  "roll_dps": 24.4
  },
  {
-  "t": 0.128,
-  "roll_deg": 98.343,
-  "roll_dps": 46.26,
-  "pitch_deg": 0.044
+  "t": 0.129,
+  "roll_deg": 61.069,
+  "roll_dps": 24.69
  },
  {
-  "t": 0.149,
-  "roll_deg": 100.242,
-  "roll_dps": 46.26,
-  "pitch_deg": 0.047
+  "t": 0.15,
+  "roll_deg": 62.679,
+  "roll_dps": 24.69
  },
  {
-  "t": 0.17,
-  "roll_deg": 100.242,
-  "roll_dps": 46.26,
-  "pitch_deg": 0.047
+  "t": 0.171,
+  "roll_deg": 62.679,
+  "roll_dps": 24.69
  },
  {
   "t": 0.192,
-  "roll_deg": 100.242,
-  "roll_dps": 46.19,
-  "pitch_deg": 0.047
+  "roll_deg": 62.679,
+  "roll_dps": 24.8
  },
  {
   "t": 0.213,
-  "roll_deg": 102.156,
-  "roll_dps": 46.19,
-  "pitch_deg": 0.051
+  "roll_deg": 63.705,
+  "roll_dps": 24.8
  },
  {
   "t": 0.234,
-  "roll_deg": 102.156,
-  "roll_dps": 44.24,
-  "pitch_deg": 0.051
+  "roll_deg": 63.705,
+  "roll_dps": 24.25
  },
  {
-  "t": 0.256,
-  "roll_deg": 105.013,
-  "roll_dps": 44.24,
-  "pitch_deg": 0.059
+  "t": 0.255,
+  "roll_deg": 64.731,
+  "roll_dps": 24.25
  },
  {
-  "t": 0.278,
-  "roll_deg": 105.013,
-  "roll_dps": 44.24,
-  "pitch_deg": 0.059
+  "t": 0.276,
+  "roll_deg": 64.731,
+  "roll_dps": 24.25
  },
  {
-  "t": 0.3,
-  "roll_deg": 105.013,
-  "roll_dps": 40.23,
-  "pitch_deg": 0.059
+  "t": 0.297,
+  "roll_deg": 64.731,
+  "roll_dps": 23.45
  },
  {
-  "t": 0.321,
-  "roll_deg": 107.977,
-  "roll_dps": 40.23,
-  "pitch_deg": 0.07
+  "t": 0.318,
+  "roll_deg": 66.248,
+  "roll_dps": 23.45
  },
  {
-  "t": 0.342,
-  "roll_deg": 107.977,
-  "roll_dps": 40.23,
-  "pitch_deg": 0.07
+  "t": 0.339,
+  "roll_deg": 66.248,
+  "roll_dps": 22.25
  },
  {
-  "t": 0.365,
-  "roll_deg": 107.977,
-  "roll_dps": 32.04,
-  "pitch_deg": 0.07
+  "t": 0.361,
+  "roll_deg": 67.273,
+  "roll_dps": 22.25
  },
  {
-  "t": 0.386,
-  "roll_deg": 110.918,
-  "roll_dps": 32.04,
-  "pitch_deg": 0.082
+  "t": 0.382,
+  "roll_deg": 67.273,
+  "roll_dps": 22.25
  },
  {
-  "t": 0.408,
-  "roll_deg": 110.918,
-  "roll_dps": 25.2,
-  "pitch_deg": 0.082
+  "t": 0.403,
+  "roll_deg": 67.273,
+  "roll_dps": 19.94
  },
  {
-  "t": 0.43,
-  "roll_deg": 112.558,
-  "roll_dps": 25.2,
-  "pitch_deg": 0.089
+  "t": 0.424,
+  "roll_deg": 68.764,
+  "roll_dps": 19.94
  },
  {
-  "t": 0.451,
-  "roll_deg": 112.558,
-  "roll_dps": 25.2,
-  "pitch_deg": 0.089
+  "t": 0.446,
+  "roll_deg": 68.764,
+  "roll_dps": 18.06
  },
  {
-  "t": 0.473,
-  "roll_deg": 112.558,
-  "roll_dps": 11.88,
-  "pitch_deg": 0.089
+  "t": 0.466,
+  "roll_deg": 69.782,
+  "roll_dps": 18.06
  },
  {
-  "t": 0.494,
-  "roll_deg": 114.768,
-  "roll_dps": 11.88,
-  "pitch_deg": 0.1
+  "t": 0.488,
+  "roll_deg": 69.782,
+  "roll_dps": 18.06
  },
  {
-  "t": 0.517,
-  "roll_deg": 114.768,
-  "roll_dps": 4.44,
-  "pitch_deg": 0.1
+  "t": 0.509,
+  "roll_deg": 69.782,
+  "roll_dps": 15.98
  },
  {
-  "t": 0.538,
-  "roll_deg": 115.978,
-  "roll_dps": 4.44,
-  "pitch_deg": 0.108
+  "t": 0.53,
+  "roll_deg": 71.168,
+  "roll_dps": 15.98
  },
  {
-  "t": 0.559,
-  "roll_deg": 115.978,
-  "roll_dps": 4.44,
-  "pitch_deg": 0.108
+  "t": 0.551,
+  "roll_deg": 71.168,
+  "roll_dps": 13.85
  },
  {
-  "t": 0.581,
-  "roll_deg": 115.978,
-  "roll_dps": -16.74,
-  "pitch_deg": 0.108
+  "t": 0.572,
+  "roll_deg": 71.96,
+  "roll_dps": 13.85
  },
  {
-  "t": 0.603,
-  "roll_deg": 117.253,
-  "roll_dps": -16.74,
-  "pitch_deg": 0.119
+  "t": 0.593,
+  "roll_deg": 71.96,
+  "roll_dps": 13.85
  },
  {
-  "t": 0.625,
-  "roll_deg": 117.253,
-  "roll_dps": -28.85,
-  "pitch_deg": 0.119
+  "t": 0.613,
+  "roll_deg": 71.96,
+  "roll_dps": 10.8
  },
  {
-  "t": 0.646,
-  "roll_deg": 117.627,
-  "roll_dps": -28.85,
-  "pitch_deg": 0.127
+  "t": 0.634,
+  "roll_deg": 73.089,
+  "roll_dps": 10.8
  },
  {
-  "t": 0.669,
-  "roll_deg": 117.627,
-  "roll_dps": -28.85,
-  "pitch_deg": 0.127
+  "t": 0.655,
+  "roll_deg": 73.089,
+  "roll_dps": 8.81
  },
  {
-  "t": 0.69,
-  "roll_deg": 117.627,
-  "roll_dps": -40.43,
-  "pitch_deg": 0.127
+  "t": 0.676,
+  "roll_deg": 73.758,
+  "roll_dps": 8.81
  },
  {
-  "t": 0.711,
-  "roll_deg": 117.25,
-  "roll_dps": -40.43,
-  "pitch_deg": 0.14
+  "t": 0.697,
+  "roll_deg": 73.758,
+  "roll_dps": 8.81
  },
  {
-  "t": 0.733,
-  "roll_deg": 117.25,
-  "roll_dps": -42.69,
-  "pitch_deg": 0.14
+  "t": 0.718,
+  "roll_deg": 73.758,
+  "roll_dps": 6.14
  },
  {
-  "t": 0.755,
-  "roll_deg": 116.328,
-  "roll_dps": -42.69,
-  "pitch_deg": 0.149
+  "t": 0.739,
+  "roll_deg": 74.596,
+  "roll_dps": 6.14
  },
  {
-  "t": 0.777,
-  "roll_deg": 116.328,
-  "roll_dps": -42.69,
-  "pitch_deg": 0.149
+  "t": 0.761,
+  "roll_deg": 74.596,
+  "roll_dps": 4.42
  },
  {
-  "t": 0.798,
-  "roll_deg": 116.328,
-  "roll_dps": -41.8,
-  "pitch_deg": 0.149
+  "t": 0.781,
+  "roll_deg": 75.026,
+  "roll_dps": 4.42
  },
  {
-  "t": 0.819,
-  "roll_deg": 114.209,
-  "roll_dps": -41.8,
-  "pitch_deg": 0.164
+  "t": 0.802,
+  "roll_deg": 75.026,
+  "roll_dps": 4.42
  },
  {
-  "t": 0.841,
-  "roll_deg": 114.209,
-  "roll_dps": -38.09,
-  "pitch_deg": 0.164
+  "t": 0.823,
+  "roll_deg": 75.026,
+  "roll_dps": 2.07
  },
  {
-  "t": 0.862,
-  "roll_deg": 112.479,
-  "roll_dps": -38.09,
-  "pitch_deg": 0.174
+  "t": 0.844,
+  "roll_deg": 75.537,
+  "roll_dps": 2.07
  },
  {
-  "t": 0.883,
-  "roll_deg": 112.479,
-  "roll_dps": -38.09,
-  "pitch_deg": 0.174
+  "t": 0.865,
+  "roll_deg": 75.537,
+  "roll_dps": 2.07
  },
  {
-  "t": 0.904,
-  "roll_deg": 112.479,
-  "roll_dps": -31.26,
-  "pitch_deg": 0.174
+  "t": 0.886,
+  "roll_deg": 75.537,
+  "roll_dps": -0.35
  },
  {
-  "t": 0.926,
-  "roll_deg": 109.738,
-  "roll_dps": -31.26,
-  "pitch_deg": 0.188
+  "t": 0.907,
+  "roll_deg": 75.844,
+  "roll_dps": -0.35
  },
  {
-  "t": 0.948,
-  "roll_deg": 109.738,
-  "roll_dps": -21.49,
-  "pitch_deg": 0.188
+  "t": 0.928,
+  "roll_deg": 75.844,
+  "roll_dps": -1.92
  },
  {
-  "t": 0.969,
-  "roll_deg": 108.023,
-  "roll_dps": -21.49,
-  "pitch_deg": 0.197
+  "t": 0.949,
+  "roll_deg": 75.961,
+  "roll_dps": -1.92
  },
  {
-  "t": 0.992,
-  "roll_deg": 108.023,
-  "roll_dps": -21.49,
-  "pitch_deg": 0.197
+  "t": 0.97,
+  "roll_deg": 75.961,
+  "roll_dps": -1.92
  },
  {
-  "t": 1.013,
-  "roll_deg": 108.023,
-  "roll_dps": -9.23,
-  "pitch_deg": 0.197
+  "t": 0.991,
+  "roll_deg": 75.961,
+  "roll_dps": -3.28
  },
  {
-  "t": 1.034,
-  "roll_deg": 105.133,
-  "roll_dps": -9.23,
-  "pitch_deg": 0.214
+  "t": 1.012,
+  "roll_deg": 76.012,
+  "roll_dps": -3.28
  },
  {
-  "t": 1.056,
-  "roll_deg": 105.133,
-  "roll_dps": -9.23,
-  "pitch_deg": 0.214
+  "t": 1.033,
+  "roll_deg": 76.012,
+  "roll_dps": -4.19
  },
  {
-  "t": 1.077,
-  "roll_deg": 105.133,
-  "roll_dps": 7.39,
-  "pitch_deg": 0.214
+  "t": 1.054,
+  "roll_deg": 75.971,
+  "roll_dps": -4.19
  },
  {
-  "t": 1.098,
-  "roll_deg": 103.681,
-  "roll_dps": 7.39,
-  "pitch_deg": 0.225
+  "t": 1.075,
+  "roll_deg": 75.971,
+  "roll_dps": -4.19
  },
  {
-  "t": 1.12,
-  "roll_deg": 103.681,
-  "roll_dps": 17.03,
-  "pitch_deg": 0.225
+  "t": 1.095,
+  "roll_deg": 75.971,
+  "roll_dps": -5.23
  },
  {
-  "t": 1.141,
-  "roll_deg": 103.209,
-  "roll_dps": 17.03,
-  "pitch_deg": 0.232
+  "t": 1.116,
+  "roll_deg": 75.807,
+  "roll_dps": -5.23
  },
  {
-  "t": 1.162,
-  "roll_deg": 103.209,
-  "roll_dps": 17.03,
-  "pitch_deg": 0.232
+  "t": 1.137,
+  "roll_deg": 75.807,
+  "roll_dps": -5.39
  },
  {
-  "t": 1.184,
-  "roll_deg": 103.209,
-  "roll_dps": 24.38,
-  "pitch_deg": 0.232
+  "t": 1.158,
+  "roll_deg": 75.654,
+  "roll_dps": -5.39
  },
  {
-  "t": 1.204,
-  "roll_deg": 103.328,
-  "roll_dps": 24.38,
-  "pitch_deg": 0.243
+  "t": 1.179,
+  "roll_deg": 75.654,
+  "roll_dps": -5.39
  },
  {
-  "t": 1.226,
-  "roll_deg": 103.328,
-  "roll_dps": 24.92,
-  "pitch_deg": 0.243
+  "t": 1.2,
+  "roll_deg": 75.654,
+  "roll_dps": -5.85
  },
  {
-  "t": 1.247,
-  "roll_deg": 103.888,
-  "roll_dps": 24.92,
-  "pitch_deg": 0.251
+  "t": 1.22,
+  "roll_deg": 75.339,
+  "roll_dps": -5.85
  },
  {
-  "t": 1.269,
-  "roll_deg": 103.888,
-  "roll_dps": 24.92,
-  "pitch_deg": 0.251
+  "t": 1.242,
+  "roll_deg": 75.339,
+  "roll_dps": -5.72
  },
  {
-  "t": 1.29,
-  "roll_deg": 103.888,
-  "roll_dps": 20.11,
-  "pitch_deg": 0.251
+  "t": 1.262,
+  "roll_deg": 75.124,
+  "roll_dps": -5.72
  },
  {
-  "t": 1.311,
-  "roll_deg": 105.24,
-  "roll_dps": 20.11,
-  "pitch_deg": 0.263
+  "t": 1.283,
+  "roll_deg": 75.124,
+  "roll_dps": -5.72
  },
  {
-  "t": 1.333,
-  "roll_deg": 105.24,
-  "roll_dps": 15.35,
-  "pitch_deg": 0.263
+  "t": 1.304,
+  "roll_deg": 75.124,
+  "roll_dps": -5.55
  },
  {
-  "t": 1.353,
-  "roll_deg": 106.338,
-  "roll_dps": 15.35,
-  "pitch_deg": 0.271
+  "t": 1.325,
+  "roll_deg": 74.748,
+  "roll_dps": -5.55
  },
  {
-  "t": 1.375,
-  "roll_deg": 106.338,
-  "roll_dps": 15.35,
-  "pitch_deg": 0.271
+  "t": 1.346,
+  "roll_deg": 74.748,
+  "roll_dps": -5.53
  },
  {
-  "t": 1.396,
-  "roll_deg": 106.338,
-  "roll_dps": 1.6,
-  "pitch_deg": 0.271
+  "t": 1.367,
+  "roll_deg": 74.505,
+  "roll_dps": -5.53
  },
  {
-  "t": 1.417,
-  "roll_deg": 107.799,
-  "roll_dps": 1.6,
-  "pitch_deg": 0.285
+  "t": 1.388,
+  "roll_deg": 74.505,
+  "roll_dps": -5.53
  },
  {
-  "t": 1.439,
-  "roll_deg": 107.799,
-  "roll_dps": -8.64,
-  "pitch_deg": 0.285
+  "t": 1.41,
+  "roll_deg": 74.505,
+  "roll_dps": -5.24
  },
  {
-  "t": 1.46,
-  "roll_deg": 108.536,
-  "roll_dps": -8.64,
-  "pitch_deg": 0.296
+  "t": 1.431,
+  "roll_deg": 74.152,
+  "roll_dps": -5.24
  },
  {
-  "t": 1.483,
-  "roll_deg": 108.536,
-  "roll_dps": -8.64,
-  "pitch_deg": 0.296
+  "t": 1.452,
+  "roll_deg": 74.152,
+  "roll_dps": -5.22
  },
  {
-  "t": 1.505,
-  "roll_deg": 108.536,
-  "roll_dps": -20.54,
-  "pitch_deg": 0.296
+  "t": 1.473,
+  "roll_deg": 73.92,
+  "roll_dps": -5.22
  },
  {
-  "t": 1.527,
-  "roll_deg": 108.984,
-  "roll_dps": -20.54,
-  "pitch_deg": 0.318
+  "t": 1.494,
+  "roll_deg": 73.92,
+  "roll_dps": -5.22
  },
  {
-  "t": 1.549,
-  "roll_deg": 108.984,
-  "roll_dps": -25.93,
-  "pitch_deg": 0.318
+  "t": 1.515,
+  "roll_deg": 73.92,
+  "roll_dps": -4.99
  },
  {
-  "t": 1.57,
-  "roll_deg": 108.765,
-  "roll_dps": -25.93,
-  "pitch_deg": 0.338
+  "t": 1.535,
+  "roll_deg": 73.577,
+  "roll_dps": -4.99
  },
  {
-  "t": 1.592,
-  "roll_deg": 108.765,
-  "roll_dps": -25.93,
-  "pitch_deg": 0.338
+  "t": 1.557,
+  "roll_deg": 73.577,
+  "roll_dps": -5.11
  },
  {
-  "t": 1.613,
-  "roll_deg": 108.765,
-  "roll_dps": -28.82,
-  "pitch_deg": 0.338
+  "t": 1.577,
+  "roll_deg": 73.358,
+  "roll_dps": -5.11
  },
  {
-  "t": 1.634,
-  "roll_deg": 107.697,
-  "roll_dps": -28.82,
-  "pitch_deg": 0.374
+  "t": 1.598,
+  "roll_deg": 73.358,
+  "roll_dps": -5.11
  },
  {
-  "t": 1.656,
-  "roll_deg": 107.697,
-  "roll_dps": -27.36,
-  "pitch_deg": 0.374
+  "t": 1.619,
+  "roll_deg": 73.358,
+  "roll_dps": -5.45
  },
  {
-  "t": 1.678,
-  "roll_deg": 106.65,
-  "roll_dps": -27.36,
-  "pitch_deg": 0.397
+  "t": 1.64,
+  "roll_deg": 73.029,
+  "roll_dps": -5.45
  },
  {
-  "t": 1.699,
-  "roll_deg": 106.65,
-  "roll_dps": -27.36,
-  "pitch_deg": 0.397
+  "t": 1.661,
+  "roll_deg": 73.029,
+  "roll_dps": -5.45
  },
  {
-  "t": 1.721,
-  "roll_deg": 106.65,
-  "roll_dps": -20.71,
-  "pitch_deg": 0.397
+  "t": 1.682,
+  "roll_deg": 73.029,
+  "roll_dps": -5.83
  },
  {
-  "t": 1.743,
-  "roll_deg": 104.888,
-  "roll_dps": -20.71,
-  "pitch_deg": 0.427
+  "t": 1.703,
+  "roll_deg": 72.687,
+  "roll_dps": -5.83
  },
  {
-  "t": 1.765,
-  "roll_deg": 104.888,
-  "roll_dps": -13.57,
-  "pitch_deg": 0.427
+  "t": 1.724,
+  "roll_deg": 72.687,
+  "roll_dps": -5.87
  },
  {
-  "t": 1.786,
-  "roll_deg": 103.645,
-  "roll_dps": -13.57,
-  "pitch_deg": 0.446
+  "t": 1.745,
+  "roll_deg": 72.475,
+  "roll_dps": -5.87
  },
  {
-  "t": 1.807,
-  "roll_deg": 103.645,
-  "roll_dps": -13.57,
-  "pitch_deg": 0.446
+  "t": 1.766,
+  "roll_deg": 72.475,
+  "roll_dps": -5.87
  },
  {
-  "t": 1.828,
-  "roll_deg": 103.645,
-  "roll_dps": -0.27,
-  "pitch_deg": 0.446
+  "t": 1.787,
+  "roll_deg": 72.475,
+  "roll_dps": -5.95
+ },
+ {
+  "t": 1.808,
+  "roll_deg": 72.111,
+  "roll_dps": -5.95
+ },
+ {
+  "t": 1.829,
+  "roll_deg": 72.111,
+  "roll_dps": -6.04
  },
  {
   "t": 1.849,
-  "roll_deg": 102.104,
-  "roll_dps": -0.27,
-  "pitch_deg": 0.471
+  "roll_deg": 71.882,
+  "roll_dps": -6.04
  },
  {
   "t": 1.87,
-  "roll_deg": 102.104,
-  "roll_dps": 8.1,
-  "pitch_deg": 0.471
+  "roll_deg": 71.882,
+  "roll_dps": -6.04
  },
  {
   "t": 1.891,
-  "roll_deg": 101.39,
-  "roll_dps": 8.1,
-  "pitch_deg": 0.485
+  "roll_deg": 71.882,
+  "roll_dps": -6.35
  },
  {
-  "t": 1.913,
-  "roll_deg": 101.39,
-  "roll_dps": 8.1,
-  "pitch_deg": 0.485
+  "t": 1.912,
+  "roll_deg": 71.503,
+  "roll_dps": -6.35
  },
  {
-  "t": 1.934,
-  "roll_deg": 101.39,
-  "roll_dps": 18.16,
-  "pitch_deg": 0.485
+  "t": 1.933,
+  "roll_deg": 71.503,
+  "roll_dps": -6.53
  },
  {
-  "t": 1.955,
-  "roll_deg": 100.918,
-  "roll_dps": 18.16,
-  "pitch_deg": 0.504
+  "t": 1.954,
+  "roll_deg": 71.234,
+  "roll_dps": -6.53
  },
  {
-  "t": 1.976,
-  "roll_deg": 100.918,
-  "roll_dps": 18.16,
-  "pitch_deg": 0.504
+  "t": 1.975,
+  "roll_deg": 71.234,
+  "roll_dps": -6.53
  },
  {
-  "t": 1.997,
-  "roll_deg": 100.918,
-  "roll_dps": 20.46,
-  "pitch_deg": 0.504
+  "t": 1.996,
+  "roll_deg": 71.234,
+  "roll_dps": -6.41
  },
  {
-  "t": 2.018,
-  "roll_deg": 101.317,
-  "roll_dps": 20.46,
-  "pitch_deg": 0.526
+  "t": 2.017,
+  "roll_deg": 70.959,
+  "roll_dps": -6.41
  },
  {
-  "t": 2.039,
-  "roll_deg": 101.317,
-  "roll_dps": 18.25,
-  "pitch_deg": 0.526
+  "t": 2.038,
+  "roll_deg": 70.959,
+  "roll_dps": -6.54
  },
  {
-  "t": 2.06,
-  "roll_deg": 101.973,
-  "roll_dps": 18.25,
-  "pitch_deg": 0.546
+  "t": 2.059,
+  "roll_deg": 70.693,
+  "roll_dps": -6.54
  },
  {
-  "t": 2.082,
-  "roll_deg": 101.973,
-  "roll_dps": 18.25,
-  "pitch_deg": 0.546
+  "t": 2.08,
+  "roll_deg": 70.693,
+  "roll_dps": -6.54
  },
  {
-  "t": 2.103,
-  "roll_deg": 101.973,
-  "roll_dps": 11.25,
-  "pitch_deg": 0.546
+  "t": 2.1,
+  "roll_deg": 70.693,
+  "roll_dps": -6.28
  },
  {
-  "t": 2.124,
-  "roll_deg": 103.242,
-  "roll_dps": 11.25,
-  "pitch_deg": 0.582
+  "t": 2.121,
+  "roll_deg": 70.296,
+  "roll_dps": -6.28
  },
  {
-  "t": 2.145,
-  "roll_deg": 103.242,
-  "roll_dps": 4.58,
-  "pitch_deg": 0.582
+  "t": 2.142,
+  "roll_deg": 70.296,
+  "roll_dps": -6.1
  },
  {
-  "t": 2.166,
-  "roll_deg": 104.031,
-  "roll_dps": 4.58,
-  "pitch_deg": 0.604
+  "t": 2.163,
+  "roll_deg": 70.026,
+  "roll_dps": -6.1
  },
  {
-  "t": 2.187,
-  "roll_deg": 104.031,
-  "roll_dps": 4.58,
-  "pitch_deg": 0.604
+  "t": 2.184,
+  "roll_deg": 70.026,
+  "roll_dps": -6.1
  },
  {
-  "t": 2.208,
-  "roll_deg": 104.031,
-  "roll_dps": -5.26,
-  "pitch_deg": 0.604
+  "t": 2.205,
+  "roll_deg": 70.026,
+  "roll_dps": -5.53
  },
  {
-  "t": 2.229,
-  "roll_deg": 105.038,
-  "roll_dps": -5.26,
-  "pitch_deg": 0.635
+  "t": 2.226,
+  "roll_deg": 69.622,
+  "roll_dps": -5.53
  },
  {
-  "t": 2.25,
-  "roll_deg": 105.038,
-  "roll_dps": -12.61,
-  "pitch_deg": 0.635
+  "t": 2.247,
+  "roll_deg": 69.622,
+  "roll_dps": -5.46
  },
  {
-  "t": 2.271,
-  "roll_deg": 105.427,
-  "roll_dps": -12.61,
-  "pitch_deg": 0.651
+  "t": 2.268,
+  "roll_deg": 69.363,
+  "roll_dps": -5.46
  },
  {
-  "t": 2.292,
-  "roll_deg": 105.427,
-  "roll_dps": -12.61,
-  "pitch_deg": 0.651
+  "t": 2.289,
+  "roll_deg": 69.363,
+  "roll_dps": -5.46
  },
  {
-  "t": 2.313,
-  "roll_deg": 105.427,
-  "roll_dps": -20.62,
-  "pitch_deg": 0.651
+  "t": 2.31,
+  "roll_deg": 69.363,
+  "roll_dps": -5.15
  },
  {
-  "t": 2.334,
-  "roll_deg": 105.402,
-  "roll_dps": -20.62,
-  "pitch_deg": 0.668
+  "t": 2.331,
+  "roll_deg": 68.993,
+  "roll_dps": -5.15
  },
  {
-  "t": 2.356,
-  "roll_deg": 105.402,
-  "roll_dps": -22.56,
-  "pitch_deg": 0.668
+  "t": 2.352,
+  "roll_deg": 68.993,
+  "roll_dps": -4.92
  },
  {
-  "t": 2.377,
-  "roll_deg": 104.981,
-  "roll_dps": -22.56,
-  "pitch_deg": 0.676
+  "t": 2.374,
+  "roll_deg": 68.741,
+  "roll_dps": -4.92
  },
  {
-  "t": 2.398,
-  "roll_deg": 104.981,
-  "roll_dps": -22.56,
-  "pitch_deg": 0.676
+  "t": 2.395,
+  "roll_deg": 68.741,
+  "roll_dps": -4.92
  },
  {
-  "t": 2.419,
-  "roll_deg": 104.981,
-  "roll_dps": -20.76,
-  "pitch_deg": 0.676
+  "t": 2.416,
+  "roll_deg": 68.741,
+  "roll_dps": -4.6
  },
  {
-  "t": 2.44,
-  "roll_deg": 104.332,
-  "roll_dps": -20.76,
-  "pitch_deg": 0.681
+  "t": 2.437,
+  "roll_deg": 68.382,
+  "roll_dps": -4.6
  },
  {
-  "t": 2.461,
-  "roll_deg": 104.332,
-  "roll_dps": -16.97,
-  "pitch_deg": 0.681
+  "t": 2.458,
+  "roll_deg": 68.382,
+  "roll_dps": -4.31
  },
  {
-  "t": 2.482,
-  "roll_deg": 102.932,
-  "roll_dps": -16.97,
-  "pitch_deg": 0.686
+  "t": 2.479,
+  "roll_deg": 68.177,
+  "roll_dps": -4.31
  },
  {
-  "t": 2.503,
-  "roll_deg": 102.932,
-  "roll_dps": -16.97,
-  "pitch_deg": 0.686
+  "t": 2.501,
+  "roll_deg": 68.177,
+  "roll_dps": -4.31
  },
  {
-  "t": 2.525,
-  "roll_deg": 102.932,
-  "roll_dps": -8.6,
-  "pitch_deg": 0.686
+  "t": 2.521,
+  "roll_deg": 68.177,
+  "roll_dps": -4.01
  },
  {
-  "t": 2.547,
-  "roll_deg": 101.514,
-  "roll_dps": -8.6,
-  "pitch_deg": 0.689
+  "t": 2.542,
+  "roll_deg": 67.879,
+  "roll_dps": -4.01
  },
  {
-  "t": 2.569,
-  "roll_deg": 101.514,
-  "roll_dps": -2.11,
-  "pitch_deg": 0.689
+  "t": 2.563,
+  "roll_deg": 67.879,
+  "roll_dps": -4.01
  },
  {
-  "t": 2.591,
-  "roll_deg": 100.684,
-  "roll_dps": -2.11,
-  "pitch_deg": 0.691
+  "t": 2.584,
+  "roll_deg": 67.879,
+  "roll_dps": -3.64
  },
  {
-  "t": 2.613,
-  "roll_deg": 100.684,
-  "roll_dps": -2.11,
-  "pitch_deg": 0.691
+  "t": 2.605,
+  "roll_deg": 67.596,
+  "roll_dps": -3.64
  },
  {
-  "t": 2.634,
-  "roll_deg": 100.684,
-  "roll_dps": 7.15,
-  "pitch_deg": 0.691
+  "t": 2.627,
+  "roll_deg": 67.596,
+  "roll_dps": -3.59
  },
  {
-  "t": 2.656,
-  "roll_deg": 99.894,
-  "roll_dps": 7.15,
-  "pitch_deg": 0.693
+  "t": 2.648,
+  "roll_deg": 67.424,
+  "roll_dps": -3.59
  },
  {
-  "t": 2.678,
-  "roll_deg": 99.894,
-  "roll_dps": 7.15,
-  "pitch_deg": 0.693
+  "t": 2.669,
+  "roll_deg": 67.424,
+  "roll_dps": -3.59
  },
  {
-  "t": 2.699,
-  "roll_deg": 99.894,
-  "roll_dps": 14.33,
-  "pitch_deg": 0.693
+  "t": 2.69,
+  "roll_deg": 67.424,
+  "roll_dps": -3.37
  },
  {
-  "t": 2.72,
-  "roll_deg": 99.731,
-  "roll_dps": 14.33,
-  "pitch_deg": 0.695
+  "t": 2.711,
+  "roll_deg": 67.177,
+  "roll_dps": -3.37
  },
  {
-  "t": 2.741,
-  "roll_deg": 99.731,
-  "roll_dps": 16.39,
-  "pitch_deg": 0.695
+  "t": 2.732,
+  "roll_deg": 67.177,
+  "roll_dps": -3.04
  },
  {
-  "t": 2.762,
-  "roll_deg": 99.958,
-  "roll_dps": 16.39,
-  "pitch_deg": 0.695
+  "t": 2.754,
+  "roll_deg": 67.018,
+  "roll_dps": -3.04
  },
  {
-  "t": 2.783,
-  "roll_deg": 99.958,
-  "roll_dps": 16.39,
-  "pitch_deg": 0.695
+  "t": 2.776,
+  "roll_deg": 67.018,
+  "roll_dps": -3.04
  },
  {
-  "t": 2.804,
-  "roll_deg": 99.958,
-  "roll_dps": 14.71,
-  "pitch_deg": 0.695
+  "t": 2.797,
+  "roll_deg": 67.018,
+  "roll_dps": -3.1
  },
  {
-  "t": 2.825,
-  "roll_deg": 100.731,
-  "roll_dps": 14.71,
-  "pitch_deg": 0.697
+  "t": 2.819,
+  "roll_deg": 66.805,
+  "roll_dps": -3.1
  },
  {
-  "t": 2.847,
-  "roll_deg": 100.731,
-  "roll_dps": 10.71,
-  "pitch_deg": 0.697
+  "t": 2.84,
+  "roll_deg": 66.805,
+  "roll_dps": -2.99
  },
  {
-  "t": 2.868,
-  "roll_deg": 101.424,
-  "roll_dps": 10.71,
-  "pitch_deg": 0.698
+  "t": 2.861,
+  "roll_deg": 66.673,
+  "roll_dps": -2.99
  },
  {
-  "t": 2.889,
-  "roll_deg": 101.424,
-  "roll_dps": 10.71,
-  "pitch_deg": 0.698
+  "t": 2.882,
+  "roll_deg": 66.673,
+  "roll_dps": -2.99
  },
  {
-  "t": 2.91,
-  "roll_deg": 101.424,
-  "roll_dps": 4.5,
-  "pitch_deg": 0.698
+  "t": 2.903,
+  "roll_deg": 66.673,
+  "roll_dps": -3.07
  },
  {
-  "t": 2.931,
-  "roll_deg": 102.432,
-  "roll_dps": 4.5,
-  "pitch_deg": 0.697
+  "t": 2.924,
+  "roll_deg": 66.47,
+  "roll_dps": -3.07
  },
  {
-  "t": 2.952,
-  "roll_deg": 102.432,
-  "roll_dps": -1.45,
-  "pitch_deg": 0.697
+  "t": 2.945,
+  "roll_deg": 66.47,
+  "roll_dps": -2.82
  },
  {
-  "t": 2.973,
-  "roll_deg": 102.964,
-  "roll_dps": -1.45,
-  "pitch_deg": 0.697
+  "t": 2.966,
+  "roll_deg": 66.335,
+  "roll_dps": -2.82
  },
  {
-  "t": 2.994,
-  "roll_deg": 102.964,
-  "roll_dps": -1.45,
-  "pitch_deg": 0.697
+  "t": 2.987,
+  "roll_deg": 66.335,
+  "roll_dps": -2.82
  },
  {
-  "t": 3.016,
-  "roll_deg": 102.964,
-  "roll_dps": -10.19,
-  "pitch_deg": 0.697
+  "t": 3.008,
+  "roll_deg": 66.335,
+  "roll_dps": -2.87
  },
  {
-  "t": 3.036,
-  "roll_deg": 103.402,
-  "roll_dps": -10.19,
-  "pitch_deg": 0.696
+  "t": 3.029,
+  "roll_deg": 66.151,
+  "roll_dps": -2.87
  },
  {
-  "t": 3.057,
-  "roll_deg": 103.402,
-  "roll_dps": -14.53,
-  "pitch_deg": 0.696
+  "t": 3.05,
+  "roll_deg": 66.151,
+  "roll_dps": -2.69
  },
  {
-  "t": 3.078,
-  "roll_deg": 103.425,
-  "roll_dps": -14.53,
-  "pitch_deg": 0.696
+  "t": 3.07,
+  "roll_deg": 66.023,
+  "roll_dps": -2.69
  },
  {
-  "t": 3.099,
-  "roll_deg": 103.425,
-  "roll_dps": -14.53,
-  "pitch_deg": 0.696
+  "t": 3.091,
+  "roll_deg": 66.023,
+  "roll_dps": -2.69
  },
  {
-  "t": 3.12,
-  "roll_deg": 103.425,
-  "roll_dps": -16.85,
-  "pitch_deg": 0.696
+  "t": 3.112,
+  "roll_deg": 66.023,
+  "roll_dps": -2.99
  },
  {
-  "t": 3.141,
-  "roll_deg": 103.014,
-  "roll_dps": -16.85,
-  "pitch_deg": 0.697
+  "t": 3.133,
+  "roll_deg": 65.841,
+  "roll_dps": -2.99
  },
  {
-  "t": 3.163,
-  "roll_deg": 103.014,
-  "roll_dps": -16.26,
-  "pitch_deg": 0.697
+  "t": 3.154,
+  "roll_deg": 65.841,
+  "roll_dps": -2.5
  },
  {
-  "t": 3.183,
-  "roll_deg": 102.489,
-  "roll_dps": -16.26,
-  "pitch_deg": 0.699
+  "t": 3.175,
+  "roll_deg": 65.723,
+  "roll_dps": -2.5
  },
  {
-  "t": 3.205,
-  "roll_deg": 102.489,
-  "roll_dps": -16.26,
-  "pitch_deg": 0.699
+  "t": 3.196,
+  "roll_deg": 65.723,
+  "roll_dps": -2.5
  },
  {
-  "t": 3.226,
-  "roll_deg": 102.489,
-  "roll_dps": -11.76,
-  "pitch_deg": 0.699
+  "t": 3.217,
+  "roll_deg": 65.723,
+  "roll_dps": -2.71
  },
  {
-  "t": 3.246,
-  "roll_deg": 101.436,
-  "roll_dps": -11.76,
-  "pitch_deg": 0.701
+  "t": 3.239,
+  "roll_deg": 65.557,
+  "roll_dps": -2.71
  },
  {
-  "t": 3.268,
-  "roll_deg": 101.436,
-  "roll_dps": -11.76,
-  "pitch_deg": 0.701
+  "t": 3.26,
+  "roll_deg": 65.557,
+  "roll_dps": -2.52
  },
  {
-  "t": 3.289,
-  "roll_deg": 101.436,
-  "roll_dps": -4.89,
-  "pitch_deg": 0.701
+  "t": 3.281,
+  "roll_deg": 65.437,
+  "roll_dps": -2.52
  },
  {
-  "t": 3.309,
-  "roll_deg": 100.435,
-  "roll_dps": -4.89,
-  "pitch_deg": 0.702
+  "t": 3.302,
+  "roll_deg": 65.437,
+  "roll_dps": -2.52
  },
  {
-  "t": 3.33,
-  "roll_deg": 100.435,
-  "roll_dps": -1.37,
-  "pitch_deg": 0.702
+  "t": 3.323,
+  "roll_deg": 65.437,
+  "roll_dps": -2.02
  },
  {
-  "t": 3.351,
-  "roll_deg": 99.87,
-  "roll_dps": -1.37,
-  "pitch_deg": 0.701
+  "t": 3.343,
+  "roll_deg": 65.264,
+  "roll_dps": -2.02
  },
  {
-  "t": 3.372,
-  "roll_deg": 99.87,
-  "roll_dps": -1.37,
-  "pitch_deg": 0.701
+  "t": 3.364,
+  "roll_deg": 65.264,
+  "roll_dps": -2.02
  },
  {
-  "t": 3.393,
-  "roll_deg": 99.87,
-  "roll_dps": 6.49,
-  "pitch_deg": 0.701
+  "t": 3.385,
+  "roll_deg": 65.264,
+  "roll_dps": -1.25
  },
  {
-  "t": 3.414,
-  "roll_deg": 99.314,
-  "roll_dps": 6.49,
-  "pitch_deg": 0.7
+  "t": 3.406,
+  "roll_deg": 65.105,
+  "roll_dps": -1.25
  },
  {
-  "t": 3.435,
-  "roll_deg": 99.314,
-  "roll_dps": 9.86,
-  "pitch_deg": 0.7
+  "t": 3.427,
+  "roll_deg": 65.105,
+  "roll_dps": -1.09
  },
  {
-  "t": 3.456,
-  "roll_deg": 99.194,
-  "roll_dps": 9.86,
-  "pitch_deg": 0.699
+  "t": 3.448,
+  "roll_deg": 65.016,
+  "roll_dps": -1.09
  },
  {
-  "t": 3.477,
-  "roll_deg": 99.194,
-  "roll_dps": 9.86,
-  "pitch_deg": 0.699
+  "t": 3.469,
+  "roll_deg": 65.016,
+  "roll_dps": -1.09
  },
  {
-  "t": 3.498,
-  "roll_deg": 99.194,
-  "roll_dps": 14.36,
-  "pitch_deg": 0.699
+  "t": 3.49,
+  "roll_deg": 65.016,
+  "roll_dps": -0.44
  },
  {
-  "t": 3.519,
-  "roll_deg": 99.386,
-  "roll_dps": 14.36,
-  "pitch_deg": 0.696
+  "t": 3.511,
+  "roll_deg": 64.899,
+  "roll_dps": -0.44
  },
  {
-  "t": 3.541,
-  "roll_deg": 99.386,
-  "roll_dps": 14.67,
-  "pitch_deg": 0.696
+  "t": 3.532,
+  "roll_deg": 64.899,
+  "roll_dps": -0.01
  },
  {
-  "t": 3.561,
-  "roll_deg": 99.775,
-  "roll_dps": 14.67,
-  "pitch_deg": 0.69
+  "t": 3.553,
+  "roll_deg": 64.848,
+  "roll_dps": -0.01
  },
  {
-  "t": 3.583,
-  "roll_deg": 99.775,
-  "roll_dps": 14.67,
-  "pitch_deg": 0.69
+  "t": 3.574,
+  "roll_deg": 64.848,
+  "roll_dps": -0.01
  },
  {
-  "t": 3.604,
-  "roll_deg": 99.775,
-  "roll_dps": 11.81,
-  "pitch_deg": 0.69
+  "t": 3.595,
+  "roll_deg": 64.848,
+  "roll_dps": 0.18
  },
  {
-  "t": 3.625,
-  "roll_deg": 100.58,
-  "roll_dps": 11.81,
-  "pitch_deg": 0.679
+  "t": 3.616,
+  "roll_deg": 64.802,
+  "roll_dps": 0.18
  },
  {
-  "t": 3.646,
-  "roll_deg": 100.58,
-  "roll_dps": 7.78,
-  "pitch_deg": 0.679
+  "t": 3.637,
+  "roll_deg": 64.802,
+  "roll_dps": 0.31
  },
  {
-  "t": 3.667,
-  "roll_deg": 101.166,
-  "roll_dps": 7.78,
-  "pitch_deg": 0.67
+  "t": 3.658,
+  "roll_deg": 64.79,
+  "roll_dps": 0.31
  },
  {
-  "t": 3.688,
-  "roll_deg": 101.166,
-  "roll_dps": 7.78,
-  "pitch_deg": 0.67
+  "t": 3.679,
+  "roll_deg": 64.79,
+  "roll_dps": 0.31
  },
  {
-  "t": 3.709,
-  "roll_deg": 101.166,
-  "roll_dps": -0.08,
-  "pitch_deg": 0.67
+  "t": 3.7,
+  "roll_deg": 64.79,
+  "roll_dps": 0.47
  },
  {
-  "t": 3.73,
-  "roll_deg": 102.013,
-  "roll_dps": -0.08,
-  "pitch_deg": 0.657
+  "t": 3.721,
+  "roll_deg": 64.795,
+  "roll_dps": 0.47
  },
  {
-  "t": 3.751,
-  "roll_deg": 102.013,
-  "roll_dps": -5.76,
-  "pitch_deg": 0.657
+  "t": 3.742,
+  "roll_deg": 64.795,
+  "roll_dps": 0.41
  },
  {
-  "t": 3.772,
-  "roll_deg": 102.42,
-  "roll_dps": -5.76,
-  "pitch_deg": 0.648
+  "t": 3.762,
+  "roll_deg": 64.808,
+  "roll_dps": 0.41
  },
  {
-  "t": 3.793,
-  "roll_deg": 102.42,
-  "roll_dps": -5.76,
-  "pitch_deg": 0.648
+  "t": 3.783,
+  "roll_deg": 64.808,
+  "roll_dps": 0.41
  },
  {
-  "t": 3.814,
-  "roll_deg": 102.42,
-  "roll_dps": -11.92,
-  "pitch_deg": 0.648
+  "t": 3.804,
+  "roll_deg": 64.808,
+  "roll_dps": 0.35
  },
  {
-  "t": 3.835,
-  "roll_deg": 102.63,
-  "roll_dps": -11.92,
-  "pitch_deg": 0.636
+  "t": 3.826,
+  "roll_deg": 64.835,
+  "roll_dps": 0.35
  },
  {
-  "t": 3.856,
-  "roll_deg": 102.63,
-  "roll_dps": -15.06,
-  "pitch_deg": 0.636
+  "t": 3.847,
+  "roll_deg": 64.835,
+  "roll_dps": 0.25
  },
  {
-  "t": 3.877,
-  "roll_deg": 102.497,
-  "roll_dps": -15.06,
-  "pitch_deg": 0.628
+  "t": 3.868,
+  "roll_deg": 64.853,
+  "roll_dps": 0.25
  },
  {
-  "t": 3.898,
-  "roll_deg": 102.497,
-  "roll_dps": -15.06,
-  "pitch_deg": 0.628
+  "t": 3.889,
+  "roll_deg": 64.853,
+  "roll_dps": 0.25
  },
  {
-  "t": 3.919,
-  "roll_deg": 102.497,
-  "roll_dps": -15.59,
-  "pitch_deg": 0.628
+  "t": 3.91,
+  "roll_deg": 64.853,
+  "roll_dps": 0.37
  },
  {
-  "t": 3.94,
-  "roll_deg": 101.919,
-  "roll_dps": -15.59,
-  "pitch_deg": 0.62
+  "t": 3.931,
+  "roll_deg": 64.881,
+  "roll_dps": 0.37
  },
  {
-  "t": 3.962,
-  "roll_deg": 101.919,
-  "roll_dps": -13.79,
-  "pitch_deg": 0.62
+  "t": 3.952,
+  "roll_deg": 64.881,
+  "roll_dps": 0.4
  },
  {
-  "t": 3.983,
-  "roll_deg": 101.308,
-  "roll_dps": -13.79,
-  "pitch_deg": 0.616
+  "t": 3.973,
+  "roll_deg": 64.897,
+  "roll_dps": 0.4
  },
  {
-  "t": 4.004,
-  "roll_deg": 101.308,
-  "roll_dps": -13.79,
-  "pitch_deg": 0.616
+  "t": 3.994,
+  "roll_deg": 64.897,
+  "roll_dps": 0.4
  },
  {
-  "t": 4.026,
-  "roll_deg": 101.308,
-  "roll_dps": -10.11,
-  "pitch_deg": 0.616
+  "t": 4.014,
+  "roll_deg": 64.897,
+  "roll_dps": 0.33
  },
  {
-  "t": 4.047,
-  "roll_deg": 100.334,
-  "roll_dps": -10.11,
-  "pitch_deg": 0.613
+  "t": 4.035,
+  "roll_deg": 64.921,
+  "roll_dps": 0.33
  },
  {
-  "t": 4.068,
-  "roll_deg": 100.334,
-  "roll_dps": -10.11,
-  "pitch_deg": 0.613
+  "t": 4.056,
+  "roll_deg": 64.921,
+  "roll_dps": 0.09
  },
  {
-  "t": 4.089,
-  "roll_deg": 100.334,
-  "roll_dps": -3.15,
-  "pitch_deg": 0.613
+  "t": 4.077,
+  "roll_deg": 64.934,
+  "roll_dps": 0.09
  },
  {
-  "t": 4.11,
-  "roll_deg": 99.382,
-  "roll_dps": -3.15,
-  "pitch_deg": 0.612
+  "t": 4.098,
+  "roll_deg": 64.934,
+  "roll_dps": 0.09
  },
  {
-  "t": 4.131,
-  "roll_deg": 99.382,
-  "roll_dps": 2.52,
-  "pitch_deg": 0.612
+  "t": 4.119,
+  "roll_deg": 64.934,
+  "roll_dps": 0.21
  },
  {
-  "t": 4.152,
-  "roll_deg": 98.943,
-  "roll_dps": 2.52,
-  "pitch_deg": 0.612
+  "t": 4.14,
+  "roll_deg": 64.952,
+  "roll_dps": 0.21
  },
  {
-  "t": 4.173,
-  "roll_deg": 98.943,
-  "roll_dps": 2.52,
-  "pitch_deg": 0.612
+  "t": 4.161,
+  "roll_deg": 64.952,
+  "roll_dps": 0.21
  },
  {
-  "t": 4.194,
-  "roll_deg": 98.943,
-  "roll_dps": 9.54,
-  "pitch_deg": 0.612
+  "t": 4.182,
+  "roll_deg": 64.952,
+  "roll_dps": 0.2
  },
  {
-  "t": 4.215,
-  "roll_deg": 98.562,
-  "roll_dps": 9.54,
-  "pitch_deg": 0.613
+  "t": 4.203,
+  "roll_deg": 64.966,
+  "roll_dps": 0.2
  },
  {
-  "t": 4.236,
-  "roll_deg": 98.562,
-  "roll_dps": 11.97,
-  "pitch_deg": 0.613
+  "t": 4.224,
+  "roll_deg": 64.966,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.257,
-  "roll_deg": 98.562,
-  "roll_dps": 11.97,
-  "pitch_deg": 0.615
+  "t": 4.245,
+  "roll_deg": 64.974,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.278,
-  "roll_deg": 98.562,
-  "roll_dps": 11.97,
-  "pitch_deg": 0.615
+  "t": 4.266,
+  "roll_deg": 64.974,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.299,
-  "roll_deg": 98.562,
-  "roll_dps": 13.23,
-  "pitch_deg": 0.615
+  "t": 4.287,
+  "roll_deg": 64.974,
+  "roll_dps": -0.05
  },
  {
-  "t": 4.32,
-  "roll_deg": 98.937,
-  "roll_dps": 13.23,
-  "pitch_deg": 0.615
+  "t": 4.308,
+  "roll_deg": 64.985,
+  "roll_dps": -0.05
  },
  {
-  "t": 4.341,
-  "roll_deg": 98.937,
-  "roll_dps": 11.97,
-  "pitch_deg": 0.615
+  "t": 4.329,
+  "roll_deg": 64.985,
+  "roll_dps": 0.13
  },
  {
-  "t": 4.362,
-  "roll_deg": 99.394,
-  "roll_dps": 11.97,
-  "pitch_deg": 0.614
+  "t": 4.35,
+  "roll_deg": 64.991,
+  "roll_dps": 0.13
  },
  {
-  "t": 4.383,
-  "roll_deg": 99.394,
-  "roll_dps": 11.97,
-  "pitch_deg": 0.614
+  "t": 4.372,
+  "roll_deg": 64.991,
+  "roll_dps": 0.13
  },
  {
-  "t": 4.404,
-  "roll_deg": 99.394,
-  "roll_dps": 7.12,
-  "pitch_deg": 0.614
+  "t": 4.393,
+  "roll_deg": 64.991,
+  "roll_dps": 0.15
  },
  {
-  "t": 4.425,
-  "roll_deg": 100.227,
-  "roll_dps": 7.12,
-  "pitch_deg": 0.614
+  "t": 4.414,
+  "roll_deg": 64.998,
+  "roll_dps": 0.15
  },
  {
-  "t": 4.447,
-  "roll_deg": 100.227,
-  "roll_dps": 2.31,
-  "pitch_deg": 0.614
+  "t": 4.435,
+  "roll_deg": 64.998,
+  "roll_dps": -0.1
  },
  {
-  "t": 4.467,
-  "roll_deg": 100.728,
-  "roll_dps": 2.31,
-  "pitch_deg": 0.614
+  "t": 4.456,
+  "roll_deg": 65.002,
+  "roll_dps": -0.1
  },
  {
-  "t": 4.489,
-  "roll_deg": 100.728,
-  "roll_dps": 2.31,
-  "pitch_deg": 0.614
+  "t": 4.477,
+  "roll_deg": 65.002,
+  "roll_dps": -0.1
  },
  {
-  "t": 4.51,
-  "roll_deg": 100.728,
-  "roll_dps": -4.72,
-  "pitch_deg": 0.614
+  "t": 4.498,
+  "roll_deg": 65.002,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.531,
-  "roll_deg": 101.314,
-  "roll_dps": -4.72,
-  "pitch_deg": 0.615
+  "t": 4.519,
+  "roll_deg": 65.008,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.552,
-  "roll_deg": 101.314,
-  "roll_dps": -9.21,
-  "pitch_deg": 0.615
+  "t": 4.54,
+  "roll_deg": 65.008,
+  "roll_dps": 0.11
  },
  {
-  "t": 4.573,
-  "roll_deg": 101.511,
-  "roll_dps": -9.21,
-  "pitch_deg": 0.616
+  "t": 4.561,
+  "roll_deg": 65.011,
+  "roll_dps": 0.11
  },
  {
-  "t": 4.594,
-  "roll_deg": 101.511,
-  "roll_dps": -9.21,
-  "pitch_deg": 0.616
+  "t": 4.582,
+  "roll_deg": 65.011,
+  "roll_dps": 0.11
  },
  {
-  "t": 4.615,
-  "roll_deg": 101.511,
-  "roll_dps": -12.48,
-  "pitch_deg": 0.616
+  "t": 4.603,
+  "roll_deg": 65.011,
+  "roll_dps": -0.19
  },
  {
-  "t": 4.636,
-  "roll_deg": 101.419,
-  "roll_dps": -12.48,
-  "pitch_deg": 0.616
+  "t": 4.624,
+  "roll_deg": 65.014,
+  "roll_dps": -0.19
  },
  {
-  "t": 4.657,
-  "roll_deg": 101.419,
-  "roll_dps": -13.21,
-  "pitch_deg": 0.616
+  "t": 4.645,
+  "roll_deg": 65.014,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.678,
-  "roll_deg": 101.12,
-  "roll_dps": -13.21,
-  "pitch_deg": 0.616
+  "t": 4.666,
+  "roll_deg": 65.016,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.699,
-  "roll_deg": 101.12,
-  "roll_dps": -13.21,
-  "pitch_deg": 0.616
+  "t": 4.687,
+  "roll_deg": 65.016,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.72,
-  "roll_deg": 101.12,
-  "roll_dps": -10.75,
-  "pitch_deg": 0.616
+  "t": 4.708,
+  "roll_deg": 65.016,
+  "roll_dps": 0.0
  },
  {
-  "t": 4.741,
-  "roll_deg": 100.45,
-  "roll_dps": -10.75,
-  "pitch_deg": 0.617
+  "t": 4.729,
+  "roll_deg": 65.019,
+  "roll_dps": 0.0
  },
  {
-  "t": 4.762,
-  "roll_deg": 100.45,
-  "roll_dps": -10.75,
-  "pitch_deg": 0.617
+  "t": 4.75,
+  "roll_deg": 65.019,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.783,
-  "roll_deg": 100.45,
-  "roll_dps": -5.96,
-  "pitch_deg": 0.617
+  "t": 4.771,
+  "roll_deg": 65.02,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.804,
-  "roll_deg": 99.612,
-  "roll_dps": -5.96,
-  "pitch_deg": 0.617
+  "t": 4.792,
+  "roll_deg": 65.02,
+  "roll_dps": 0.08
  },
  {
-  "t": 4.825,
-  "roll_deg": 99.612,
-  "roll_dps": -2.91,
-  "pitch_deg": 0.617
+  "t": 4.813,
+  "roll_deg": 65.02,
+  "roll_dps": -0.01
  },
  {
-  "t": 4.846,
-  "roll_deg": 99.081,
-  "roll_dps": -2.91,
-  "pitch_deg": 0.617
+  "t": 4.835,
+  "roll_deg": 65.022,
+  "roll_dps": -0.01
  },
  {
-  "t": 4.867,
-  "roll_deg": 99.081,
-  "roll_dps": -2.91,
-  "pitch_deg": 0.617
+  "t": 4.857,
+  "roll_deg": 65.022,
+  "roll_dps": 0.12
  },
  {
-  "t": 4.888,
-  "roll_deg": 99.081,
-  "roll_dps": 3.98,
-  "pitch_deg": 0.617
+  "t": 4.878,
+  "roll_deg": 65.024,
+  "roll_dps": 0.12
  },
  {
-  "t": 4.909,
-  "roll_deg": 98.515,
-  "roll_dps": 3.98,
-  "pitch_deg": 0.617
+  "t": 4.899,
+  "roll_deg": 65.024,
+  "roll_dps": 0.12
  },
  {
-  "t": 4.931,
-  "roll_deg": 98.515,
-  "roll_dps": 7.92,
-  "pitch_deg": 0.617
+  "t": 4.92,
+  "roll_deg": 65.024,
+  "roll_dps": 0.04
  },
  {
-  "t": 4.952,
-  "roll_deg": 98.333,
-  "roll_dps": 7.92,
-  "pitch_deg": 0.619
+  "t": 4.941,
+  "roll_deg": 65.025,
+  "roll_dps": 0.04
  },
  {
-  "t": 4.973,
-  "roll_deg": 98.333,
-  "roll_dps": 7.92,
-  "pitch_deg": 0.619
+  "t": 4.962,
+  "roll_deg": 65.025,
+  "roll_dps": 0.04
  },
  {
-  "t": 4.994,
-  "roll_deg": 98.333,
-  "roll_dps": 11.03,
-  "pitch_deg": 0.619
+  "t": 4.983,
+  "roll_deg": 65.025,
+  "roll_dps": 0.21
  },
  {
-  "t": 5.015,
-  "roll_deg": 98.423,
-  "roll_dps": 11.03,
-  "pitch_deg": 0.623
+  "t": 5.004,
+  "roll_deg": 65.026,
+  "roll_dps": 0.21
  },
  {
-  "t": 5.036,
-  "roll_deg": 98.423,
-  "roll_dps": 11.6,
-  "pitch_deg": 0.623
+  "t": 5.025,
+  "roll_deg": 65.026,
+  "roll_dps": -0.05
  },
  {
-  "t": 5.057,
-  "roll_deg": 98.696,
-  "roll_dps": 11.6,
-  "pitch_deg": 0.625
+  "t": 5.045,
+  "roll_deg": 65.026,
+  "roll_dps": -0.05
  },
  {
-  "t": 5.078,
-  "roll_deg": 98.696,
-  "roll_dps": 11.6,
-  "pitch_deg": 0.625
+  "t": 5.067,
+  "roll_deg": 65.026,
+  "roll_dps": -0.05
  },
  {
-  "t": 5.099,
-  "roll_deg": 98.696,
-  "roll_dps": 9.37,
-  "pitch_deg": 0.625
+  "t": 5.087,
+  "roll_deg": 65.026,
+  "roll_dps": 0.04
  },
  {
-  "t": 5.12,
-  "roll_deg": 99.359,
-  "roll_dps": 9.37,
-  "pitch_deg": 0.626
+  "t": 5.108,
+  "roll_deg": 65.027,
+  "roll_dps": 0.04
  },
  {
-  "t": 5.141,
-  "roll_deg": 99.359,
-  "roll_dps": 6.27,
-  "pitch_deg": 0.626
+  "t": 5.13,
+  "roll_deg": 65.027,
+  "roll_dps": 0.03
  },
  {
-  "t": 5.162,
-  "roll_deg": 99.838,
-  "roll_dps": 6.27,
-  "pitch_deg": 0.627
+  "t": 5.15,
+  "roll_deg": 65.027,
+  "roll_dps": 0.03
  },
  {
-  "t": 5.183,
-  "roll_deg": 99.838,
-  "roll_dps": 6.27,
-  "pitch_deg": 0.627
+  "t": 5.171,
+  "roll_deg": 65.027,
+  "roll_dps": 0.03
  },
  {
-  "t": 5.204,
-  "roll_deg": 99.838,
-  "roll_dps": 0.7,
-  "pitch_deg": 0.627
+  "t": 5.193,
+  "roll_deg": 65.027,
+  "roll_dps": -0.01
  },
  {
-  "t": 5.225,
-  "roll_deg": 100.476,
-  "roll_dps": 0.7,
-  "pitch_deg": 0.626
+  "t": 5.213,
+  "roll_deg": 65.028,
+  "roll_dps": -0.01
  },
  {
-  "t": 5.246,
-  "roll_deg": 100.476,
-  "roll_dps": -4.19,
-  "pitch_deg": 0.626
+  "t": 5.235,
+  "roll_deg": 65.028,
+  "roll_dps": 0.04
  },
  {
-  "t": 5.267,
-  "roll_deg": 100.79,
-  "roll_dps": -4.19,
-  "pitch_deg": 0.626
+  "t": 5.256,
+  "roll_deg": 65.028,
+  "roll_dps": 0.04
  },
  {
-  "t": 5.288,
-  "roll_deg": 100.79,
-  "roll_dps": -4.19,
-  "pitch_deg": 0.626
+  "t": 5.277,
+  "roll_deg": 65.028,
+  "roll_dps": 0.04
  },
  {
-  "t": 5.31,
-  "roll_deg": 100.79,
-  "roll_dps": -9.84,
-  "pitch_deg": 0.626
+  "t": 5.298,
+  "roll_deg": 65.028,
+  "roll_dps": -0.06
  },
  {
-  "t": 5.33,
-  "roll_deg": 100.977,
-  "roll_dps": -9.84,
-  "pitch_deg": 0.625
+  "t": 5.319,
+  "roll_deg": 65.028,
+  "roll_dps": -0.06
  },
  {
-  "t": 5.352,
-  "roll_deg": 100.977,
-  "roll_dps": -11.14,
-  "pitch_deg": 0.625
+  "t": 5.34,
+  "roll_deg": 65.028,
+  "roll_dps": 0.06
  },
  {
-  "t": 5.373,
-  "roll_deg": 100.882,
-  "roll_dps": -11.14,
-  "pitch_deg": 0.624
+  "t": 5.361,
+  "roll_deg": 65.028,
+  "roll_dps": 0.06
  },
  {
-  "t": 5.394,
-  "roll_deg": 100.882,
-  "roll_dps": -11.14,
-  "pitch_deg": 0.624
+  "t": 5.382,
+  "roll_deg": 65.028,
+  "roll_dps": 0.06
  },
  {
-  "t": 5.415,
-  "roll_deg": 100.882,
-  "roll_dps": -12.24,
-  "pitch_deg": 0.624
+  "t": 5.403,
+  "roll_deg": 65.028,
+  "roll_dps": 0.03
  },
  {
-  "t": 5.436,
-  "roll_deg": 100.442,
-  "roll_dps": -12.24,
-  "pitch_deg": 0.621
+  "t": 5.424,
+  "roll_deg": 65.029,
+  "roll_dps": 0.03
  },
  {
-  "t": 5.457,
-  "roll_deg": 100.442,
-  "roll_dps": -12.24,
-  "pitch_deg": 0.621
+  "t": 5.445,
+  "roll_deg": 65.029,
+  "roll_dps": 0.03
  },
  {
-  "t": 5.478,
-  "roll_deg": 100.442,
-  "roll_dps": -9.63,
-  "pitch_deg": 0.621
+  "t": 5.465,
+  "roll_deg": 65.029,
+  "roll_dps": 0.03
  },
  {
-  "t": 5.499,
-  "roll_deg": 99.735,
-  "roll_dps": -9.63,
-  "pitch_deg": 0.618
+  "t": 5.486,
+  "roll_deg": 65.029,
+  "roll_dps": 0.03
  },
  {
-  "t": 5.52,
-  "roll_deg": 99.735,
-  "roll_dps": -6.43,
-  "pitch_deg": 0.618
+  "t": 5.507,
+  "roll_deg": 65.029,
+  "roll_dps": -0.2
  },
  {
-  "t": 5.541,
-  "roll_deg": 99.248,
-  "roll_dps": -6.43,
-  "pitch_deg": 0.617
+  "t": 5.528,
+  "roll_deg": 65.029,
+  "roll_dps": -0.2
  },
  {
-  "t": 5.562,
-  "roll_deg": 99.248,
-  "roll_dps": -6.43,
-  "pitch_deg": 0.617
+  "t": 5.549,
+  "roll_deg": 65.029,
+  "roll_dps": -0.15
  },
  {
-  "t": 5.582,
-  "roll_deg": 99.248,
-  "roll_dps": -0.54,
-  "pitch_deg": 0.617
+  "t": 5.57,
+  "roll_deg": 65.029,
+  "roll_dps": -0.15
  },
  {
-  "t": 5.603,
-  "roll_deg": 98.546,
-  "roll_dps": -0.54,
-  "pitch_deg": 0.619
+  "t": 5.591,
+  "roll_deg": 65.029,
+  "roll_dps": -0.15
  },
  {
-  "t": 5.624,
-  "roll_deg": 98.546,
-  "roll_dps": 2.81,
-  "pitch_deg": 0.619
+  "t": 5.611,
+  "roll_deg": 65.029,
+  "roll_dps": 0.01
  },
  {
-  "t": 5.645,
-  "roll_deg": 98.205,
-  "roll_dps": 2.81,
-  "pitch_deg": 0.621
+  "t": 5.632,
+  "roll_deg": 65.029,
+  "roll_dps": 0.01
  },
  {
-  "t": 5.667,
-  "roll_deg": 98.205,
-  "roll_dps": 2.81,
-  "pitch_deg": 0.621
+  "t": 5.653,
+  "roll_deg": 65.029,
+  "roll_dps": 0.06
  },
  {
-  "t": 5.687,
-  "roll_deg": 98.205,
-  "roll_dps": 8.78,
-  "pitch_deg": 0.621
+  "t": 5.674,
+  "roll_deg": 65.029,
+  "roll_dps": 0.06
  },
  {
-  "t": 5.708,
-  "roll_deg": 97.967,
-  "roll_dps": 8.78,
-  "pitch_deg": 0.626
+  "t": 5.695,
+  "roll_deg": 65.029,
+  "roll_dps": 0.06
  },
  {
-  "t": 5.73,
-  "roll_deg": 97.967,
-  "roll_dps": 10.49,
-  "pitch_deg": 0.626
+  "t": 5.716,
+  "roll_deg": 65.029,
+  "roll_dps": 0.04
  },
  {
-  "t": 5.751,
-  "roll_deg": 98.019,
-  "roll_dps": 10.49,
-  "pitch_deg": 0.63
+  "t": 5.737,
+  "roll_deg": 65.029,
+  "roll_dps": 0.04
  },
  {
-  "t": 5.773,
-  "roll_deg": 98.019,
-  "roll_dps": 10.49,
-  "pitch_deg": 0.63
+  "t": 5.758,
+  "roll_deg": 65.029,
+  "roll_dps": -0.06
  },
  {
-  "t": 5.794,
-  "roll_deg": 98.019,
-  "roll_dps": 11.43,
-  "pitch_deg": 0.63
+  "t": 5.779,
+  "roll_deg": 65.029,
+  "roll_dps": -0.06
  },
  {
-  "t": 5.815,
-  "roll_deg": 98.435,
-  "roll_dps": 11.43,
-  "pitch_deg": 0.635
+  "t": 5.8,
+  "roll_deg": 65.029,
+  "roll_dps": -0.06
  },
  {
-  "t": 5.837,
-  "roll_deg": 98.435,
-  "roll_dps": 10.0,
-  "pitch_deg": 0.635
+  "t": 5.821,
+  "roll_deg": 65.029,
+  "roll_dps": 0.1
  },
  {
-  "t": 5.858,
-  "roll_deg": 98.857,
-  "roll_dps": 10.0,
-  "pitch_deg": 0.638
+  "t": 5.842,
+  "roll_deg": 65.029,
+  "roll_dps": 0.1
  },
  {
-  "t": 5.88,
-  "roll_deg": 98.857,
-  "roll_dps": 10.0,
-  "pitch_deg": 0.638
+  "t": 5.863,
+  "roll_deg": 65.029,
+  "roll_dps": 0.1
  },
  {
-  "t": 5.901,
-  "roll_deg": 98.857,
-  "roll_dps": 6.42,
-  "pitch_deg": 0.638
+  "t": 5.884,
+  "roll_deg": 65.029,
+  "roll_dps": -0.0
  },
  {
-  "t": 5.922,
-  "roll_deg": 99.591,
-  "roll_dps": 6.42,
-  "pitch_deg": 0.642
+  "t": 5.905,
+  "roll_deg": 65.029,
+  "roll_dps": -0.0
  },
  {
-  "t": 5.943,
-  "roll_deg": 99.591,
-  "roll_dps": 2.46,
-  "pitch_deg": 0.642
+  "t": 5.926,
+  "roll_deg": 65.029,
+  "roll_dps": -0.05
  },
  {
-  "t": 5.964,
-  "roll_deg": 100.048,
-  "roll_dps": 2.46,
-  "pitch_deg": 0.646
+  "t": 5.947,
+  "roll_deg": 65.03,
+  "roll_dps": -0.05
  },
  {
-  "t": 5.985,
-  "roll_deg": 100.048,
-  "roll_dps": 2.46,
-  "pitch_deg": 0.646
+  "t": 5.968,
+  "roll_deg": 65.03,
+  "roll_dps": -0.05
+ },
+ {
+  "t": 5.989,
+  "roll_deg": 65.03,
+  "roll_dps": -0.03
  }
 ]

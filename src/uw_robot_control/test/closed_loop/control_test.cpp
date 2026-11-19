@@ -1,3 +1,8 @@
+/// @file control_test.cpp
+/// @brief 闭环控制器单元测试：姿态/速度/定深/模式切换/无扰交接。
+///
+/// 直接构造 Command/Imu/Depth，不启动 ROS。
+
 #include "uw_robot_control/closed_loop/controller.hpp"
 #include <iostream>
 #include <stdexcept>

@@ -1,3 +1,9 @@
+/// @file hardware_node.cpp
+/// @brief STM32 串口节点：下发执行器指令，接收遥测与（可选的）深度。
+///
+/// 串口为非阻塞 + 行缓冲；写失败或超时立即停机；
+/// 深度计改为 Orin I2C 直连后，publish_depth=false 时本节点不再发布 depth/state。
+
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <uw_robot_interfaces/msg/thruster_command.hpp>
@@ -23,6 +29,9 @@ public:
     int baud = declare_parameter("baud", 115200);
     timeout_ = declare_parameter("command_timeout_s", .15);
     depth_timeout_ = declare_parameter("depth_timeout_s", 1.5);
+    // 深度计改为 Orin 的 I2C 直连后，depth/state 由 depth_node 独占发布；
+    // 此时这里必须关掉，否则本节点的失效帧会覆盖真实深度。
+    publish_depth_ = declare_parameter("publish_depth", true);
     if (baud != 115200 || timeout_ <= 0 || depth_timeout_ <= 0)
       throw std::runtime_error("requires 115200 baud and positive timeouts");
     tx_pub_ = create_publisher<std_msgs::msg::String>("hardware/tx", 1);
@@ -187,9 +196,11 @@ private:
       write_serial(wanted, t);
       read_serial();
     }
-    publish_depth();
+    if (publish_depth_)
+      publish_depth();
   }
   bool dry_;
+  bool publish_depth_ = true;
   std::string device_, latest_ = "OFF\n", pending_, rx_;
   size_t offset_ = 0;
   int fd_ = -1;

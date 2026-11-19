@@ -1,3 +1,8 @@
+/// @file allocator.hpp
+/// @brief 舵角规划器接口：搜索两组倾转角，使给定 wrench 的加权误差最小。
+///
+/// 纯计算、无 ROS、无锁，可在单元测试中直接调用。
+
 #pragma once
 #include "uw_robot_interfaces/robot_types.hpp"
 

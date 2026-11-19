@@ -1,3 +1,8 @@
+/// @file allocator.cpp
+/// @brief 舵角规划器实现。
+///
+/// 目标函数按力/力矩分权重（力矩优先），并限制舵角范围与变化。
+
 #include "uw_robot_control/allocation/allocator.hpp"
 #include <Eigen/Cholesky>
 #include <Eigen/QR>

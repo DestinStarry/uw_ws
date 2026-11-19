@@ -1,3 +1,10 @@
+/// @file controller.hpp
+/// @brief 闭环控制器接口：名义参数、状态机与输出目标（纯 C++，不依赖 ROS）。
+///
+/// 分层：外环姿态 → 内环角速度 → 机体力矩；平移与定深各自独立；
+/// 所有时间单位为 s，力矩 N·m，力 N，角度 rad；
+/// 控制器只输出期望 wrench，不求解执行器（分配在 allocation 包内）。
+
 #pragma once
 #include "uw_robot_interfaces/robot_types.hpp"
 namespace uw {
@@ -56,6 +63,9 @@ public:
   double depth_target_m() const {
     return depth_target;
   }
+  // 只读暴露内环积分与最近一次机体力矩，供切换无扰性测试与遥测使用。
+  V3 rate_integral() const { return integral; }
+  V3 last_moment() const { return prev_moment; }
 
   bool armed = false, closed_loop = true, depth_hold = false;
   double cycle_dt = .02;
@@ -80,9 +90,14 @@ private:
   V3 previous_rate_error = V3::Zero(), rate_error_dot = V3::Zero();
   bool rate_error_seen = false;
   V3 attitude_integral = V3::Zero();
+  // 最近一次 attitude_moment 输出的机体力矩（未乘 moment_sign、未做静水叠加）。
+  // 松杆无扰交接用它反算内环积分初值；安全停机时清零。
+  V3 prev_moment = V3::Zero();
   double depth_i = 0, depth_target = 0, last_time = -1;
   bool previous_arm = false, previous_depth = false, previous_loop = false;
-  bool was_angular = false, was_vertical = false, depth_was_valid = false;
+  // 三轴独立记录手动角速度指令是否有效，实现逐轴打杆/松杆。
+  std::array<bool, 3> was_angular{false, false, false};
+  bool was_vertical = false, depth_was_valid = false;
   bool centering = false, manual_was_active = false;
   double recenter_until = -1;
 };

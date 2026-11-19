@@ -15,7 +15,7 @@ flowchart LR
   UI[Windows UI] -->|TCP CMD 六轴速度| TCP[communication / tcp_bridge_node]
   TCP -->|control/cmd| C[control / control_node]
   IMU[sensors / imu_node] -->|imu/data| C
-  HW[communication / hardware_node] -->|depth/state| C
+  DEPTH[sensors / depth_node] -->|depth/state| C
   C -->|control/wrench| A[control / allocation_node]
   A -->|actuators/command| HW
   HW -->|UART CTRL/OFF| STM32[STM32]
