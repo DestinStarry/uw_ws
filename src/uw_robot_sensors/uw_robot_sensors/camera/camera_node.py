@@ -1,4 +1,9 @@
-"""相机 ROS 接口：参数、按订阅需求发布 Image 和健康检查，不执行控制算法。"""
+"""相机 ROS 层：参数、按订阅需求发布左右目 Image，并挂接 HTTP 预览。
+
+* 只在存在订阅者时序列化原始 Image，避免无谓占用 CPU 与带宽；
+* 两目共用同一帧时间戳（同一次硬件采集），frame_id 使用各自光学坐标系；
+* 预览与健康检查由 ``stream.PreviewServer`` 提供，本节点只负责生命周期与发布。
+"""
 import signal
 import rclpy
 from rclpy.executors import ExternalShutdownException

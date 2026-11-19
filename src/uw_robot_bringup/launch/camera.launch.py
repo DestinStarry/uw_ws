@@ -1,4 +1,7 @@
-"""只启动双目相机与 HTTP 预览；synthetic 可脱离 USB 进行调试。"""
+"""只启动双目相机与 HTTP 预览；``synthetic:=true`` 时用合成图案，可脱离 USB 调试。
+
+参数：synthetic（默认 false）、http_port（8080）、device（/dev/video0）。
+"""
 from pathlib import Path
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription

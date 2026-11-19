@@ -1,7 +1,22 @@
-"""实物/串口空运行组合：控制、分配、通信及可选传感器。
+"""实物/串口组合：控制、分配、通信与可选传感器（不启动仿真器）。
 
-默认 dry_run=true，不打开 STM32 串口；启用真实设备需显式覆盖。
-必需节点退出会联动停止整组；相机退出仍保持原有的独立策略。
+节点
+----
+control_node / allocation_node / hardware_node（STM32 串口）/ tcp_bridge_node；
+可选 imu_node、depth_node（MS5837，I2C）、camera_node。
+
+launch 参数（默认值）
+---------------------
+dry_run=true   hardware_node 只打印不打开串口，用于地面调试
+imu=false      启动 IMU（/dev/ttyUSB0）
+depth=true     启动 MS5837（I2C）；必须与 hardware_node.publish_depth 互斥，
+               两者恰好一个深度源，否则 depth/state 会无人发布或双发布
+tcp=true       启动 TCP 桥（手柄输入 + 遥测回传）
+camera=false   启动双目相机与 HTTP 预览
+
+行为
+----
+必需节点退出会联动停止整组；相机退出不牵连控制链（单独策略）。
 """
 from pathlib import Path
 from ament_index_python.packages import get_package_share_directory

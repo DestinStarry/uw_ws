@@ -1,4 +1,15 @@
-"""HTTP 预览：路由、截图、MJPEG；不拥有相机，不依赖 ROS 或控制算法。"""
+"""HTTP 预览服务：健康状态、截图与 MJPEG 流；不拥有相机、不依赖 ROS。
+
+端点
+----
+``/health``、``/snapshot.jpg``、``/stereo.jpg``、``/left.jpg``、``/right.jpg``、
+``/?action=stream``、``/stereo.mjpg``。
+
+线程
+----
+``ThreadingHTTPServer``，每个请求一个线程；共享帧按只读使用，要绘制检测结果
+必须先复制，避免与采集线程竞争。
+"""
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import threading

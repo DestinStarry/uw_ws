@@ -1,4 +1,9 @@
-"""IMU ROS 接口：只发布真实新鲜样本，保留 SDK 驱动与消息转换的边界。"""
+"""IMU ROS 层：把 SDK 快照发布成 ``sensor_msgs/Imu``。
+
+* 只发布**真实新鲜**样本：SDK 帧时间与主机接收时间共同判断，重复/过期样本不重发；
+* 时间戳回填到采样时刻，而不是定时器触发时刻，便于下游做时间对齐；
+* 单位与坐标：四元数 wxyz → ROS xyzw，角速度 rad/s，加速度 g → m/s²。
+"""
 import threading
 import time
 

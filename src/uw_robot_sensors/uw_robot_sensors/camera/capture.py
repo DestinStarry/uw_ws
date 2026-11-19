@@ -1,4 +1,12 @@
-"""采集与 JPEG 编码；单一设备所有者、最新帧缓存，避免历史帧积压。"""
+"""相机采集服务：设备唯一所有者、采集/编码线程、最新帧缓存。
+
+设计
+----
+* 一个进程只允许一个 ``VideoCapture``（USB 带宽与驱动限制），所有消费者共享；
+* 采集线程按 ``fps`` 抓帧，编码线程按需生成 JPEG；两者都只保留最新一帧，
+  不允许历史帧排队，否则预览延迟会持续增长；
+* 不依赖 ROS：``camera_node`` 从这里取帧并转换成 Image。
+"""
 from dataclasses import dataclass
 import threading
 import time

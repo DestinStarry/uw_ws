@@ -1,4 +1,14 @@
-"""Same nominal controller/allocation profile as hardware; only the plant is simulated."""
+"""仿真组合：控制器/分配器参数与实物一致，只把被控对象换成 MuJoCo。
+
+与实物的差异
+------------
+* 不启动 hardware_node，也不使用真实 IMU/深度计；仿真节点直接发布
+  ``imu/data``、``depth/state``、``simulation/pose``；
+* ``moment_sign`` 由 launch 覆盖为 +1（仿真几何约定），实物为 -1；
+* ``headless``、``camera``、``publish_truth``、``tcp_port`` 仅仿真使用。
+
+参数：config（控制/分配参数）、plant（对象参数）、headless、camera、publish_truth、tcp_port。
+"""
 from pathlib import Path
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
