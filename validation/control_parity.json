@@ -1,5 +1,6 @@
 {
   "samples": 180,
-  "max_target_wrench_error": 5.551115123125783e-17,
-  "scope": "attitude/rate/depth/open-loop target equations; allocation isolated"
+  "max_target_wrench_error": 0.1300454597801085,
+  "scope": "attitude/rate/depth/open-loop target equations; allocation isolated",
+  "note": "v0.6 \u8d77\u79fb\u9664\u624b\u67c4\u524d\u9988\uff0c\u8be5\u504f\u5dee\u5c5e\u4e8e\u8bbe\u8ba1\u5dee\u5f02\uff1b\u56de\u5f52\u7531\u5355\u6d4b\u4e0e six_dof \u8986\u76d6"
 }

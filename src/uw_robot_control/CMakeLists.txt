@@ -8,17 +8,29 @@ find_package(uw_robot_interfaces REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
 # closed_loop: private algorithm/protocol library and independent node.
-add_library(closed_loop_logic STATIC src/closed_loop/controller.cpp)
+# 纯算法：控制器本体（不含 ROS 参数读取），单元测试直接链接。
+add_library(closed_loop_logic STATIC
+  src/closed_loop/controller.cpp
+  src/closed_loop/controller_attitude.cpp
+  src/closed_loop/controller_depth.cpp)
 target_compile_features(closed_loop_logic PUBLIC cxx_std_17)
 target_compile_options(closed_loop_logic PRIVATE -Wall -Wextra -Wpedantic)
 target_include_directories(closed_loop_logic PUBLIC include)
 target_link_libraries(closed_loop_logic Eigen3::Eigen)
 ament_target_dependencies(closed_loop_logic uw_robot_interfaces)
+# ROS 参数读取单独成库：只有节点需要 rclcpp，单元测试不引入。
+add_library(control_settings STATIC src/closed_loop/config.cpp)
+target_compile_features(control_settings PUBLIC cxx_std_17)
+target_compile_options(control_settings PRIVATE -Wall -Wextra -Wpedantic)
+target_include_directories(control_settings PUBLIC include)
+ament_target_dependencies(control_settings rclcpp uw_robot_interfaces)
+target_link_libraries(control_settings closed_loop_logic)
+
 add_executable(control_node src/closed_loop/control_node.cpp)
 target_compile_features(control_node PRIVATE cxx_std_17)
 target_compile_options(control_node PRIVATE -Wall -Wextra -Wpedantic)
 ament_target_dependencies(control_node rclcpp uw_robot_interfaces sensor_msgs)
-target_link_libraries(control_node closed_loop_logic Threads::Threads)
+target_link_libraries(control_node closed_loop_logic control_settings Threads::Threads)
 install(TARGETS control_node DESTINATION lib/${PROJECT_NAME})
 if(BUILD_TESTING)
   enable_testing()
