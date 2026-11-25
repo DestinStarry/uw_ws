@@ -22,3 +22,8 @@ validation/geometry_check/check
 *.hex
 *.bin
 *.exe
+
+# 下水记录为运行数据，默认保存在仓库外 ~/uw_logs
+uw_logs/
+flight_logs/
+logs/

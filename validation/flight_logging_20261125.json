@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-25",
+  "feature": "uw_robot_logging",
+  "build": {
+    "packages": 8,
+    "result": "passed",
+    "environment": "WSL Ubuntu ROS 2 Humble"
+  },
+  "tests": {
+    "total": 90,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "integration": [
+    "In-process ROS field, parameter, service and segmentation checks",
+    "Separate logger receives real dry-run control and hardware topics",
+    "Disk limit and logger exit leave control group running",
+    "Launch SIGINT produces closed summary",
+    "Installed ros2 log_summary CLI passed"
+  ],
+  "hardware_tested": false,
+  "orin_deployed": false
+}

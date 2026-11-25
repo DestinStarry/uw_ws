@@ -214,3 +214,18 @@ system_monitor_node:
     thermal_root: /sys/class/thermal
     cpu_zone: auto
     rate_hz: 1.0
+
+# 独立试验日志：整机默认启用；logging:=false 可关闭，不影响控制链。
+flight_logger_node:
+  ros__parameters:
+    auto_start: true
+    output_dir: ~/uw_logs
+    session_label: ''
+    sample_hz: 50.0
+    flush_interval_s: 1.0
+    queue_size: 4096
+    min_free_mb: 512.0
+    max_session_mb: 2048.0
+    fsync: true
+    record_imu_events: false
+    parameter_capture_timeout_s: 12.0

@@ -44,13 +44,13 @@ fi
 
 echo "== 单元测试 =="
 # C++：控制器、松杆交接、分配器、STM32 协议、TCP 协议；Python：IMU/深度/相机。
-colcon test --packages-select uw_robot_control uw_robot_communication uw_robot_sensors \
+colcon test --packages-select uw_robot_control uw_robot_communication uw_robot_sensors uw_robot_logging \
   --event-handlers console_direct+
 colcon test-result --verbose
 
 echo "== Python 测试（不经 colcon，便于看单条失败）=="
-if command -v pytest >/dev/null 2>&1; then
-  python3 -m pytest src/uw_robot_sensors/test -q || {
+if python3 -c "import pytest" >/dev/null 2>&1; then
+  python3 -m pytest src/uw_robot_sensors/test src/uw_robot_logging/test -q || {
     echo "Python 测试失败；若只是缺少硬件库（YbImuLib/smbus2），"
     echo "请先跑 bash scripts/install_deps.sh 再重试。"
     exit 1

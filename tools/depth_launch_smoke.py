@@ -28,7 +28,7 @@ def check_source(source, domain):
     process = subprocess.Popen([
         'ros2', 'launch', 'uw_robot_bringup', 'robot.launch.py',
         'depth_source:=' + source, 'dry_run:=true', 'tcp:=false',
-        'imu:=false', 'camera:=false'], stdout=log, stderr=subprocess.STDOUT,
+        'imu:=false', 'camera:=false', 'logging:=false'], stdout=log, stderr=subprocess.STDOUT,
         start_new_session=True)
     try:
         deadline = time.monotonic() + 20

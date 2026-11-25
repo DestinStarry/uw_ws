@@ -36,6 +36,7 @@ flowchart LR
 | `uw_robot_control` | `control_node`、`allocation_node` | 控制状态机、姿态/定深控制、推力与舵角分配 |
 | `uw_robot_sensors` | `imu_node`、`depth_node`、`camera_node`、`system_monitor_node` | IMU、I2C 深度、双目图像、Orin CPU 温度 |
 | `uw_robot_communication` | `tcp_bridge_node`、`hardware_node` | 电脑 TCP 接入、STM32 串口、协议转换与通信保护 |
+| `uw_robot_logging` | `flight_logger_node` | 独立下水日志、原始事件、参数快照与离线摘要 |
 | `uw_robot_interfaces` | 消息、共享类型 | ROS 接口与单位约定 |
 | `uw_robot_bringup` | launch、YAML | 实物/仿真装配与参数配置 |
 | `uw_robot_mujoco` | `mujoco_node` | 仿真对象、模拟传感器与合成双目 |
@@ -129,12 +130,28 @@ ros2 launch uw_robot_bringup robot.launch.py \
   dry_run:=true imu:=true depth_source:=i2c camera:=true
 ```
 
-**整机实物：** 启用真实 MCU 串口及执行器通信。首次验收先断开推进器动力。
+**整机启动并记录日志：** STM32 串口、IMU、I2C 深度计、原双目相机、CPU 温度和电脑 TCP 桥全部启用。日志标签可自行修改。
+
+```bash
+cd ~/uw_ws
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 launch uw_robot_bringup robot.launch.py \
+  dry_run:=false imu:=true depth_source:=i2c camera:=true \
+  monitor:=true tcp:=true logging:=true log_label:=pool_01
+```
+
+**整机启动但不记录日志：**
 
 ```bash
 ros2 launch uw_robot_bringup robot.launch.py \
-  dry_run:=false imu:=true depth_source:=i2c camera:=true
+  dry_run:=false imu:=true depth_source:=i2c camera:=true \
+  monitor:=true tcp:=true logging:=false
 ```
+
+两条命令二选一，不要重复启动。实物入口的日志默认开启；显式 `logging:=false` 时不启动日志节点，也没有 `/logging/start`、`/logging/stop` 服务。需要之后再开始录制，可另开已加载环境的终端运行 `ros2 launch uw_robot_bringup logger.launch.py log_label:=pool_01`；它只订阅已有话题，启动后立即记录，不启动第二套控制或传感器节点。若日志节点已运行，使用日志 start/stop 服务分段即可，不要再启动第二个日志节点。
+
+按 `Ctrl+C` 正常结束整组，等待退出完成后取日志。日志默认在 `~/uw_logs/`，与源码、编译日志目录 `~/uw_ws/log/` 不同。
 
 常用开关：
 
@@ -146,6 +163,9 @@ ros2 launch uw_robot_bringup robot.launch.py \
 | `camera` | `false` | 是否启动双目相机 |
 | `monitor` | `true` | 是否启动 CPU 温度监测 |
 | `tcp` | `true` | 是否启动电脑控制/遥测桥 |
+| `logging` | `true` | 启动独立日志节点并立即录制；`false` 完全关闭日志节点 |
+| `log_dir` | `~/uw_logs` | 日志输出根目录，不随源码提交 |
+| `log_label` | 空 | 本次测试标签，例如 `pool_01` |
 | `config` | 已安装的 `robot.yaml` | 可指定另一份完整参数文件 |
 
 不要同时启动整组和第二个独立传感器/串口节点。当前 `low_control3` 不上报深度，实物使用 `depth_source:=i2c`。
@@ -241,6 +261,7 @@ ros2 topic hz /depth/state
 | `/imu/data` | 姿态四元数、角速度、加速度 |
 | `/depth/state` | 深度、变化率、有效性及数据年龄 |
 | `/system/cpu_temperature` | Orin CPU 摄氏温度 |
+| `/logging/status` | 日志状态、保存路径、写入行数、丢记录与磁盘错误 |
 | `/hardware/tx` | 拟发送/实际交给串口链路的 CTRL 或 OFF 文本 |
 | `/hardware/rx` | STM32 原始混合遥测与 DIAG 行 |
 | `/camera/left/image_raw` | 左目原始图像，有订阅时发布 |
@@ -301,10 +322,39 @@ ros2 launch uw_robot_bringup simulation.launch.py headless:=false camera:=true
 - 原相机左右目安装顺序、标定与实际帧率需现场核验；深度有效输出不等于水下精度或定深闭环方向已验证。
 - 下行 CTRL 文本仍无校验和、序号与独立解锁位；下一版协议升级需同时修改 Orin 和 STM32。
 
-## 11. 文档与提交
+## 11. 下水日志
+
+实物整机默认启用独立 flight_logger_node，每次启动在 `~/uw_logs/` 建立新目录。默认 50Hz CSV 快照，另存原始串口/输入事件、状态变化、配置、运行参数和最终摘要；不录视频。队列有上限、异常会报告，不在控制节点里写磁盘。
+
+```bash
+# 完整启动与 logging:=false 关闭方式见 4.3；这里演示记录流程
+ros2 launch uw_robot_bringup robot.launch.py \
+  dry_run:=false imu:=true depth_source:=i2c camera:=true logging:=true log_label:=pool_01
+
+# 另一个已加载环境的终端确认正在记录
+ros2 topic echo /logging/status --full-length
+
+# 同一次运行中结束本段日志（不停止机器人控制）
+ros2 service call /logging/stop std_srvs/srv/Trigger '{}'
+
+# 可先为下一份日志设置新标签
+ros2 param set /flight_logger_node session_label pool_02
+
+# 开始下一份日志
+ros2 service call /logging/start std_srvs/srv/Trigger '{}'
+```
+
+正常结束等待 closed/summary.json 后，拷回整个会话目录供分析，不只取 CSV。日志节点退出不关闭控制组；磁盘不足、空间限额、队列丢记录和突然断电都需要检查，不能把“文件存在”当作完整记录。仿真日志默认关闭，可用 `logging:=true` 开启。
+
+字段、分段、空间配置与分析命令见 [下水日志与分析](docs/下水日志与分析.md)。
+
+日志版本已在 WSL / ROS 2 Humble 完成 8 包编译、90 项测试，以及独立进程收数、退出收尾和故障隔离检查，详见 [验证记录](validation/flight_logging_20261125.json)。实物下水效果仍需现场验证。
+
+## 12. 文档与提交
 
 | 文档 | 内容 |
 |---|---|
+| [下水日志与分析](docs/下水日志与分析.md) | 记录、分段、保存、空间管理与离线分析 |
 | [Orin 部署](docs/Orin部署.md) | 实物配置、部署与新增遥测 |
 | [MS5837 直连](docs/MS5837直连Orin.md) | I2C 实际读写、型号、零点与深度验收 |
 | [OpenCV 双目](docs/OpenCV双目相机.md) | 相机采集、图像与 HTTP 服务 |
@@ -318,10 +368,11 @@ ros2 launch uw_robot_bringup simulation.launch.py headless:=false camera:=true
 
 ```powershell
 git status --short
-git diff -- README.md
-git add README.md
-git commit -m "docs: clarify setup, architecture and hardware testing"
+git diff --stat
+git add .
+git diff --cached --stat
+git commit -m "Add optional flight logging and update startup documentation"
 git push origin main
 ```
 
-以上只提交本次 README 修改；若还有其它待提交源码，应另行检查并选择加入。不要强制添加 `.gitignore` 已排除的旧压缩包、驱动构建目录或烧录产物。
+`git add .` 会暂存当前目录下全部未被忽略的修改，请先核对改动范围；这里只提供提交命令，未自动执行提交或推送。不要强制添加 `.gitignore` 已排除的旧压缩包、驱动构建目录或烧录产物。

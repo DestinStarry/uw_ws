@@ -11,6 +11,7 @@
   <depend>uw_robot_control</depend>
   <depend>uw_robot_communication</depend>
   <depend>uw_robot_sensors</depend>
+  <exec_depend>uw_robot_logging</exec_depend>
   <exec_depend>uw_robot_mujoco</exec_depend>
   <export><build_type>ament_cmake</build_type></export>
 </package>

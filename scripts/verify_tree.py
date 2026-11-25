@@ -24,6 +24,14 @@ SKIP_DIRS = {'build', 'install', 'log', '.git', '__pycache__', 'firmware', 'oper
 BASH_SCRIPTS = ['scripts/install_deps.sh', 'scripts/preflight.sh', 'scripts/check.sh']
 REQUIRED = [
     'README.md',
+    'src/uw_robot_logging/package.xml',
+    'src/uw_robot_logging/setup.py',
+    'src/uw_robot_logging/setup.cfg',
+    'src/uw_robot_logging/resource/uw_robot_logging',
+    'src/uw_robot_logging/uw_robot_logging/node.py',
+    'src/uw_robot_logging/uw_robot_logging/writer.py',
+    'src/uw_robot_logging/uw_robot_logging/schema.py',
+    'src/uw_robot_logging/test/test_logging_core.py',
     'src/uw_robot_bringup/package.xml',
     'src/uw_robot_bringup/CMakeLists.txt',
     'src/uw_robot_bringup/config/robot.yaml',
@@ -114,7 +122,7 @@ def check_required():
     if missing:
         bad('缺少 %d 个文件：%s' % (len(missing), ', '.join(missing)))
     else:
-        ok('%d 个必需文件齐全（5 个包的 package.xml、深度节点三件套、测试）' % len(REQUIRED))
+        ok('%d 个必需文件齐全（核心包、深度与日志节点及测试）' % len(REQUIRED))
     lost = [p for p in CJK_FILES if not os.path.isfile(p)]
     if lost:
         bad('中文文件名丢失/乱码：%s —— 解压工具的编码问题，'

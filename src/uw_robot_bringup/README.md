@@ -14,3 +14,7 @@ robot.launch.py 默认 dry_run=true、imu=false、tcp=true、camera=false，未�
 ## 实物更新
 
 robot.launch.py 默认启用 monitor=true，新增 system_monitor_node；深度默认走独占 I2C。当前实物配置为 I2C-7、30ba，STM32 /dev/ttyTHS2，IMU /dev/ttyCH341USB0。depth.launch.py 可单测深度。温度监测退出不会关闭控制链。simulation.launch.py 与 MuJoCo 依赖继续保留。
+
+## 下水日志
+
+robot.launch.py 默认 logging:=true，log_dir:=~/uw_logs，log_label 可标记试验；simulation.launch.py 默认关闭记录，显式 logging:=true 可开启。logger.launch.py 仅启动独立记录器。日志节点不是必需控制节点，退出不关闭控制组。详见 docs/下水日志与分析.md。

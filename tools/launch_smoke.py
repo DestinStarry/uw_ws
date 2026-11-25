@@ -11,7 +11,7 @@ root = Path(__file__).resolve().parents[1]
 path = root / 'validation/launch.log'
 with path.open('w') as log:
     process = subprocess.Popen(
-        ['ros2', 'launch', 'uw_robot_bringup', 'robot.launch.py', 'tcp:=false'],
+        ['ros2', 'launch', 'uw_robot_bringup', 'robot.launch.py', 'tcp:=false', 'depth_source:=none', 'monitor:=false', 'logging:=false'],
         stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
     try:
         deadline = time.monotonic() + 15
@@ -25,7 +25,7 @@ with path.open('w') as log:
             raise AssertionError('bringup did not start control and hardware nodes')
     finally:
         if process.poll() is None:
-            os.killpg(process.pid, signal.SIGINT)
+            process.send_signal(signal.SIGINT)
         try:
             process.wait(timeout=10)
         except subprocess.TimeoutExpired:

@@ -39,6 +39,11 @@ def generate_launch_description():
     tcp = Node(package='uw_robot_communication', executable='tcp_bridge_node',
                parameters=[config, {'port': ParameterValue(LaunchConfiguration('tcp_port'), value_type=int)}],
                condition=IfCondition(LaunchConfiguration('tcp')), output='screen')
+    logger = Node(package='uw_robot_logging', executable='flight_logger_node', parameters=[config, {
+        'output_dir': ParameterValue(LaunchConfiguration('log_dir'), value_type=str),
+        'session_label': ParameterValue(LaunchConfiguration('log_label'), value_type=str),
+        'config_path': ParameterValue(config, value_type=str), 'run_mode': 'simulation', 'hardware_dry_run': True, 'hardware_mode_known': True}],
+        condition=IfCondition(LaunchConfiguration('logging')), output='screen')
     nodes = [control, allocation, sim, tcp]
     handlers = [RegisterEventHandler(OnProcessExit(target_action=n,
                 on_exit=[EmitEvent(event=Shutdown(reason='Simulation node exited'))])) for n in nodes]
@@ -51,5 +56,8 @@ def generate_launch_description():
         DeclareLaunchArgument('camera_port', default_value='8080'),
         DeclareLaunchArgument('tcp', default_value='true'),
         DeclareLaunchArgument('tcp_port', default_value='8888'),
-        *handlers, *nodes,
+        DeclareLaunchArgument('logging', default_value='false'),
+        DeclareLaunchArgument('log_dir', default_value='~/uw_logs'),
+        DeclareLaunchArgument('log_label', default_value='simulation'),
+        *handlers, *nodes, logger,
     ])
