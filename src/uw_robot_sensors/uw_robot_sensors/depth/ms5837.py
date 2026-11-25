@@ -30,6 +30,7 @@ MS5837-30BA/02BA 数据手册 "PRESSURE AND TEMPERATURE CALCULATION"：
 
 from __future__ import annotations
 
+import math
 import time
 
 try:  # smbus2 优先：异常类型清晰；退回 python3-smbus。
@@ -67,8 +68,8 @@ OSR_BY_SAMPLES = {
     8192: OSR_8192,
 }
 
-#: 各型号支持的最大档位（8192 仅 02BA 提供）。
-MAX_OSR = {MODEL_02BA: OSR_8192, MODEL_30BA: OSR_4096}
+#: 两种型号都支持 OSR 8192（30BA 数据手册命令 0x4A/0x5A）。
+MAX_OSR = {MODEL_02BA: OSR_8192, MODEL_30BA: OSR_8192}
 
 #: 数据手册给出的最大转换时间（秒），索引即档位；已含约 20% 余量。
 _CONVERSION_S = (0.0007, 0.0014, 0.0027, 0.0052, 0.0104, 0.0207)
@@ -80,7 +81,7 @@ _PROM_READ = 0xA0
 _CONVERT_D1 = 0x40
 _CONVERT_D2 = 0x50
 
-#: 出厂默认地址（模块 CSB 拉低为 0x76，拉高为 0x77）。
+#: MS5837 的固定 7 位 I2C 地址。
 DEFAULT_ADDRESS = 0x76
 
 DENSITY_FRESHWATER = 997.0
@@ -240,7 +241,7 @@ def depth_from_pressure(
     ``surface_mbar`` 是水面零点（绝压），必须在传感器处于水面时标定，
     否则深度会整体偏移。
     """
-    if density <= 0:
+    if not all(math.isfinite(v) for v in (pressure_mbar, surface_mbar, density)) or density <= 0:
         raise ValueError("fluid density must be positive")
     return (pressure_mbar - surface_mbar) * 100.0 / (density * GRAVITY)
 
@@ -277,9 +278,9 @@ class MS5837:
                 "python3-smbus / smbus2 missing: sudo apt install python3-smbus2"
             )
         self.close()
-        bus = smbus.SMBus(self._bus_number)
-        self._bus = bus
         try:
+            bus = smbus.SMBus(self._bus_number)
+            self._bus = bus
             bus.write_byte(self._address, _RESET)
             time.sleep(0.010)  # 数据手册：复位后至少等 1.5 ms
             self.prom = self._read_prom()
@@ -288,6 +289,9 @@ class MS5837:
             raise SensorError("PROM read failed at 0x%02X: %s" % (self._address, exc))
         expected = (self.prom[0] >> 12) & 0x000F
         actual = crc4(self.prom)
+        if not any(self.prom[1:]) or all(v == 0xFFFF for v in self.prom[1:]):
+            self.close()
+            raise SensorError("PROM calibration is empty or disconnected")
         if actual != expected:
             self.close()
             raise SensorError(

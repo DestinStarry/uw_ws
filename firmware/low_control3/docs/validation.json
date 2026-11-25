@@ -1,0 +1,197 @@
+{
+  "date": "2026-11-23",
+  "original_low_control2_unchanged": true,
+  "arm_toolchain": "GNU Arm Embedded 14.3.1 + ST.2",
+  "cross_builds": [
+    "Debug PASS",
+    "Release PASS"
+  ],
+  "host_compiler": "MSYS2 UCRT64 g++ 16.2.0",
+  "ctest_suites": [
+    "command",
+    "framing",
+    "rpm",
+    "telemetry",
+    "firmware_fault_injection"
+  ],
+  "ctest_result": "5/5 PASS after compact telemetry and scheduling tests",
+  "fuzz_input": "100000 random input bytes each for line assembler and RPM decoder; deterministic seeds",
+  "sanitizers": "Not run: optional WSL attempt failed to start due Wsl/Service/E_UNEXPECTED; no OS configuration changed",
+  "firmware_size": {
+    "Release_FLASH_bytes": 38572,
+    "Debug_FLASH_bytes": 56236,
+    "RAM_reserved_bytes": 9456
+  },
+  "hardware_tested": false,
+  "flashed": false,
+  "vendor_iwdg_source": "Copied ST original HAL IWDG source/header from existing stm32/Lower_Level_Controller; preserved copyright",
+  "changed": [
+    ".vscode/launch.json",
+    "cmake/stm32cubemx/CMakeLists.txt",
+    "CMakeLists.txt",
+    "Core/Inc/stm32f4xx_hal_conf.h",
+    "Core/Src/main.c",
+    "Core/Src/stm32f4xx_it.c",
+    "Core/Src/tim.c",
+    "STM32F407XX_FLASH.ld",
+    "userCode/control/Inc/MotionController.h",
+    "userCode/control/Src/MotionController.cpp",
+    "userCode/devices/Inc/CH9434.h",
+    "userCode/devices/Inc/CommUART1.h",
+    "userCode/devices/Inc/VoltageMonitor.h",
+    "userCode/devices/Src/CH9434.cpp",
+    "userCode/devices/Src/CommUART1.cpp",
+    "userCode/devices/Src/Motor.cpp",
+    "userCode/devices/Src/Servo.cpp",
+    "userCode/devices/Src/usermain.cpp",
+    "userCode/devices/Src/VoltageMonitor.cpp"
+  ],
+  "added": [
+    "docs/low_control2_source_hashes.json",
+    "docs/上机验收.md",
+    "docs/协议与安全行为.md",
+    "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_iwdg.h",
+    "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_iwdg.c",
+    "README.md",
+    "scripts/build.ps1",
+    "tests/CMakeLists.txt",
+    "tests/core_tests.cpp",
+    "tests/fake_hal.cpp",
+    "tests/firmware_tests.cpp",
+    "tests/stubs/adc.h",
+    "tests/stubs/fake_hal.h",
+    "tests/stubs/gpio.h",
+    "tests/stubs/main.h",
+    "tests/stubs/spi.h",
+    "tests/stubs/tim.h",
+    "tests/stubs/usart.h",
+    "userCode/core/Inc/BoardConfig.h",
+    "userCode/core/Inc/ControlProtocol.h",
+    "userCode/core/Inc/RpmDecoder.h",
+    "userCode/core/Inc/TelemetryProtocol.h",
+    "userCode/core/Src/ControlProtocol.cpp",
+    "userCode/core/Src/RpmDecoder.cpp",
+    "userCode/core/Src/TelemetryProtocol.cpp",
+    "userCode/devices/Inc/Safety.h",
+    "userCode/devices/Inc/TelemetryService.h",
+    "userCode/devices/Src/Safety.cpp",
+    "userCode/devices/Src/TelemetryService.cpp"
+  ],
+  "moved_out_of_build": [
+    {
+      "from": "userCode/algorithms/Inc/MahonyAHRS.h",
+      "to": "reference/legacy/userCode/algorithms/Inc/MahonyAHRS.h"
+    },
+    {
+      "from": "userCode/algorithms/Src/MahonyAHRS.cpp",
+      "to": "reference/legacy/userCode/algorithms/Src/MahonyAHRS.cpp"
+    },
+    {
+      "from": "userCode/bsp/Inc/bsp_spi.h",
+      "to": "reference/legacy/userCode/bsp/Inc/bsp_spi.h"
+    },
+    {
+      "from": "userCode/bsp/Src/bsp_spi.cpp",
+      "to": "reference/legacy/userCode/bsp/Src/bsp_spi.cpp"
+    },
+    {
+      "from": "userCode/devices/Inc/DepthSensor.h",
+      "to": "reference/legacy/userCode/devices/Inc/DepthSensor.h"
+    },
+    {
+      "from": "userCode/devices/Inc/IMU.h",
+      "to": "reference/legacy/userCode/devices/Inc/IMU.h"
+    },
+    {
+      "from": "userCode/devices/Inc/VectorControl.h",
+      "to": "reference/legacy/userCode/devices/Inc/VectorControl.h"
+    },
+    {
+      "from": "userCode/devices/Src/DepthSensor.cpp",
+      "to": "reference/legacy/userCode/devices/Src/DepthSensor.cpp"
+    },
+    {
+      "from": "userCode/devices/Src/IMU.cpp",
+      "to": "reference/legacy/userCode/devices/Src/IMU.cpp"
+    },
+    {
+      "from": "userCode/devices/Src/VectorControl.cpp",
+      "to": "reference/legacy/userCode/devices/Src/VectorControl.cpp"
+    },
+    {
+      "from": "userCode/drivers/Inc/BMI088driver.h",
+      "to": "reference/legacy/userCode/drivers/Inc/BMI088driver.h"
+    },
+    {
+      "from": "userCode/drivers/Inc/BMI088reg.h",
+      "to": "reference/legacy/userCode/drivers/Inc/BMI088reg.h"
+    },
+    {
+      "from": "userCode/drivers/Inc/ist8310driver.h",
+      "to": "reference/legacy/userCode/drivers/Inc/ist8310driver.h"
+    },
+    {
+      "from": "userCode/drivers/Src/BMI088driver.cpp",
+      "to": "reference/legacy/userCode/drivers/Src/BMI088driver.cpp"
+    },
+    {
+      "from": "userCode/drivers/Src/ist8310driver.cpp",
+      "to": "reference/legacy/userCode/drivers/Src/ist8310driver.cpp"
+    },
+    {
+      "from": "userCode/MiddleWares/Inc/BMI088Middleware.h",
+      "to": "reference/legacy/userCode/MiddleWares/Inc/BMI088Middleware.h"
+    },
+    {
+      "from": "userCode/MiddleWares/Inc/ist8310driver_middleware.h",
+      "to": "reference/legacy/userCode/MiddleWares/Inc/ist8310driver_middleware.h"
+    },
+    {
+      "from": "userCode/MiddleWares/Src/BMI088Middleware.cpp",
+      "to": "reference/legacy/userCode/MiddleWares/Src/BMI088Middleware.cpp"
+    },
+    {
+      "from": "userCode/MiddleWares/Src/ist8310driver_middleware.cpp",
+      "to": "reference/legacy/userCode/MiddleWares/Src/ist8310driver_middleware.cpp"
+    }
+  ],
+  "artifacts": {
+    "build/Debug/low_control3.elf": {
+      "bytes": 1830132,
+      "sha256": "e0b267437883ad4ab346c759a26613e0e91f49c0c1a3377eb6de0bbedbb3fb66"
+    },
+    "build/Debug/low_control3.hex": {
+      "bytes": 158220,
+      "sha256": "3661ad347589fa7303a48f6661042cd26a3382b0cf8e9b36b0011536bee36596"
+    },
+    "build/Debug/low_control3.bin": {
+      "bytes": 56236,
+      "sha256": "0d398f882b9c519fd948b4b7c025c1ade501dcb1518c4e67b1f6159a5adf08b2"
+    },
+    "build/Release/low_control3.elf": {
+      "bytes": 299988,
+      "sha256": "79c93df7384d30934d663a7df504467c46d4cfc27f6fa809a17780f52b984cf7"
+    },
+    "build/Release/low_control3.hex": {
+      "bytes": 108540,
+      "sha256": "f68773e74f4f21b51d0b3b39c1887cded746d13bd52530528830cfb925c41073"
+    },
+    "build/Release/low_control3.bin": {
+      "bytes": 38572,
+      "sha256": "a0fa49c01246b234a2df31f7192433b555cbb632327c2753fbb627951ad3bf09"
+    }
+  },
+  "telemetry_mode": {
+    "regular_hz": 10,
+    "regular_fields": [
+      "VOLT",
+      "CH0",
+      "CH1",
+      "CH2",
+      "CH3"
+    ],
+    "diagnostics_hz": 1,
+    "normal_extra_blank_line": false,
+    "resync_after_tx_abort": true
+  }
+}

@@ -21,7 +21,7 @@ import math
 import time
 import threading
 
-YBUART_PORT = '/dev/ttyUSB0'
+YBUART_PORT = '/dev/ttyCH341USB0'
 IMU_ALGORITHM = 6
 IMU_OUTPUT_RATE = 100
 IMU_READ_INTERVAL = 0.01

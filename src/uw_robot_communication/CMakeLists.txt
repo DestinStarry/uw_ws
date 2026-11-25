@@ -50,7 +50,7 @@ endif()
 # ---------------------------------------------------------------------------
 # TCP 手柄/遥测链路
 # ---------------------------------------------------------------------------
-add_library(tcp_protocol STATIC src/tcp/protocol.cpp)
+add_library(tcp_protocol STATIC src/tcp/protocol.cpp src/tcp/telemetry.cpp)
 target_compile_features(tcp_protocol PUBLIC cxx_std_17)
 target_compile_options(tcp_protocol PRIVATE -Wall -Wextra -Wpedantic)
 target_include_directories(tcp_protocol PUBLIC include)
@@ -74,6 +74,9 @@ if(BUILD_TESTING)
   add_executable(teleop_test test/tcp/teleop_test.cpp)
   target_link_libraries(teleop_test tcp_protocol)
   add_test(NAME teleop_test COMMAND teleop_test)
+  add_executable(telemetry_test test/tcp/telemetry_test.cpp)
+  target_link_libraries(telemetry_test tcp_protocol)
+  add_test(NAME telemetry_test COMMAND telemetry_test)
 endif()
 
 ament_package()

@@ -10,3 +10,15 @@ __pycache__/
 validation/*.log
 validation/**/*.log
 validation/geometry_check/check
+
+# 源码归档、Windows 下载标记与本机编译产物
+*.zip
+*.tar.gz
+*Zone.Identifier*
+*.egg-info/
+*.o
+*.obj
+*.elf
+*.hex
+*.bin
+*.exe

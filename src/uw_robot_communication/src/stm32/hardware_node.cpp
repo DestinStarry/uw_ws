@@ -36,7 +36,7 @@ class HardwareNode : public rclcpp::Node {
 public:
   HardwareNode() : Node("hardware_node") {
     dry_ = declare_parameter("dry_run", true);
-    device_ = declare_parameter<std::string>("port", "/dev/ttyAS5");
+    device_ = declare_parameter<std::string>("port", "/dev/ttyTHS2");
     const int baud = declare_parameter("baud", 115200);
     timeout_ = declare_parameter("command_timeout_s", .15);
     depth_timeout_ = declare_parameter("depth_timeout_s", 1.5);
@@ -46,7 +46,8 @@ public:
 
     tx_pub_ = create_publisher<std_msgs::msg::String>("hardware/tx", 1);
     rx_pub_ = create_publisher<std_msgs::msg::String>("hardware/rx", 1);
-    depth_pub_ = create_publisher<msg::DepthState>("depth/state", 1);
+    if (publish_depth_)
+      depth_pub_ = create_publisher<msg::DepthState>("depth/state", 1);
 
     // 时间戳与物理范围先校验；非法指令立即把输出拉回 OFF。
     sub_ = create_subscription<msg::ThrusterCommand>(

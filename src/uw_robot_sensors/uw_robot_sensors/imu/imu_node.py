@@ -33,7 +33,7 @@ def make_imu_message(state, frame_id, stamp_ns):
 class ImuNode(Node):
     def __init__(self):
         super().__init__('imu_node')
-        driver.YBUART_PORT = self.declare_parameter('port', '/dev/ttyUSB0').value
+        driver.YBUART_PORT = self.declare_parameter('port', '/dev/ttyCH341USB0').value
         driver.IMU_OUTPUT_RATE = self.declare_parameter('rate_hz', 100).value
         driver.IMU_ALGORITHM = self.declare_parameter('algorithm', 6).value
         driver.IMU_ZERO_CALIBRATION_TIME = self.declare_parameter('zero_time_s', 2.0).value

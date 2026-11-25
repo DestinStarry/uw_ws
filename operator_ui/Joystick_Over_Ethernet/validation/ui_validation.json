@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-24",
+  "backup": "E:\\uw-robot\\backups\\joystick_ui_before_validity_20261124_173107.zip",
+  "unit_tests": "12/12 PASS",
+  "video_test": "PASS: local 2560x720 MJPEG, eye order, EOF exit and stale clearing",
+  "visual_preview": "PASS: valid/invalid headless UI rendered and inspected; sensor text inside panel bounds",
+  "control_mapper_byte_identical": true,
+  "control_reading_functions_ast_identical": true,
+  "actual_robot_connected": false,
+  "runtime_files_changed": [
+    "main.py",
+    "network.py",
+    "config.py",
+    "telemetry_display.py"
+  ],
+  "preview_dependency_note": "OpenCV 4.10.0.84 installed only into separate temporary validation directory; no global package upgrades"
+}

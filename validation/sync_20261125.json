@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-25",
+  "backup": "E:\\uw-robot\\backups\\uw_ws_before_orin_sync_20261125_094634.zip",
+  "scope": [
+    "ROS Orin updates with original simulation preserved",
+    "operator_ui/Joystick_Over_Ethernet",
+    "firmware/low_control3"
+  ],
+  "checks": {
+    "ros_packages_built": 7,
+    "ros_tests": "73 PASS, 0 errors/failures/skipped",
+    "ui_unittest": "12 PASS",
+    "firmware_host_ctest": "5/5 PASS",
+    "firmware_release_cross_build": "PASS",
+    "telemetry_parser_native": "PASS",
+    "pseudo_uart_ros_tcp_end_to_end": "PASS: actual hardware_node, fake UART/sysfs, localhost DDS",
+    "ros_source_verify_tree": "PASS",
+    "original_control_and_simulation_sources_unchanged": true,
+    "git_diff_check": "PASS"
+  },
+  "notes": [
+    "Legacy custom DDS profile failed in WSL extra test; updated fixture isolates localhost using default transport and passed. No runtime node/robot network configuration changed for this.",
+    "No commit/push, flashing, OS upgrade or kernel changes performed. Real SPI/RX fault diagnosis is still outstanding."
+  ],
+  "protected_file_count": 71
+}

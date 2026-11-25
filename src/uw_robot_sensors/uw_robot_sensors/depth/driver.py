@@ -13,15 +13,16 @@
     ZEROING ──(标定成功)──────────> READY
         │
         ├──(标定失败，未超次数)──> ZEROING（重新采样）
-        └──(标定失败，超过次数)──> READY（回退到 expected_surface_mbar）
+        └──(标定失败，超过次数)──> UNCALIBRATED（无效；可显式允许估计零点回退）
 
 标定失败最典型的场景是**传感器已经在水下**上电：此时绝压远高于水面气压
 （每 1.9 m 约 +187 mbar），不能当作零点。回退值来自配置的
-``expected_surface_mbar``，同时会告警提示"深度零点未标定"。
+``expected_surface_mbar``，只有 allow_zero_fallback=true 时才采用该估计值，否则保持无效。
 """
 
 from __future__ import annotations
 
+import math
 import threading
 import time
 from dataclasses import dataclass
@@ -33,7 +34,7 @@ from . import ms5837
 RATE_ALPHA = 0.2
 
 #: 合理的水面气压范围（mbar），用于拒绝把水下压力当作零点。
-#: 1200 mbar 约等于水下 1.9 m，所以"水下开机"一定落在范围外。
+#: 1200 mbar 约等于水下 1.9 m；浅水压力仍可能落在范围内，必须在空气中标定。
 SURFACE_RANGE_MBAR = (700.0, 1200.0)
 
 #: 合理的绝对压力范围（mbar）：30BA 满量程 30 bar。
@@ -42,7 +43,7 @@ PRESSURE_RANGE_MBAR = (200.0, 40000.0)
 #: 零点标定至少需要的样本数。
 ZERO_MIN_SAMPLES = 3
 
-#: 标定期间允许的压力波动（mbar），超过只告警不重标。
+#: 标定期间允许的压力波动（mbar），超过拒绝本轮标定。
 ZERO_MAX_SPREAD_MBAR = 5.0
 
 #: 连续失败多少次触发一次 reopen。
@@ -51,6 +52,7 @@ REOPEN_EVERY = 25
 #: 快照的相位。
 PHASE_ZEROING = "zeroing"
 PHASE_READY = "ready"
+PHASE_UNCALIBRATED = "uncalibrated"
 
 #: 零点来源。
 ZERO_CONFIG = "config"
@@ -77,8 +79,9 @@ class SensorConfig:
     expected_surface_mbar: float = 1013.25
     #: 单次零点标定的采样时长（s）。
     zero_time_s: float = 3.0
-    #: 标定失败后最多重试几轮，超过则回退 ``expected_surface_mbar``。
+    #: 标定失败的最大轮数；耗尽默认无效，显式允许后才回退估计零点。
     zero_attempts: int = 3
+    allow_zero_fallback: bool = False
     rate_hz: float = 20.0
     stale_timeout_s: float = 0.5
     max_failures: int = 5
@@ -86,6 +89,12 @@ class SensorConfig:
     def validate(self) -> "SensorConfig":
         """集中校验，错误信息一次列全，避免"改一个报一个"。"""
         problems = []
+        for name in ("fluid_density", "surface_pressure_mbar", "expected_surface_mbar",
+                     "zero_time_s", "rate_hz", "stale_timeout_s"):
+            if not math.isfinite(getattr(self, name)):
+                problems.append(name + " must be finite")
+        if not isinstance(self.bus, int) or self.bus < 0:
+            problems.append("bus must be a nonnegative integer")
         if not 0 <= self.address <= 0x7F:
             problems.append("address 必须在 0..0x7F")
         if self.model not in ("auto", "02ba", "30ba"):
@@ -150,10 +159,15 @@ class Sensor:
         # client 仅供离线测试注入；生产路径一律自建并立即打开。
         self._client = client if client is not None else ms5837.MS5837(
             self._cfg.bus, self._cfg.address)
-        if client is None:
-            # 打不开就让节点启动失败：深度是定深闭环的输入，静默降级更危险。
-            self._client.open()
-        self.model = self._select_model()
+        try:
+            if client is None:
+                self._client.open()
+            self.model = self._select_model()
+            ms5837.validate_osr(self.model, self._cfg.osr)
+            self._client.model = self.model
+        except Exception:
+            self._client.close()
+            raise
 
     # -- 只读属性 -----------------------------------------------------------
 
@@ -218,6 +232,7 @@ class Sensor:
         surface = cfg.surface_pressure_mbar if cfg.surface_pressure_mbar > 0 else None
         zero_source = ZERO_CONFIG if surface is not None else ZERO_MEASURED
         zero_attempts = 0
+        zero_failed = False
         samples = []
         zero_deadline = time.monotonic() + cfg.zero_time_s
         last_time = 0.0
@@ -229,7 +244,7 @@ class Sensor:
             started = time.monotonic()
             try:
                 pressure, temperature = self._client.read(cfg.osr)
-                if not PRESSURE_RANGE_MBAR[0] < pressure < PRESSURE_RANGE_MBAR[1]:
+                if not math.isfinite(temperature) or not PRESSURE_RANGE_MBAR[0] < pressure < PRESSURE_RANGE_MBAR[1]:
                     raise ms5837.SensorError(
                         "pressure %.1f mbar 超出合理范围" % pressure)
                 if failures:
@@ -238,6 +253,12 @@ class Sensor:
                 now = time.monotonic()
 
                 if surface is None:
+                    if zero_failed:
+                        self._store_sample(now, pressure, temperature,
+                                           phase=PHASE_UNCALIBRATED, depth=0.0, rate=0.0,
+                                           surface=0.0, source="")
+                        self._pause(started, period)
+                        continue
                     samples.append(pressure)
                     if now < zero_deadline:
                         # 标定期间不输出深度：此时没有可信的零点。
@@ -254,7 +275,16 @@ class Sensor:
                             zero_deadline = now + cfg.zero_time_s
                             self._pause(started, period)
                             continue
-                        # 重试用尽：退回标称水面气压，保证仍能输出深度。
+                        if not cfg.allow_zero_fallback:
+                            zero_failed = True
+                            samples.clear()
+                            self._store_sample(now, pressure, temperature,
+                                               phase=PHASE_UNCALIBRATED, depth=0.0, rate=0.0,
+                                               surface=0.0, source="")
+                            self._warn("Depth zero calibration failed; restart in air or configure measured surface_pressure_mbar")
+                            self._pause(started, period)
+                            continue
+                        # 仅显式允许时使用估计气压，避免把未标定深度用于闭环。
                         surface = cfg.expected_surface_mbar
                         zero_source = ZERO_FALLBACK
                         self._warn(
@@ -276,7 +306,13 @@ class Sensor:
                 self._store_sample(now, pressure, temperature, phase=PHASE_READY,
                                    depth=depth, rate=rate, surface=surface,
                                    source=zero_source)
-            except (ms5837.SensorError, ValueError, RuntimeError) as error:
+            except (OSError, ValueError, RuntimeError) as error:
+                # 标定必须来自连续成功采样；重连后保留已经建立的水面零点。
+                if surface is None and not zero_failed:
+                    samples.clear()
+                    zero_deadline = time.monotonic() + cfg.zero_time_s
+                last_time = 0.0
+                rate = 0.0
                 failures += 1
                 self._mark_failed(error, failures)
             self._pause(started, period)
@@ -287,7 +323,7 @@ class Sensor:
                       surface, source) -> None:
         with self._lock:
             self._snapshot = Snapshot(
-                ok=True, phase=phase, timestamp=now, depth_m=depth, rate_mps=rate,
+                ok=phase == PHASE_READY, phase=phase, timestamp=now, depth_m=depth, rate_mps=rate,
                 pressure_mbar=pressure, temperature_c=temperature,
                 surface_mbar=surface, zero_source=source, failures=0, age=0.0)
 
@@ -318,6 +354,7 @@ class Sensor:
         spread = max(samples) - min(samples)
         if spread > ZERO_MAX_SPREAD_MBAR:
             self._warn("标定期间压力波动 %.1f mbar，请保持传感器静止于空气中" % spread)
+            return None
         return surface
 
     def _pause(self, started: float, period: float) -> None:

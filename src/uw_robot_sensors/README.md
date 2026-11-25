@@ -70,3 +70,7 @@ SDK 四元数顺序 wxyz，角速度 rad/s，加速度 g；ROS Imu 加速度转�
 HTTP：`/?action=stream` 和 `/stereo.mjpg` 为整幅流；`/left.jpg`、`/right.jpg` 为单目截图；
 `/snapshot.jpg`、`/stereo.jpg` 为整幅截图；`/health` 为状态。
 截图无新鲜数据返回 503；采集失败会唤醒等待线程。
+
+## CPU 温度监测
+
+system_monitor_node 按热区 type 识别 CPU，读取 sysfs，默认 1Hz 发布 /system/cpu_temperature。读取失败发布 NaN。深度标定失败默认保持无效，allow_zero_fallback 默认 false；MS5837-30BA 支持 OSR 8192，实物仍使用 4096。

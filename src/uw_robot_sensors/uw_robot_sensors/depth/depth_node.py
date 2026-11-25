@@ -21,10 +21,12 @@
 
 from __future__ import annotations
 
+import math
 import time
 
 import rclpy
 from rclpy.node import Node
+from rclpy.executors import ExternalShutdownException
 from uw_robot_interfaces.msg import DepthState
 
 from . import driver, ms5837
@@ -51,11 +53,13 @@ class DepthNode(Node):
         super().__init__("depth_node")
         self._config = self._declare_config()
         self._frame = self.declare_parameter("frame_id", "base_link").value
-        self._heartbeat_period = 1.0 / max(
-            0.1, float(self.declare_parameter("heartbeat_hz", 1.0).value))
+        heartbeat = float(self.declare_parameter("heartbeat_hz", 1.0).value)
+        if not math.isfinite(heartbeat) or heartbeat <= 0:
+            raise driver.ConfigError("heartbeat_hz must be finite and positive")
+        self._heartbeat_period = 1.0 / heartbeat
         self._last_sample = 0.0
         self._last_publish = 0.0
-        self._sim_time_warned = False
+        self._was_valid = False
 
         # 打不开总线就让节点启动失败：深度是定深闭环的输入，静默降级更危险。
         self.sensor = driver.Sensor(self._config, warn=self.get_logger().warning)
@@ -82,7 +86,7 @@ class DepthNode(Node):
         if samples not in ms5837.OSR_BY_SAMPLES:
             raise driver.ConfigError(
                 "oversampling 必须是 %s 之一" % sorted(ms5837.OSR_BY_SAMPLES))
-        if declare("use_sim_time", False).value:
+        if self.get_parameter("use_sim_time").value:
             raise driver.ConfigError(
                 "depth_node 依赖真实 I2C 与单调时钟，不能在 use_sim_time 下运行")
         config = driver.SensorConfig(
@@ -98,6 +102,7 @@ class DepthNode(Node):
                 declare("expected_surface_mbar", 1013.25).value),
             zero_time_s=float(declare("zero_time_s", 3.0).value),
             zero_attempts=int(declare("zero_attempts", 3).value),
+            allow_zero_fallback=bool(declare("allow_zero_fallback", False).value),
             rate_hz=float(declare("rate_hz", 20.0).value),
             stale_timeout_s=float(declare("stale_timeout_s", 0.5).value),
             max_failures=int(declare("max_failures", 5).value),
@@ -109,13 +114,17 @@ class DepthNode(Node):
     def publish_sample(self) -> None:
         """有新样本就发有效帧；否则按心跳周期发 invalid 帧。"""
         snapshot = self.sensor.snapshot()
-        if snapshot.ok and snapshot.timestamp > self._last_sample:
+        if snapshot.ok and snapshot.phase == driver.PHASE_READY and snapshot.timestamp > self._last_sample:
             self._last_sample = snapshot.timestamp
             self._publish(snapshot, valid=True)
             return
-        if time.monotonic() - self._last_publish >= self._heartbeat_period:
+        if self._was_valid and snapshot.ok and snapshot.phase == driver.PHASE_READY:
+            return  # 尚无新采样不是故障，不重复发布同一帧。
+        if self._was_valid or time.monotonic() - self._last_publish >= self._heartbeat_period:
             if snapshot.phase == driver.PHASE_ZEROING:
                 reason = "零点标定中"
+            elif snapshot.phase == driver.PHASE_UNCALIBRATED:
+                reason = "零点标定失败，需重新标定"
             elif snapshot.failures:
                 reason = "读取失败 %d 次" % snapshot.failures
             else:
@@ -134,6 +143,7 @@ class DepthNode(Node):
         self.publisher.publish(
             make_depth_message(snapshot, self._frame, stamp_ns, valid))
         self._last_publish = time.monotonic()
+        self._was_valid = valid
 
     # -- 生命周期 -----------------------------------------------------------
 
@@ -147,7 +157,7 @@ def main(args=None):
     try:
         node = DepthNode()
         rclpy.spin(node)
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, ExternalShutdownException):
         pass
     finally:
         if node is not None:

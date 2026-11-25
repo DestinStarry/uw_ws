@@ -9,17 +9,21 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/imu.hpp>
+#include <sensor_msgs/msg/temperature.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <uw_robot_interfaces/msg/control_command.hpp>
 #include <uw_robot_interfaces/msg/depth_state.hpp>
 #include <uw_robot_interfaces/msg/robot_status.hpp>
 
 #include <chrono>
+#include <algorithm>
+#include <stdexcept>
 #include <cmath>
 #include <sstream>
 
 #include "uw_robot_communication/tcp/protocol.hpp"
 #include "uw_robot_communication/tcp/tcp_server.hpp"
+#include "uw_robot_communication/tcp/telemetry.hpp"
 
 using namespace std::chrono_literals;
 namespace msg = uw_robot_interfaces::msg;
@@ -30,6 +34,16 @@ public:
     const auto host = declare_parameter<std::string>("bind_address", "0.0.0.0");
     const int port = declare_parameter("port", 8888);
 
+    const double telemetry_hz = declare_parameter("telemetry_rate_hz", 1.0);
+    cpu_timeout_ = declare_parameter("cpu_temp_timeout_s", 3.0);
+    voltage_timeout_ = declare_parameter("voltage_timeout_s", 3.0);
+    rpm_timeout_ = declare_parameter("rpm_timeout_s", 3.0);
+    legacy_temp_ = declare_parameter("publish_legacy_temp", true);
+    if (!std::isfinite(telemetry_hz) || telemetry_hz < .1 || telemetry_hz > 10 ||
+        !std::isfinite(cpu_timeout_) || cpu_timeout_ <= 0 ||
+        !std::isfinite(voltage_timeout_) || voltage_timeout_ <= 0 ||
+        !std::isfinite(rpm_timeout_) || rpm_timeout_ <= 0)
+      throw std::runtime_error("invalid auxiliary telemetry rate/timeout");
     pub_ = create_publisher<msg::ControlCommand>("control/cmd", 1);
 
     // 断线（对端关闭/写失败/队列溢出）统一翻译成急停。
@@ -60,10 +74,43 @@ public:
             return;
           reply_euler(s->orientation);
         });
+    hardware_rx_ = create_subscription<std_msgs::msg::String>(
+        "hardware/rx", 1, [this](std_msgs::msg::String::ConstSharedPtr message) {
+          const auto field = uw::parse_voltage(message->data);
+          if (field.present)
+            voltage_ = {field.value, monotonic()};
+          const auto fields = uw::parse_rpm(message->data);
+          for (size_t i = 0; i < fields.size(); ++i)
+            if (fields[i].present)
+              rpm_[i] = {fields[i].value, monotonic()};
+          // Only validated VOLT and CH0..CH3 are accepted, never ARMED/OFF/TEMP.
+        });
+    cpu_temperature_ = create_subscription<sensor_msgs::msg::Temperature>(
+        "system/cpu_temperature", 1,
+        [this](sensor_msgs::msg::Temperature::ConstSharedPtr message) {
+          const double age = (now() - rclcpp::Time(message->header.stamp)).seconds();
+          const double value = message->temperature;
+          if (!std::isfinite(age) || age < -.05 || age > cpu_timeout_ ||
+              !std::isfinite(value) || value < -100 || value > 200) {
+            cpu_ = {std::nullopt, monotonic()};
+            return;
+          }
+          cpu_ = {value, monotonic() - std::max(0., age)};
+        });
     timer_ = create_wall_timer(5ms, [this] { server_.poll(); });
+    telemetry_timer_ = create_wall_timer(
+        std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::duration<double>(1. / telemetry_hz)), [this] {
+          reply(uw::encode_aux_telemetry(cpu_, voltage_, monotonic(), cpu_timeout_,
+                                         voltage_timeout_, legacy_temp_) +
+                uw::encode_rpm_telemetry(rpm_, monotonic(), rpm_timeout_));
+        });
   }
 
 private:
+  static double monotonic() {
+    return std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count();
+  }
   /// 断线与 OFF 都转成急停；不向执行器转发任意文本。
   void publish_stop() {
     msg::ControlCommand stop;
@@ -116,7 +163,13 @@ private:
   int depth_count_ = 0, imu_count_ = 0;
   uint32_t sequence_ = 0;
   uw::TcpServer server_;
-  rclcpp::TimerBase::SharedPtr timer_;
+  uw::TimedReading cpu_, voltage_;
+  std::array<uw::TimedReading, 4> rpm_;
+  double cpu_timeout_ = 3., voltage_timeout_ = 3., rpm_timeout_ = 3.;
+  bool legacy_temp_ = true;
+  rclcpp::TimerBase::SharedPtr timer_, telemetry_timer_;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr hardware_rx_;
+  rclcpp::Subscription<sensor_msgs::msg::Temperature>::SharedPtr cpu_temperature_;
   rclcpp::Publisher<msg::ControlCommand>::SharedPtr pub_;
   rclcpp::Subscription<msg::RobotStatus>::SharedPtr status_;
   rclcpp::Subscription<msg::DepthState>::SharedPtr depth_;

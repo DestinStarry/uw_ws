@@ -5,8 +5,9 @@ setup(name='uw_robot_sensors', version='0.2.0', packages=find_packages(exclude=[
                   ('share/uw_robot_sensors', ['package.xml'])],
       install_requires=['setuptools'], tests_require=['pytest'], zip_safe=True,
       maintainer='zy', maintainer_email='zy@example.com', license='Proprietary',
-      description='IMU and OpenCV stereo camera sensors',
+      description='IMU, pressure depth, stereo camera and CPU temperature sensors',
       entry_points={'console_scripts': [
+          'system_monitor_node = uw_robot_sensors.system_monitor:main',
           'imu_node = uw_robot_sensors.imu.imu_node:main',
           'depth_node = uw_robot_sensors.depth.depth_node:main',
           'camera_node = uw_robot_sensors.camera.camera_node:main',

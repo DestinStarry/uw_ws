@@ -10,3 +10,7 @@ simulation.launch.py 额外读取 plant 参数，默认 config/plant.yaml，用�
 robot.launch.py 默认 dry_run=true、imu=false、tcp=true、camera=false，未打开真实串口。
 
 校准来源、修改影响和迁移步骤见 docs/实物迁移与标定.md。
+
+## 实物更新
+
+robot.launch.py 默认启用 monitor=true，新增 system_monitor_node；深度默认走独占 I2C。当前实物配置为 I2C-7、30ba，STM32 /dev/ttyTHS2，IMU /dev/ttyCH341USB0。depth.launch.py 可单测深度。温度监测退出不会关闭控制链。simulation.launch.py 与 MuJoCo 依赖继续保留。

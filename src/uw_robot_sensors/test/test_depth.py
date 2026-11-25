@@ -102,9 +102,10 @@ def test_model_detection_is_not_confident_underwater():
     assert not ms5837.model_detection_confident(residual)
 
 
-def test_30ba_rejects_oversampling_reserved_for_02ba():
+def test_both_models_support_8192_and_reject_undefined_osr():
     with pytest.raises(ValueError):
-        ms5837.validate_osr(ms5837.MODEL_30BA, ms5837.OSR_8192)
+        ms5837.validate_osr(ms5837.MODEL_30BA, 6)
+    ms5837.validate_osr(ms5837.MODEL_30BA, ms5837.OSR_8192)
     ms5837.validate_osr(ms5837.MODEL_02BA, ms5837.OSR_8192)
     ms5837.validate_osr(ms5837.MODEL_30BA, ms5837.OSR_4096)
 
@@ -201,7 +202,7 @@ def test_zeroing_in_air_uses_measured_surface_pressure():
 def test_zeroing_underwater_falls_back_to_expected_pressure():
     """水下上电：绝压远超水面范围，重试后必须回退而不是永久卡住。"""
     client = FakeClient([1300.0, 1301.0, 1300.5, 1300.2])
-    sensor = driver.Sensor(_config(), client=client)
+    sensor = driver.Sensor(_config(allow_zero_fallback=True), client=client)
     try:
         sensor.start()
         assert _wait_for(lambda: sensor.snapshot().phase == driver.PHASE_READY)
@@ -269,3 +270,88 @@ def test_auto_model_refuses_underwater_startup():
 def test_invalid_config_is_rejected(overrides):
     with pytest.raises(driver.ConfigError):
         driver.SensorConfig(**overrides).validate()
+
+
+@pytest.mark.parametrize("name", ["fluid_density", "surface_pressure_mbar",
+                                 "expected_surface_mbar", "zero_time_s",
+                                 "rate_hz", "stale_timeout_s"])
+@pytest.mark.parametrize("value", [float('nan'), float('inf')])
+def test_nonfinite_config_rejected(name, value):
+    with pytest.raises(driver.ConfigError):
+        _config(**{name: value}).validate()
+
+
+def test_selected_model_written_to_device_and_failed_selection_closes_it():
+    client = FakeClient([1013.25])
+    client.model = None
+    sensor = driver.Sensor(_config(), client=client)
+    assert client.model == ms5837.MODEL_02BA
+    sensor.stop()
+    client = FakeClient([1300.0])
+    with pytest.raises(driver.ConfigError):
+        driver.Sensor(_config(model="auto"), client=client)
+    assert client.closed
+
+
+def test_calibrating_sample_is_invalid():
+    sensor = driver.Sensor(_config(zero_time_s=1.0), client=FakeClient([1013.25]))
+    try:
+        sensor.start()
+        assert _wait_for(lambda: sensor.snapshot().timestamp > 0)
+        assert sensor.snapshot().phase == driver.PHASE_ZEROING
+        assert not sensor.snapshot().ok
+    finally:
+        sensor.stop()
+
+
+def test_zero_failure_does_not_silently_use_estimated_pressure():
+    sensor = driver.Sensor(_config(), client=FakeClient([1300.0]))
+    try:
+        sensor.start()
+        assert _wait_for(lambda: sensor.snapshot().phase == driver.PHASE_UNCALIBRATED)
+        state = sensor.snapshot()
+        assert not state.ok and state.surface_mbar == 0.0
+    finally:
+        sensor.stop()
+
+
+def test_unstable_zero_is_rejected():
+    sensor = driver.Sensor(_config(), client=FakeClient([1013.25]))
+    try:
+        assert sensor._finish_zero([1000., 1010., 1020.]) is None
+    finally:
+        sensor.stop()
+
+
+def test_recovery_retains_zero_and_resets_depth_derivative():
+    client = FakeClient([1113.25], fail_from=2)
+    sensor = driver.Sensor(_config(surface_pressure_mbar=1013.25), client=client)
+    try:
+        sensor.start()
+        assert _wait_for(lambda: sensor.snapshot().failures >= 2)
+        old = sensor.snapshot().timestamp
+        assert not sensor.snapshot().ok
+        client._pressures = [1213.25]
+        client._fail_from = None
+        assert _wait_for(lambda: sensor.snapshot().ok)
+        state = sensor.snapshot()
+        assert state.timestamp > old
+        assert state.surface_mbar == 1013.25
+        assert state.rate_mps == pytest.approx(0.)
+    finally:
+        sensor.stop()
+
+
+# Numerical fixtures from the supplied 2023 MS5837 driver (_calculate).
+@pytest.mark.parametrize("model,d1,d2,pressure,temperature",
+[(0, 7000000, 5792563, 1013.2173467617089, -36.4048071853639),
+ (0, 7000000, 6631424, 1078.2520826597465, -8.52),
+ (0, 7000000, 7680000, 1150.2880859375, 20.0),
+ (0, 7000000, 8518861, 1203.8025029932032, 40.00000476837158),
+ (1, 7000000, 5792563, 20375.1860120721, -37.44160740509047),
+ (1, 7000000, 6631424, 21623.180956486613, -8.84),
+ (1, 7000000, 7680000, 23005.76171875, 20.0),
+ (1, 7000000, 8518861, 24079.101819131756, 39.89760471954345)])
+def test_compensation_matches_supplied_reference(model, d1, d2, pressure, temperature):
+    actual = ms5837.compute(d1, d2, _CAL, model)
+    assert actual == pytest.approx((pressure, temperature), rel=1e-12, abs=1e-9)
