@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-27",
+  "scope": "uw_ws source synchronization audit and current README update",
+  "comparisons": [
+    {
+      "source": "E:\\uw-robot\\uw_ws_orin\\src",
+      "destination": "E:\\uw-robot\\uw_ws\\src",
+      "kind": "ROS",
+      "preserved_repository_differences": [
+        "src/uw_robot_bringup/package.xml",
+        "src/uw_robot_bringup/README.md",
+        "src/uw_robot_sensors/README.md"
+      ],
+      "verified_files": 92
+    },
+    {
+      "source": "E:\\uw-robot\\stm32\\low_control3",
+      "destination": "E:\\uw-robot\\uw_ws\\firmware\\low_control3",
+      "kind": "STM32",
+      "preserved_repository_differences": [],
+      "verified_files": 210
+    },
+    {
+      "source": "E:\\uw-robot\\stm32\\joy\\Joystick_Over_Ethernet",
+      "destination": "E:\\uw-robot\\uw_ws\\operator_ui\\Joystick_Over_Ethernet",
+      "kind": "UI",
+      "preserved_repository_differences": [],
+      "verified_files": 16
+    }
+  ],
+  "retained": [
+    "uw_robot_mujoco",
+    "uw-hello",
+    "simulation.launch.py",
+    "plant.yaml",
+    "uw_robot_mujoco dependency in bringup"
+  ],
+  "runtime_sources_changed_this_turn": false,
+  "README_relative_links_checked": 21,
+  "tests": {
+    "UI_unittest": "14 passed",
+    "low3_host_ctest": "7/7 passed",
+    "verify_tree": "passed: 180 text files LF/no BOM, 79 Python, 5 YAML, 6 ROS messages",
+    "git_diff_check": "passed",
+    "readme_links": "passed"
+  },
+  "hardware_connected": false,
+  "flashed": false,
+  "git_staged": false,
+  "git_committed": false,
+  "git_pushed": false,
+  "README_sha256": "3489b0e37008cb407091288510480b6391fbbe0bf1c727c0ed46c7634d4c5013",
+  "source_manifest": "migration/sync_20261127.json"
+}

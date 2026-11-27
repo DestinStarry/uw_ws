@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-26",
+  "baseline": "current hardware-tested low_control2",
+  "backup": "E:\\uw-robot\\backups\\low_control3_before_low2_rebase_20261126_142641.zip",
+  "low2_non_build_files_unchanged": true,
+  "low2_files_checked": 186,
+  "proven_transport_and_initialization_functions_identical": {
+    "cs": true,
+    "spi_delay": true,
+    "reg_read": true,
+    "reg_write": true,
+    "clk_init": true,
+    "uart_config": true,
+    "uart_fifo": true,
+    "writeback_test": true,
+    "configure_and_verify": true
+  },
+  "spi2_divider": 128,
+  "spi_mode": 0,
+  "minimum_gap_us": 10,
+  "timeout_ms": 2,
+  "boot_attempts": 3,
+  "legacy_pwm_enabled": true,
+  "legacy_pwm_semantics": "does not feed CTRL watchdog; standalone raw PWM latches until new command/OFF, matching low2",
+  "feedback_gates_actuators": false,
+  "ctest": "7/7 passed after final control/SPI independence regression",
+  "hardware_verified": false,
+  "flashed": false,
+  "synced_uw_ws_firmware": false,
+  "changed_files": [
+    "README.md",
+    "Core/Src/spi.c",
+    "docs/\u4e0a\u673a\u9a8c\u6536.md",
+    "docs/\u534f\u8bae\u4e0e\u5b89\u5168\u884c\u4e3a.md",
+    "docs/\u7cbe\u7b80\u9065\u6d4b.md",
+    "docs/\u9a8c\u8bc1\u8bb0\u5f55.md",
+    "tests/CMakeLists.txt",
+    "tests/core_tests.cpp",
+    "tests/fake_hal.cpp",
+    "tests/firmware_tests.cpp",
+    "tests/stubs/fake_hal.h",
+    "userCode/core/Inc/BoardConfig.h",
+    "userCode/core/Inc/ControlProtocol.h",
+    "userCode/core/Src/ControlProtocol.cpp",
+    "userCode/devices/Inc/CH9434.h",
+    "userCode/devices/Inc/CommUART1.h",
+    "userCode/devices/Inc/TelemetryService.h",
+    "userCode/devices/Src/CH9434.cpp",
+    "userCode/devices/Src/CommUART1.cpp",
+    "userCode/devices/Src/Servo.cpp",
+    "userCode/devices/Src/TelemetryService.cpp",
+    "docs\\low2\u4e0elow3\u5bf9\u6bd4\u53ca\u91cd\u6784.md",
+    "tests\\ch9434_baseline_tests.cpp",
+    "validation\\low2_baseline_inventory_20261126.json"
+  ],
+  "artifacts": {
+    "build\\Debug\\low_control3.elf": {
+      "size": 1849240,
+      "sha256": "7a1d5dcbf49412ad38e02b044822aa03b9487c5633c125a10982dd24e8a1c4a3"
+    },
+    "build\\Debug\\low_control3.hex": {
+      "size": 162675,
+      "sha256": "495b55d81dbd8eb16eb741bc9140fc42048132ab645e51b863f23373a252e4a8"
+    },
+    "build\\Debug\\low_control3.bin": {
+      "size": 57820,
+      "sha256": "01724bb57814218f0dd6e9e696a356c61dc7ac6d8a48547139cfa0d105a68019"
+    },
+    "build\\Release\\low_control3.elf": {
+      "size": 314052,
+      "sha256": "657c6ac21014622fcc30b20312910b47fc611b285698e3d4d4f3d0e5953f97fe"
+    },
+    "build\\Release\\low_control3.hex": {
+      "size": 109080,
+      "sha256": "1a5d38319600ad9becb45536d1dd55c83c9a1aed8c20d7ca099ae9956ec14bf3"
+    },
+    "build\\Release\\low_control3.bin": {
+      "size": 38764,
+      "sha256": "e777dec95980aee39abd4e43549e429a47b0ea35ba544b7e46c52e1b98d31f8d"
+    }
+  },
+  "debug_build": "passed",
+  "release_build": "passed",
+  "new_low3_hardware_verified": false,
+  "git_push": false,
+  "tests_added": [
+    "actual low2 2314RPM capture",
+    "four channel 460-byte backlog",
+    "startup delayed readiness, bad DLL, FIFO disabled, disconnected module",
+    "first complete command after OFF and partial-tail resync",
+    "legacy PWM clamps and hold semantics",
+    "201-point low2 PWM equation comparison",
+    "valid control during SPI/RPM failure",
+    "five-second compact summary"
+  ]
+}

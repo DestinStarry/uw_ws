@@ -52,8 +52,14 @@ class CommandMapper:
         return tuple(self.state)
 
     @staticmethod
-    def frame(velocity, arm, estop, depth, loop):
+    def frame(velocity, arm, estop, depth, loop, camera_angle_deg=None):
         """生成一行 CMD 帧（不含换行，send() 会补）。"""
         body = ','.join('%.6f' % value for value in velocity)
-        return 'CMD:%s,%d,%d,%d,%d' % (body, int(bool(arm)), int(bool(estop)),
+        frame = 'CMD:%s,%d,%d,%d,%d' % (body, int(bool(arm)), int(bool(estop)),
                                        int(bool(depth)), int(bool(loop)))
+        if camera_angle_deg is not None:
+            angle = float(camera_angle_deg)
+            if not math.isfinite(angle) or abs(angle) > 90:
+                raise ValueError('camera angle must be finite and within +/-90 degrees')
+            frame += ',%.1f' % angle
+        return frame

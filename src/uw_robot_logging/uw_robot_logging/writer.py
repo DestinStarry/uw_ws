@@ -58,7 +58,7 @@ class SessionWriter:
         label = re.sub(r"[^A-Za-z0-9_-]+","_",label)[:48].strip("_")
         session = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S_%fZ")+"_"+uuid.uuid4().hex[:8]
         self.path = Path(directory).expanduser().resolve()/(session+("_"+label if label else ""))
-        self.metadata = dict(metadata, schema_version=1, session_id=session, label=operator_label, file_label=label,
+        self.metadata = dict(metadata, schema_version=2, session_id=session, label=operator_label, file_label=label,
                              started_utc=utc_now(), host=socket.gethostname(), python=platform.python_version(),
                              queue_capacity=capacity, flush_interval_s=flush_interval,
                              min_free_mb=min_free_mb,max_session_mb=max_session_mb,fsync=fsync)

@@ -30,13 +30,17 @@ FIELDS = {
     "actuator": ["actuator_sequence", "actuator_enabled"] + ["force_"+k+"_n" for k in FORCES] +
                 ["servo_command_13_deg", "servo_command_24_deg", "gripper_closed"],
     "cpu": ["cpu_temperature_c"],
-    "tx": ["hardware_tx", "serial_command"] + ["ctrl_"+k for k in ("f1", "f2", "f3", "f4", "s1", "s2", "gripper")],
+    "tx": ["hardware_tx", "serial_command", "tx_sync_token"] + ["ctrl_"+k for k in ("f1", "f2", "f3", "f4", "s1", "s2", "gripper")],
     "rx": ["hardware_rx"],
 }
 MCU_KEYS = {"VOLT": "mcu_voltage_v", **{"CH"+str(i): "rpm_"+str(i) for i in range(4)},
             "MCU_SEQ": "mcu_sequence", "MCU_MS": "mcu_uptime_ms", "CTRL_ACTIVE": "mcu_control_active",
             "NEUTRAL_REQUIRED": "mcu_neutral_required", "CH_READY": "mcu_ch_ready",
             "STOP_REASON": "mcu_stop_reason", "RX_REJECT": "mcu_rx_reject", "SPI_ERRORS": "mcu_spi_errors"}
+MCU_KEYS.update({"SYNC_TOKEN":"mcu_sync_token", "FAULT_COUNT":"mcu_fault_count"})
+RXSTAT_ALIASES = {k:"RX_"+k for k in ("UART","FLAGS","REARM","BYTE_OVF","LINE_OVF","BAD_BYTE","TOO_LONG","PARTIAL_TIMEOUT","STALE","INVALID","NEUTRAL_REJECT")}
+MCU_KEYS.update({v:"mcu_"+v.lower() for v in RXSTAT_ALIASES.values()})
+SAFETY_ALIASES = {"SEQ":"MCU_SEQ","MS":"MCU_MS","ACTIVE":"CTRL_ACTIVE","NEUTRAL":"NEUTRAL_REQUIRED", "SYNC":"SYNC_TOKEN","FAULTS":"FAULT_COUNT","REASON":"STOP_REASON"}
 for key in ("VOLT", "CH0", "CH1", "CH2", "CH3"):
     MCU_KEYS[key+"_VALID"] = ("mcu_voltage" if key == "VOLT" else "rpm_"+key[2])+"_reported_valid"
     MCU_KEYS[key+"_AGE_MS"] = ("mcu_voltage" if key == "VOLT" else "rpm_"+key[2])+"_reported_age_ms"
@@ -82,9 +86,12 @@ class Snapshot:
         self.latest[source] = (dict(data), received, stamp)
         if source == "rx":
             tokens = {}
-            for token in data.get("hardware_rx", "").split():
+            raw = data.get("hardware_rx", "").split()
+            aliases = SAFETY_ALIASES if raw and raw[0]=="SAFETY" else (RXSTAT_ALIASES if raw and raw[0]=="RXSTAT" else {})
+            for token in raw:
                 if ":" not in token: continue
                 key, value = token.split(":", 1)
+                key = aliases.get(key,key)
                 if key not in MCU_KEYS: continue
                 tokens[key] = None if key in tokens else number(value)
             for key, value in tokens.items():

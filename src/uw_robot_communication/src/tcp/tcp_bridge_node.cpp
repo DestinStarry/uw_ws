@@ -8,6 +8,7 @@
 /// * 遥测按固定抽稀比回传（姿态每 10 帧、深度每 5 帧），避免占满链路。
 
 #include <rclcpp/rclcpp.hpp>
+#include <std_msgs/msg/float64.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <sensor_msgs/msg/temperature.hpp>
 #include <std_msgs/msg/string.hpp>
@@ -45,6 +46,7 @@ public:
         !std::isfinite(rpm_timeout_) || rpm_timeout_ <= 0)
       throw std::runtime_error("invalid auxiliary telemetry rate/timeout");
     pub_ = create_publisher<msg::ControlCommand>("control/cmd", 1);
+    camera_pub_=create_publisher<std_msgs::msg::Float64>("camera/servo_target_deg",1);
 
     // 断线（对端关闭/写失败/队列溢出）统一翻译成急停。
     server_.set_disconnect_handler([this] { publish_stop(); });
@@ -75,7 +77,7 @@ public:
           reply_euler(s->orientation);
         });
     hardware_rx_ = create_subscription<std_msgs::msg::String>(
-        "hardware/rx", 1, [this](std_msgs::msg::String::ConstSharedPtr message) {
+        "hardware/rx", 100, [this](std_msgs::msg::String::ConstSharedPtr message) {
           const auto field = uw::parse_voltage(message->data);
           if (field.present)
             voltage_ = {field.value, monotonic()};
@@ -148,6 +150,10 @@ private:
     const auto command = uw::parse_command(line);
     if (!command)
       return;
+    if (command->camera_command) {
+      std_msgs::msg::Float64 camera;camera.data=command->camera_angle_deg;
+      camera_pub_->publish(camera);
+    }
     msg::ControlCommand m;
     m.header.stamp = now();
     m.sequence = sequence_++;
@@ -160,6 +166,7 @@ private:
     pub_->publish(m);
   }
 
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr camera_pub_;
   int depth_count_ = 0, imu_count_ = 0;
   uint32_t sequence_ = 0;
   uw::TcpServer server_;

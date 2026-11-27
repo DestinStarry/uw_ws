@@ -17,7 +17,6 @@
 #include "usermain.h"
 #include "spi.h"
 #include "RpmDecoder.h"
-#include "BoardConfig.h"
 
 /* ===== CH9434 引脚（按实际接线修改） ===== */
 #define CH9434_CS_Pin        GPIO_PIN_12
@@ -74,17 +73,17 @@ public:
 
     /* ===== 用户 API ===== */
     uint16_t Send(uint8_t idx, const uint8_t *data, uint16_t len);  /* 向指定串口发送 */
-    uint16_t Recv(uint8_t idx, uint8_t *buf, uint16_t maxlen);      /* 从指定串口取接收数据 */
-    uint16_t Available(uint8_t idx);                                /* 指定串口待读字节数 */
     uint32_t GetRxCount(uint8_t idx);                               /* 指定串口累计接收字节数 */
+    // Formatting cached results only; periodic SCR probe runs in Handle, no control gating.
+    bool Ready() const { return _initialized && _io_ok && _probe_ok; }
+    uint32_t SpiErrors() const { return _spi_errors; }
     bool RpmValid(uint8_t idx, uint32_t now) const;
     uint32_t RpmAge(uint8_t idx, uint32_t now) const;
-    bool Ready() const { return _initialized && _io_ok; }
-    uint32_t SpiErrors() const { return _spi_errors; }
+    size_t FormatRpmSummary(char *buffer, size_t capacity) const;
     int32_t  GetRPM(uint8_t idx);                                   /* 最近一帧机械转速 (RPM) */
     uint16_t GetRxFifoLenDbg(uint8_t idx);   /* 调试：直接读指定串口 RxFIFO 长度 */
     uint8_t  GetLSRDbg(uint8_t idx);         /* 调试：读指定串口线路状态寄存器 (SPI 是否通的判据) */
-    uint8_t  GetWritebackDbg(void);          /* 调试：SPI 写读回自检结果 (0x5A=双向通, 0xFF=读不通) */
+    uint8_t  GetWritebackDbg(void);          /* 调试：最近 SCR 最后一组读回值（结合 MASK 和 PASS/FAIL 判断） */
 
     static CH9434 ch9434;
 
@@ -106,27 +105,30 @@ private:
 
     /* 收发 */
     uint16_t get_rx_fifo_len(uint8_t idx);
-    uint16_t get_rx_fifo_data(uint8_t idx, uint8_t *buf, uint16_t len);
     void push_rx(uint8_t idx, uint8_t d);
-
-    /* 电调遥测帧解析 */
-    low::RpmDecoder decoders_[4];
 
     /* SPI 写读回自检 */
     uint8_t writeback_test(void);
+    bool configure_and_verify(void);
+    struct UartConfigSnapshot {
+        uint8_t lcr=0, dll=0, dlm=0, ier=0, mcr=0, iir=0, lsr=0, mask=0;
+    };
+    UartConfigSnapshot _cfg[4];
+    uint8_t _init_attempts=0, _init_error=0, _cfg_mask=0, _clock_read=0xFF;
+    bool _started=false;
 
-    /* 每路串口接收环形缓冲 */
-    static const uint16_t RX_BUF_SIZE = 256;
-    uint8_t  rx_buf[4][RX_BUF_SIZE];
-    uint16_t rx_head[4] = {0, 0, 0, 0};
-    uint16_t rx_tail[4] = {0, 0, 0, 0};
-    uint32_t rx_total[4] = {0, 0, 0, 0};   /* 累计接收字节数 */
 
+    low::RpmDecoder decoders_[4];
+    uint32_t rx_total[4]={};
+    bool _io_ok=true, _probe_ok=false;
+    uint32_t _spi_calls=0, _spi_errors=0, _fifo_errors=0, _poll_max_ms=0, _last_poll_ms=0;
+    uint8_t _last_spi_error=0;
+    bool _have_poll=false;
     uint32_t _sys_frequency = 32000000;
-    bool _initialized = false, _io_ok = true;
-    uint32_t _spi_errors = 0, _retry_tick = 0;
-    uint8_t _next_channel = 0;
-    uint8_t _loopback = 0xFF;   /* 上电时写读回自检结果 */
+    bool _initialized = false;
+    uint8_t _probe_read[5] = {}, _probe_mask = 0;
+    uint32_t _probe_rounds = 0, _probe_pass = 0, _probe_fail = 0, _last_probe_ms = 0;
+    uint8_t _loopback = 0xFF;   /* 最近一次 SCR 写读回结果 */
 };
 
 #endif /* CH9434_H */

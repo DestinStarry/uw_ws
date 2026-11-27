@@ -1,0 +1,10 @@
+{
+  "task": "Flash and Run low_control3 Debug",
+  "configuration_validated": true,
+  "program_verify_reset_exit": true,
+  "existing_debug_main_breakpoint_unchanged": true,
+  "firmware_unchanged": true,
+  "firmware_sha256": "5d4735c83e08c6b9137fb911114444899328f0bfd836b9f8ca4b4f895d4748e9",
+  "physical_flash_executed": false,
+  "backup": "E:\\uw-robot\\backups\\low3_before_flash_run_task_20261126_153602.zip"
+}

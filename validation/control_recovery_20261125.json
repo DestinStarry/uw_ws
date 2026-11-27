@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-25",
+  "feature": "MCU receive diagnostics and explicit control recovery handshake",
+  "input_log": {
+    "path": "E:/uw-robot/stm32/日志/flight.csv",
+    "sha256": "affd27b556d821e97ed047736345a804113dea1f2b5bd5e4b9bd3ee6d03e47fb",
+    "rows": 1589,
+    "observed_stop_reason": 8,
+    "root_physical_cause_confirmed": false
+  },
+  "ros": {
+    "environment": "WSL Ubuntu / ROS 2 Humble",
+    "dependency_packages_built": 7,
+    "tests": 93,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "firmware": {
+    "Release": "cross-compiled",
+    "Debug": "cross-compiled",
+    "host_suites": 5,
+    "failures": 0,
+    "strict_new_token_recovery_tested": true
+  },
+  "integration": [
+    "Real control/allocation/hardware processes with fake MCU over PTY: handshake timeout, token ACK, held-arm rejection, MCU fault disarm, explicit rearm, heartbeat loss",
+    "Fake ROS messages with real logger: fields, invalid data, parameters, segmentation, shutdown",
+    "Actual dry-run group: logger failure isolation and shutdown finalization",
+    "Fake UART/sysfs through actual ROS and TCP: voltage/RPM/CPU forwarding, invalidation, recovery, injection rejection; burst reception"
+  ],
+  "logger_schema": {
+    "version": 2,
+    "csv_columns": 230
+  },
+  "deployed_to_orin": false,
+  "board_flashed": false,
+  "physical_actuation_tested": false,
+  "requires_paired_orin_and_mcu_update": true
+}

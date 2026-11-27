@@ -27,7 +27,6 @@ void TelemetryService::Handle() {
     }
     sample.sequence=sequence_;sample.now=now;
     sample.active=g_comm.Active() && !Safety_PendingFault();
-    sample.needs_neutral=g_comm.NeedsNeutral() || Safety_PendingFault();
     sample.stop_reason=Safety_LastReason();sample.rejected=g_comm.Rejected();
     sample.ch_ready=CH9434::ch9434.Ready();
     sample.spi_errors=CH9434::ch9434.SpiErrors();
@@ -36,16 +35,26 @@ void TelemetryService::Handle() {
     const size_t payload=low::FormatTelemetry(reinterpret_cast<char *>(buffer_+length),sizeof(buffer_)-length,sample);
     if (!payload) return;
     length+=payload;
-    const bool diagnostics_due=uint32_t(now-last_diagnostics_) >= kDiagnosticsPeriodMs;
+    const bool diagnostics_due=kDiagnosticsEnabled && uint32_t(now-last_diagnostics_) >= kDiagnosticsPeriodMs;
     bool diagnostics_added=false;
     if (diagnostics_due) {
         const size_t extra=low::FormatDiagnostics(reinterpret_cast<char *>(buffer_+length),sizeof(buffer_)-length,sample);
-        if (extra) { length+=extra;diagnostics_added=true; }
+        if (extra) {
+            length+=extra;
+            diagnostics_added=true;
+        }
+    }
+    bool summary_added=false;
+    if (kRpmSummaryEnabled && uint32_t(now-last_rpm_summary_)>=kRpmSummaryPeriodMs) {
+        const size_t extra=CH9434::ch9434.FormatRpmSummary(
+            reinterpret_cast<char *>(buffer_+length),sizeof(buffer_)-length);
+        if (extra) { length+=extra; summary_added=true; }
     }
     sent_at_=now;busy_=true;
     if (HAL_UART_Transmit_IT(&huart6,buffer_,uint16_t(length)) == HAL_OK) {
         last_report_=now;++sequence_;resync_=false;
         if (diagnostics_added) last_diagnostics_=now;
+        if (summary_added) last_rpm_summary_=now;
     } else {
         busy_=false; // Failed HAL start must never wedge the TX busy flag.
     }

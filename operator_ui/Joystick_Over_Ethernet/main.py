@@ -27,6 +27,7 @@ from collections import deque
 from config import *
 from network import CommandClient
 from command_mapper import CommandMapper
+from camera_pan import CameraPan
 from telemetry_display import TelemetryView
 
 
@@ -287,6 +288,7 @@ def main():
 
     # 5. 主循环
     mapper = CommandMapper()
+    camera_pan = CameraPan(step_deg=10, limit_deg=90)
     last_cmd_time = time.monotonic()
     running = True
     while running:
@@ -294,6 +296,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.JOYHATMOTION and event.hat == 0:
+                camera_pan.update(event.value[1])
 
         now = time.monotonic()
         cmd_dt = min(max(now - last_cmd_time, 0.0), 0.2)
@@ -308,11 +312,16 @@ def main():
         else:
             controls = (0.0,)*6 + (0,)*6
         lx,ly,rx,ry,lt,rt,a,b,x,y,lb,rb=controls
+        try:
+            hat_y = joystick.get_hat(0)[1] if joystick is not None and joystick.get_numhats() else 0
+        except pygame.error:
+            hat_y = 0
+        camera_pan.update(hat_y)
 
         # ----- 发送控制指令（每帧发送，约 33ms/次 = 30FPS） -----
         # 手柄轴在这里换算成机体系六轴速度，控制端只跟踪物理量。
         velocity = mapper.update(lx, ly, rx, ry, lt, rt, lb, rb, cmd_dt)
-        cmd_str = mapper.frame(velocity, a, b, x, y)
+        cmd_str = mapper.frame(velocity, a, b, x, y, camera_pan.angle_deg)
         # send() 会在断线时触发限频重连。重连成功后的下一帧会立即恢复
         # 发送，手柄无需重启程序。
         cmd_client.send(cmd_str)
@@ -379,6 +388,7 @@ def main():
         text_print.print(screen, "  A 解锁/锁定    B 急停")
         text_print.print(screen, "  X 定深    Y 开环/闭环")
         text_print.print(screen, "  LB / RB 横滚")
+        text_print.print(screen, f"  十字键↑/↓ 摄像头 ±10° 目标:{camera_pan.angle_deg:+.0f}°")
         text_print.print(screen, "")
 
         draw_sensor_panel(screen, text_print, cmd_client, info_y)

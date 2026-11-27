@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-25",
+  "mode": "simple CTRL/OFF",
+  "removed": [
+    "SYNC handshake",
+    "SAFETY heartbeat requirement",
+    "MCU feedback arm gate",
+    "MCU neutral/recovery latch",
+    "default DIAG/RXSTAT output"
+  ],
+  "retained": [
+    "startup neutral",
+    "OFF immediate stop",
+    "finite/range/age checks",
+    "200ms last-valid-command deadman",
+    "SysTick stop",
+    "IWDG",
+    "optional flight logger",
+    "RPM missing/zero distinction"
+  ],
+  "bad_frame_policy": "Discard and resynchronize without renewing last-valid timestamp; hold last valid output only until the 200ms deadman deadline; subsequent valid CTRL may resume while Orin remains armed",
+  "ros": {
+    "dependency_packages_built": 7,
+    "tests": 92,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "firmware": {
+    "Debug": "cross-compiled",
+    "Release": "cross-compiled",
+    "host_suites": 6,
+    "failures": 0
+  },
+  "integration": [
+    "Real control/allocation/hardware nodes over PTY: direct arm with no MCU feedback, forward/reverse, no RPM gate, estop, explicit rearm, command-loss stop",
+    "CPU/voltage/RPM TCP forwarding, invalidation and recovery",
+    "Logger message fields, parameters, invalid values, stop/start and shutdown",
+    "Logger failure isolation in real dry-run bringup"
+  ],
+  "low_control2_modified": false,
+  "low_control2_zero_rpm_note": "GetRPM returns _rpm initialized to zero even before a CRC-valid sample",
+  "flashed": false,
+  "orin_deployed": false,
+  "physical_link_fault_eliminated": false
+}

@@ -36,8 +36,8 @@ size_t FormatDiagnostics(char *buffer, size_t capacity, const TelemetrySnapshot 
     if (!buffer || !capacity) return 0;
     buffer[0]='\0'; size_t used=0;
     bool ok=append(buffer,capacity,used,
-        "DIAG MCU_SEQ:%lu MCU_MS:%lu CTRL_ACTIVE:%u NEUTRAL_REQUIRED:%u CH_READY:%u STOP_REASON:%lu RX_REJECT:%lu SPI_ERRORS:%lu VOLT_VALID:%u VOLT_AGE_MS:",
-        (unsigned long)s.sequence,(unsigned long)s.now,unsigned(s.active),unsigned(s.needs_neutral),unsigned(s.ch_ready),
+        "DIAG MCU_SEQ:%lu MCU_MS:%lu CTRL_ACTIVE:%u CH_READY:%u STOP_REASON:%lu RX_REJECT:%lu SPI_ERRORS:%lu VOLT_VALID:%u VOLT_AGE_MS:",
+        (unsigned long)s.sequence,(unsigned long)s.now,unsigned(s.active),unsigned(s.ch_ready),
         (unsigned long)s.stop_reason,(unsigned long)s.rejected,(unsigned long)s.spi_errors,unsigned(s.voltage.valid));
     ok=ok && append_age(buffer,capacity,used,s.voltage.age);
     for (unsigned i=0;i<4 && ok;++i) {

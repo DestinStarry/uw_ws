@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-25",
+  "change": "Preserve HAL UART error flags across RX-complete/error callback order",
+  "input_session": "20261123T130349_202173Z_57b826b3_recovery_test_01",
+  "findings": {
+    "successful_sync_tokens": 10,
+    "uart_error_count_delta": 81,
+    "bad_byte_count_delta": 26,
+    "byte_overflow_delta": 0,
+    "line_overflow_delta": 0,
+    "stale_frame_delta": 0
+  },
+  "validation": {
+    "Debug": "cross-compiled",
+    "Release": "cross-compiled",
+    "host_suites": 6,
+    "failures": 0,
+    "callback_regression": "Production callback bodies; RX completion before error callback; PE/NE/FE/ORE retained, bad byte discarded, normal/rearm-failure/unrelated-UART paths covered"
+  },
+  "orin_code_changed": false,
+  "physical_uart_root_cause_confirmed": false,
+  "flashed": false,
+  "source_sha256": "938925fc5e260a2e986559452feeecc979ed17ded3612043759c136e113a3847"
+}

@@ -39,6 +39,35 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Flash and Run low_control3 Debug",
+            "type": "process",
+            "command": "E:/STM32/openocd-20260302/OpenOCD-20260302-0.12.0/bin/openocd.exe",
+            "args": [
+                "-s",
+                "E:/STM32/openocd-20260302/OpenOCD-20260302-0.12.0/share/openocd/scripts",
+                "-f",
+                "interface/cmsis-dap.cfg",
+                "-f",
+                "target/stm32f4x.cfg",
+                "-c",
+                "program {${workspaceFolder}/build/Debug/low_control3.elf} verify reset exit"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": [
+                "Build low_control3 Debug"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "detail": "Build, program, verify, reset-run and exit OpenOCD. Stop any Cortex-Debug session first."
         }
     ]
 }

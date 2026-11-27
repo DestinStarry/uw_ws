@@ -14,6 +14,9 @@ void Buzzer::RequestBeep(uint8_t){}
 namespace fake {
 uint32_t tick=0,irqmask=0,spi_calls=0,tx_calls=0,tx_aborts=0;
 bool spi_fail=false,adc_fail=false,tx_fail=false;
+int spi_stuck=-1,corrupt_dll=-1,fifo_disabled=-1;
+uint32_t spi_fail_until=0,clock_writes=0;
+uint8_t divisors[4][2]={};
 uint32_t ref_raw=1500,battery_raw=1875;
 std::string tx;
 std::vector<uint8_t> fifo[4];
@@ -21,6 +24,8 @@ uint8_t regs[128]={},address=0,fifo_channel=0;
 bool first=true,write=false;
 void Reset(){
  tick=irqmask=spi_calls=tx_calls=tx_aborts=0;spi_fail=adc_fail=tx_fail=false;
+ spi_stuck=corrupt_dll=fifo_disabled=-1;spi_fail_until=clock_writes=0;
+ for(auto &d:divisors)d[0]=d[1]=0;
  tx.clear();for(auto &q:fifo)q.clear();std::fill(regs,regs+128,0);
  first=true;ref_raw=1500;battery_raw=1875;
 }
@@ -42,11 +47,21 @@ void HAL_GPIO_Init(int,GPIO_InitTypeDef *){}
 void HAL_GPIO_WritePin(int,uint32_t pin,int value){if(pin==12 && value==GPIO_PIN_RESET)fake::first=true;}
 HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *,uint8_t *tx,uint8_t *rx,uint16_t,uint32_t timeout){
  ++fake::spi_calls;
- if(timeout>1)throw std::runtime_error("unbounded SPI timeout");
- if(fake::spi_fail){fake::tick+=timeout;return HAL_TIMEOUT;}
+ if(timeout>2)throw std::runtime_error("unbounded SPI timeout");
+ if(fake::spi_fail || fake::tick<fake::spi_fail_until){fake::tick+=timeout;return HAL_TIMEOUT;}
  *rx=0;
  if(fake::first){fake::address=*tx&0x7f;fake::write=(*tx&0x80)!=0;fake::first=false;return HAL_OK;}
- if(fake::write){fake::regs[fake::address]=*tx;if(fake::address==0x42)fake::fifo_channel=*tx&3;}
+ const unsigned uart=(fake::address>>4)&3, offset=fake::address&15;
+ const bool banked=fake::address<0x40 && offset<2 && (fake::regs[uart*16+3]&0x80);
+ if(fake::write){
+  if(banked)fake::divisors[uart][offset]=*tx;
+  else fake::regs[fake::address]=*tx;
+  if(fake::address==0x42)fake::fifo_channel=*tx&3;
+  if(fake::address==0x48)++fake::clock_writes;
+ }
+ else if(fake::spi_stuck>=0)*rx=uint8_t(fake::spi_stuck);
+ else if(banked){*rx=fake::divisors[uart][offset];if(offset==0 && int(uart)==fake::corrupt_dll)*rx^=1;}
+ else if(fake::address<0x40 && offset==2)*rx=((fake::regs[fake::address]&1) && int(uart)!=fake::fifo_disabled)?0xC2:0x01;
  else if(fake::address==0x43)*rx=uint8_t(fake::fifo[fake::fifo_channel].size());
  else if(fake::address==0x44)*rx=uint8_t(fake::fifo[fake::fifo_channel].size()>>8);
  else if((fake::address&15)==0 && !(fake::regs[(fake::address&0x30)+3]&0x80)){

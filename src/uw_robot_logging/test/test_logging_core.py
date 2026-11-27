@@ -52,6 +52,22 @@ class SnapshotTests(unittest.TestCase):
         self.assertIsNone(model.sample(2,12,100)["rpm_0"])
         self.assertIsNone(model.sample(2,12,100)["mcu_voltage_v"])
 
+    def test_safety_and_rxstat_are_recorded_without_refreshing_rpm(self):
+        model=Snapshot();model.observe("rx",{"hardware_rx":"CH0:0"},1)
+        model.observe("rx",{"hardware_rx":"SAFETY SEQ:2 MS:200 ACTIVE:0 NEUTRAL:1 SYNC:0 FAULTS:3 REASON:8"},2)
+        model.observe("rx",{"hardware_rx":"RXSTAT UART:2 FLAGS:8 BYTE_OVF:1 NEUTRAL_REJECT:9"},3)
+        row=model.sample(0,3,3)
+        self.assertEqual(row["mcu_control_active"],0)
+        self.assertEqual(row["mcu_fault_count"],3)
+        self.assertEqual(row["mcu_rx_flags"],8)
+        self.assertEqual(row["rpm_0_receive_age_s"],2)
+
+    def test_sync_is_not_a_fake_control_command(self):
+        data=adapt("tx",NS(data="SYNC:12345\n"))
+        self.assertEqual(data["serial_command"],"SYNC")
+        self.assertEqual(data["tx_sync_token"],12345)
+        self.assertIsNone(data["ctrl_f1"])
+
     def test_euler_identity_and_bad_quaternion(self):
         self.assertEqual(euler_degrees(1,0,0,0),(0,0,0))
         self.assertEqual(euler_degrees(0,0,0,0),(None,)*3)
@@ -62,6 +78,10 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(data["ctrl_f1"],.1)
         self.assertEqual(data["ctrl_gripper"],-.5)
         self.assertIsNone(adapt("tx",NS(data="OFF\n"))["ctrl_f1"])
+        camera_stop=adapt("tx",NS(data="OFF:0.1111\n"))
+        self.assertEqual(camera_stop["serial_command"],"OFF")
+        self.assertIsNone(camera_stop["ctrl_f1"])
+        self.assertAlmostEqual(camera_stop["ctrl_gripper"]*90,10,places=2)
         self.assertIsNone(adapt("tx",NS(data="CTRL:0,0"))["ctrl_f1"])
 
     def test_snapshot_is_independent_and_ros_clock_jump_is_visible(self):

@@ -1,85 +1,33 @@
-# low_control3：STM32F407 执行层
+# low_control3：以实测 low_control2 为基准的执行层
 
-从 `E:/uw-robot/stm32/low_control2` 单独复制并重构；原工程不改动。目标架构是：电脑负责操作，Orin 负责控制/分配、IMU、I2C 深度计与相机，STM32 负责最终 PWM、电压与四路电调转速采集。
+> 摄像头更新：第七路现为±90°摄像头目标，初始0°；OFF/超时保持角度，夹爪语义已废止。见[摄像头控制](docs/摄像头舵机控制.md)。旧对比描述的是本次摄像头更新前的基准。
 
-本次已启用[精简遥测](docs/精简遥测.md)：电压和四路转速 10Hz，诊断独立 1Hz；正常发送不再产生额外空行。
+2026-11-26 更新：移入当前 low_control2 实测成功的 CH9434 SPI 时序和启动配置验证，保留原推进器方向、PWM范围、舵机和夹爪映射。low_control2 原工程不改动。旧 low3 的详细差异、此次改动及证据见 [low2与low3对比及重构](docs/low2与low3对比及重构.md)。
 
-## 主要改进
+STM32 负责四路推进器 PWM、三路舵机 PWM、电池电压及四路电调转速。IMU、MS5837 深度计、相机、Orin CPU 温度均由 Orin 负责；STM32 不再轮询旧板载 IMU/深度板，不上传占位深度和温度。
 
-- UART6 中断只收字节、组装有界行；主循环处理完整命令。支持半帧、粘包和 CRLF；过长、非文本、过慢帧及队列溢出触发停机和重新同步。
-- 严格校验 7 个十进制有限数及 `[-1,1]` 范围，拒绝 NaN/Inf、尾随文本和多余参数。删除旧 `<id> <PWM>` 串口入口，避免绕过保护。
-- 上电、OFF、超时或接收故障后，先接收一帧四路推力均为零的 CTRL 才允许运动；后两路转向舵机和夹爪不要求为零。同一批已排队数据中的 OFF 优先，不能被同批后续 CTRL 覆盖。
-- 200ms 命令超时由主循环与独立 SysTick 路径检查；SysTick 可在主循环阻塞时直接写中位。只按有效帧的接收时间续期，BUZZ/无效数据不续期。额外启用独立 IWDG（32kHz LSI 下名义约 2 秒），仅主循环喂狗。
-- PWM 启动前写入 1500µs，停机立即更新 CCR；保留原四路方向反相表和输出范围。50Hz PWM 存在一个周期以内的寄存器生效延迟，实际停机时延必须实测。
-- CH9434 转速由固定切帧改为滑动 CRC8 重同步；连续两帧 CRC 正确后才有效，损坏帧立即失效，500ms 无新有效帧失效；不再把默认 0 或断线旧值当反馈。
-- CH9434 单次 SPI 超时由 1000ms 降为 1ms，错误后停止本轮访问、失效反馈并定期重初始化。每轮读一个通道，轮询预算有界；不更改原芯片配置方式。
-- 电压检查每次 ADC 操作状态、加长采样时间，只有成功采样才更新有效值。不再采集/上报 STM32 温度。
-- UART6 固定 10Hz 上报电压、CH0~CH3，诊断另以 1Hz 上报，不依赖旧深度数据；发送失败释放 busy，丢回调可恢复，帧截断不会被当完整遥测发送。
+## 当前行为
 
-## 目录
+- 上电先输出1500μs中位，再启动PWM。四个电机 CTRL 方向反相与low2一致，PWM范围1100～1900μs；舵机原通道/限位不变。舵机角度到PWM改为low2的截断算法，避免与原版有1μs量化差异。
+- 完整合法CTRL直接执行；OFF停止；连续超过200ms无有效CTRL则中位。下一个有效CTRL可恢复，无SYNC、MCU心跳、回中握手或重新解锁门槛；RPM故障不禁止控制。
+- UART中断只缓存字节，主循环按行解析，支持LF、CRLF、半帧和粘包。OFF优先；正常完整OFF后首条新命令不再被误丢。受损残帧先恢复分帧。
+- 恢复low2数字命令：`1 1600`～`4 1600`控制电机，`5 1600`～`7 1600`控制舵机，`8 1`蜂鸣。数字PWM不做方向反相、不刷新CTRL超时；独立手动测试先OFF，输出保持到新命令/OFF。不要与Orin持续CTRL/OFF混用。
+- SPI2模式0、/128（42MHz APB1时328.125kHz）、DWT至少10μs间隔、2ms单字节超时。等待上电后先做SCR五组测试，再配置UART并读回，启动最多3次。运行中只继续SCR检查与收数，不反复执行阻塞初始化。
+- 四路FIFO每10ms调度都轮询，每路最多128字节；不再把积压数据整块丢掉。保留滑动CRC错位恢复、连续两帧确认及500ms反馈超时；全零噪声无效，真实零转速有效。
+- 正常遥测10Hz：`VOLT:23.80 CH0:0 CH1:2314 CH2:-- CH3:--`。无效/过期为`--`。每5秒追加一行精简RDBG，详细DIAG默认关闭。
+- 保留原low3的独立SysTick命令超时和IWDG；不添加与遥测绑定的控制状态机。
 
-```text
-Core/                       CubeMX 外设、时钟、异常和 SysTick 入口
-Drivers/                    STM32 HAL/CMSIS
-userCode/core/              无 HAL 的命令、分帧、超时状态、RPM 解码和遥测格式
-userCode/control/           已校验执行量到电机/舵机的映射
-userCode/devices/           UART 接入、安全、遥测、CH9434、ADC 与 PWM
-reference/legacy/           不编译的旧深度、板载 IMU 和算法代码
-scripts/build.ps1          编译固件和本机测试，不烧录
-tests/                     协议测试与假 HAL 故障注入
-docs/                      协议、联调及验证记录
-```
-
-`Core/Src/main.c` 的 main 作为 CubeMX 参考入口重命名，真正入口在 `userCode/devices/Src/usermain.cpp`。原 `low_control.ioc` 保留作旧外设参考，未完全描述手工增加的 SPI2、安全与应用逻辑；不要直接重新生成覆盖当前代码，需先迁移这些配置和 USER CODE。
-
-## 编译
-
-Windows PowerShell，在已安装 STM32 GNU 工具链、CMake、Ninja 和本机 g++ 的环境：
+## 编译和烧录
 
 ```powershell
-cd E:\uw-robot\uw_ws\firmware\low_control3
-.\scripts\build.ps1 -Configuration Release
+.\scriptsuild.ps1 -Configuration Debug
+.\scriptsuild.ps1 -Configuration Release
 ```
 
-脚本优先使用 PATH 中的 ARM 编译器，也可发现本机 STM32Cube 工具链；可通过 `ARM_GNU_TOOLCHAIN` 指向编译器 bin。若只有 ARM 编译器，可用 `-SkipTests` 只编译固件。
+脚本自动寻找STM32Cube GNU工具链并运行主机测试，只编译、不烧录。VS Code F5保持CMSIS-DAP配置和构建前置任务，使用`build/Debug/low_control3.elf`。Release产物为`build/Release/low_control3.elf`、`.hex`、`.bin`。
 
-也可直接使用标准 CMake：
+本次Debug、Release编译通过，7组主机测试通过；low3尚未上板验证。测试包含low2实测2314 RPM原始帧、四路积压接收、初始化失败及通道/PWM公式对照。主机测试不代表实际波形、PWM停机时延或IWDG复位已经测量。
 
-```powershell
-cmake --preset Release
-cmake --build --preset Release --parallel 2
-```
+配置集中在`userCode/core/Inc/BoardConfig.h`。电机方向和极对数仍为原值（极对数7需核对实物）；`kLegacyPwmEnabled`可关闭数字命令，`kRpmSummaryEnabled`可关闭5秒摘要，`kDiagnosticsEnabled`可开启旧详细DIAG。
 
-产物：`build/Release/low_control3.elf`、`.hex`、`.bin`。Debug 预设同理。默认 IWDG 不随调试断点冻结，长时间停在断点可能复位；仅在断开推进器动力的台架上，才考虑通过 CMake `-DLOW_CONTROL_ENABLE_IWDG=OFF` 临时禁用。正式测试保持默认开启。
-
-本机测试独立于 ARM 构建：
-
-```powershell
-cmake -S tests -B build/host -G Ninja
-cmake --build build/host --parallel 2
-ctest --test-dir build/host --output-on-failure
-```
-
-## 与当前 Orin 配合
-
-UART6：PG14 TX、PG9 RX，115200、8N1；TX/RX 交叉并共地。引脚、PWM 与 ADC 分压均沿用原板，不按通用 F407 开发板替换。
-
-保留 `CTRL:f1,f2,f3,f4,s1,s2,gripper\n` 和 `OFF\n`；现有 Orin `hardware_node` 可继续使用，电压/转速字段保持 `VOLT`、`CH0~CH3`。无效值发 `--`，当前 Orin 严格解析器会使缓存失效。Orin CPU 温度由其自己的监测节点上传，STM32 不重复发 TEMP。
-
-上报的 MCU_SEQ/MCU_MS/VALID/AGE_MS 是额外诊断，当前 Orin 只提取 VOLT 与 CH 数值，未把所有 MCU 诊断转到电脑界面。详见 [协议](docs/协议与安全行为.md)。
-
-第一次联调先断开推进器动力，验证输出中位、OFF、断链与故障后回中恢复；再依厂家要求在允许的环境逐路低幅测试。**尚未烧录或完成实物验证，不能把离线测试当作带动力验收。** 具体顺序见 [上机验收](docs/上机验收.md)。
-
-## 参数与仍需确认的事项
-
-`userCode/core/Inc/BoardConfig.h` 集中定义电机方向、四路极对数、上报/采样周期及 SPI 预算。极对数暂保留原值 7，须按实际电机确认。现有 ESC 遥测没有可靠方向位，上传的是原协议 ERPM 换算后的转速大小，不推断实际正反方向。
-
-CRC8 只有 8 位且电调帧没有固定头，连续两帧匹配能降低误锁概率，不能作为绝对正确性保证。CH9434 芯片配置和 SPI 波形仍需实物检查。电压仍使用原板分压比及名义 VREFINT=1.2V，需要万用表对照标定，未新增低电压自动切断阈值。
-
-CTRL 下行保持旧文本格式，尚无校验和/序号/独立解锁位；下一版如增加，应同步修改 Orin，而不能仅单边换协议。当前“零推力恢复”不是独立硬件解锁，外部急停/动力切断仍需保留。
-
-独立看门狗可复位卡死程序，但复位期间引脚状态、电调失信号行为和最终停机时间必须实测；固件不能代替物理断电急停。
-
-## Git 仓库目录
-
-此目录由外部 low_control3 源码同步收录。VS Code 应单独打开本目录后使用其 CMake/调试配置，避免 ${workspaceFolder} 指向 ROS 仓库根目录。烧录器配置沿用本机已修改的设置；OpenOCD/GDB 本机路径在其它电脑上需按实际安装修改。COLCON_IGNORE 位于 firmware 上级，ROS 构建不会尝试编译本工程。
+协议见[协议与安全行为](docs/协议与安全行为.md)，测试顺序见[上机验收](docs/上机验收.md)，构建记录见[验证记录](docs/验证记录.md)。`low_control.ioc`仅为旧板外设参考，不是本重构完整生成源；不要用它覆盖手工维护的SPI、启动和通信代码。

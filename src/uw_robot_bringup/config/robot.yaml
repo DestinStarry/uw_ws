@@ -1,198 +1,240 @@
-# ==============================================================================
-# AUV 控制整套参数配置文件 | 工程版
-# 功能：姿态串级PID + 深度PID + 推力分配 + 硬件桥接 + 传感器采集
-# 控制架构说明：
-#   1. 外环：角度环(attitude)，输出期望角速度；内环：角速度环(rate)，输出期望力矩
-#   2. 控制节点只跟踪机体系六轴速度指令 control/cmd
-#   3. 手柄摇杆映射、输入整形、限幅全部放在【发送端】，不在control_node内处理
-#   4. 推进器分配节点接收wrench，做矢量推力分配，支持旋转推进器布局
-#   5. 传感器解耦：IMU、深度、相机独立节点，超时/失效有心跳容错逻辑
-# 单位约定：
-#   角度：rad | 角速度：rad/s | 力矩：N·m | 力：N | 长度：m | 频率：Hz
-# ==============================================================================
-
-# -------------------------- 控制主节点 control_node --------------------------
+# 共享名义参数：姿态/角速度环取自实物参考实现 ctrl_solver.py，平移增益按手感单独调校。
+# 控制节点只跟踪 control/cmd 的机体系六轴速度；轴映射与手柄整形在发送端完成。
+# 三个线轴满杆指令统一为 1.0，所以 damping 直接就是满杆推力：闭环 30/10/10 N，
+# 开环 60/20/30 N（同参考实现）；定深目标变化率由 depth_change_mps 单独给出。
+# 注：闭环满杆推力已不再是 MAX_BODY_FORCE（20/6/10），是当前的调校值。
 control_node:
   ros__parameters:
-    # ---------- 推力幅值参数（机体系线运动满杆推力） ----------
-    # 闭环模式：摇杆满杆对应推力，用于姿态保持模式下的平移
-    damping: [30.0, 10.0, 10.0]
-    # 开环模式：手动速率模式满杆推力，响应更快，适合调试机动
-    open_damping: [60.0, 20.0, 30.0]
-
-    # 手柄前馈：当前版本已移除前馈控制律，参数仅保留兼容旧代码，不参与运算
-    rate_ff: [0.0, 0.0, 0.0]
-
-    # ---------- 姿态环（外环：角度环 PID） ----------
-    # 角度环比例增益，roll/pitch/yaw
-    attitude_kp: [0.8, 1.2, 1.2]
-    # 角度环积分增益，当前关闭积分，防止姿态积分饱和、倾覆
-    attitude_ki: [0.0, 0.0, 0.0]
-    # 角度死区：小于该误差，角度环不输出力矩，抑制传感器微小噪声导致持续抖推
-    attitude_deadzone_rad: [0.03490658503988659, 0.03490658503988659, 0.03490658503988659]
-
-    # ---------- 角速度环（内环：速率环 PID，串级内环） ----------
-    # 角速度环比例增益
-    rate_kp: [0.5, 1.5, 1.5]
-    # 角速度环积分增益：yaw积分偏大，提升航向保持能力；roll/pitch小积分避免积分反噬
-    rate_ki: [2.0, 2.5, 2.5]
-    # 角速度环微分增益，默认关闭，可用于相位超前补偿，容易放大陀螺噪声
-    rate_kd: [0.0, 0.0, 0.0]
-    # 微分项低通滤波系数，抑制微分噪声，仅rate_kd>0时生效
-    rate_kd_filter: 0.3
-    # 速率环积分限幅：ki × 该值 = 积分项最大可持续输出力矩(N·m)，防积分饱和
-    rate_integral_limit: 30.0
-    # 角速度死区：角速度误差小于该阈值，内环不输出力矩，抑制陀螺零漂抖动
-    rate_deadzone_rad_s: [0.00872664626, 0.00872664626, 0.00872664626]
-    # 内环饱和上限：角度环输出的期望角速度上限，防止外环输出过大冲击内环
-    inner_rate_rad_s: [1.5707963268, 1.5707963268, 1.0471975512]
-
-    # ---------- 姿态相关辅助参数 ----------
-    # 全量程角速度映射：手柄满杆对应角速度(rad/s)，用于手动速率模式
-    rate_full_scale_rad_s: [0.436332313, 0.436332313, 0.436332313]
-    # 力矩符号修正：适配推进器安装方向，统一符号
-    moment_sign: [-1.0, -1.0, -1.0]
-    # 开环姿态力矩幅值（纯手动速率模式下的姿态力矩上限）
-    open_moment: [5.0, 5.0, 5.0]
-    # 闭环姿态保持力矩上限
-    body_moment: [3.0, 5.0, 5.0]
-
-    # ---------- 静水扶正前馈（浮心偏心补偿，AUV固有扶正力矩） ----------
+    damping:
+    - 30.0
+    - 10.0
+    - 10.0
+    open_damping:
+    - 60.0
+    - 20.0
+    - 30.0
+    # 手柄前馈已从控制律移除，参数保留仅为兼容，不参与计算。
+    rate_ff:
+    - 0.0
+    - 0.0
+    - 0.0
+    open_moment:
+    - 5.0
+    - 5.0
+    - 5.0
+    rate_full_scale_rad_s:
+    - 0.436332313
+    - 0.436332313
+    - 0.436332313
+    body_moment:
+    - 3.0
+    - 5.0
+    - 5.0
+    attitude_kp:
+    - 0.8
+    - 1.2
+    - 1.2
+    # 静水扶正前馈的物理参数（实物请填实测值）
     water_density_kg_m3: 1000.0
     displaced_volume_m3: 0.0121265
-    buoyancy_offset_m: [0.0, 0.0, 0.02]
-    # 补偿缩放系数：0=关闭扶正前馈；1=理论全补偿；按实物标定后填入
+    buoyancy_offset_m:
+    - 0.0
+    - 0.0
+    - 0.02
+    # 补偿效率标定：1.0 = 完全抵消 ρVg×浮心偏移；实测 0.768 与对象匹配
     hydrostatic_comp_scale: 0.0
-
-    # ---------- 深度单环PID（Z向定深控制） ----------
+    attitude_ki:
+    - 0.0
+    - 0.0
+    - 0.0
+    attitude_deadzone_rad:
+    - 0.03490658503988659
+    - 0.03490658503988659
+    - 0.03490658503988659
+    rate_kp:
+    - 0.5
+    - 1.5
+    - 1.5
+    # 偏航积分加大（实测 17 -> 22 °/s）；横滚/俯仰保持小积分，避免积分反噬。
+    rate_ki:
+    - 2.0
+    - 2.5
+    - 2.5
+    # 角速度误差微分项 N·m/(rad/s^2)：给速率环加相位超前。
+    # 实测：横滚 0.1 可小幅改善抖动，0.3 反而变差；默认关闭。
+    # 速率环积分限幅：ki x 该值 = 积分可提供的最大持续力矩（N·m）。
+    rate_integral_limit: 30.0
+    rate_kd:
+    - 0.0
+    - 0.0
+    - 0.0
+    rate_kd_filter: 0.3
+    inner_rate_rad_s:
+    - 1.5707963268
+    - 1.5707963268
+    - 1.0471975512
+    moment_sign:
+    - -1.0
+    - -1.0
+    - -1.0
+    wrench_rate:
+    - 150.0
+    - 150.0
+    - 150.0
+    - 8.0
+    - 8.0
+    - 8.0
     depth_kp: 20.0
     depth_ki: 2.0
     depth_kd: 2.0
-    # 深度环最大输出力限幅(N)
     depth_force: 8.0
-    # 定深模式下，深度目标最大变化速率(m/s)，限制下潜/上浮速度
     depth_change_mps: 0.25
-
-    # ---------- 指令、传感器超时容错（安全机制） ----------
-    # 控制指令超时：超过该时间无新手柄指令，触发自动保持逻辑
     cmd_timeout_s: 0.35
-    # IMU数据超时：IMU断联超时，姿态环失活保护
     imu_timeout_s: 0.1
-    # 深度传感器超时：深度数据断联保护
     depth_timeout_s: 1.5
-    # 松开摇杆后，延迟切换姿态保持的缓冲时间，防止手感突变
     release_center_time_s: 0.25
-
-    # ---------- 模式开关组 ----------
-    yaw_hold: true                  # 航向保持使能
-    roll_hold: true                 # 横滚保持使能
-    manual_rate_mode: true          # 手动角速度模式开关
-    prioritize_hold_on_release: true # 松开摇杆优先切入姿态保持
-    smooth_deadband: false          # 平滑死区（非线性过渡）总开关
-    roll_smooth_deadband: false     # 横滚轴单独平滑死区开关
-
-    # ---------- 陀螺滤波 ----------
-    gyro_filter_alpha: 0.25         # 全局角速度低通滤波系数
-    roll_gyro_filter_alpha: 0.25    # 横滚轴独立角速度滤波系数
-
-    # ---------- 力/力矩输出变化率限幅（防推力突变冲击动力学） ----------
-    wrench_rate: [150.0, 150.0, 150.0, 8.0, 8.0, 8.0]
-
-# ----------------------- 推力分配节点 allocation_node ------------------------
+    yaw_hold: true
+    roll_hold: true
+    manual_rate_mode: true
+    prioritize_hold_on_release: true
+    smooth_deadband: false
+    gyro_filter_alpha: 0.25
+    rate_deadzone_rad_s:
+    - 0.00872664626
+    - 0.00872664626
+    - 0.00872664626
+    roll_smooth_deadband: false
+    roll_gyro_filter_alpha: 0.25
 allocation_node:
   ros__parameters:
-    thrust_rate_nps: 30.0           # 推进器推力变化速率上限
-    servo_rate_rad_s: 3.1415926536  # 矢量舵机/摆动推进器最大角速度
-    wrench_timeout_s: 0.15          # 期望wrench超时，分配停止
-    rotating_thrust_sites: true     # 矢量旋转推进器布局开关
-
-    # 优化求解器参数（最小二乘推力分配）
-    plan_period_s: 0.5              # 分配优化周期
-    plan_max_age_s: 1.0             # 优化解最大有效期
-    plan_min_improvement: 0.01      # 迭代停止阈值，提升实时性
-
-    # ---------- 几何参数（全部从SolidWorks模型导出，单位m） ----------
-    geometry_center_of_mass: [-0.00031829265557939906, 7.024999463519339e-07, -2.215471030042953e-07]
-    # 推进器安装坐标点
-    geometry_sites: [-0.223, 0.0, 0.123,
-                     -0.223, 0.0, -0.123,
-                     -0.223, -0.123, 0.0,
-                     -0.223, 0.123, 0.0]
-    # 矢量推进器铰链转轴坐标
-    geometry_hinges: [-0.151557, 0.000257849, 0.0918483,
-                      -0.151557, 0.000257849, -0.0921517,
-                      -0.15156, -0.091742, -0.00015166,
-                      -0.15156, 0.092258, -0.00015166]
-    # 推进器矢量旋转轴方向向量
-    geometry_axes: [0.0, 0.0, 1.0,
-                    0.0, 0.0, -1.0,
-                    0.0, -1.0, 0.0,
-                    -0.0, -1.0, -0.0]
-    # 铰链子坐标系原点
-    geometry_child_centers: [0.00323697, 3.54399e-05, -0.00306885,
-                             0.00322808, 0.000242322, 0.00306885,
-                             0.00323572, 0.00306885, 9.68801e-05,
-                             0.00323572, -0.00306885, 9.68761e-05]
-    # 各推进器质量占比（用于动力学补偿）
-    geometry_mass_fractions: [0.0005364806866952788,
-                              0.0005364806866952788,
-                              0.0005364806866952788,
-                              0.0005364806866952788]
-
-# -------------------------- 硬件桥接节点 hardware_node ------------------------
+    thrust_rate_nps: 30.0
+    servo_rate_rad_s: 3.1415926536
+    plan_period_s: 0.5
+    plan_max_age_s: 1.0
+    plan_min_improvement: 0.01
+    wrench_timeout_s: 0.15
+    rotating_thrust_sites: true
+    geometry_center_of_mass:
+    - -0.00031829265557939906
+    - 7.024999463519339e-07
+    - -2.215471030042953e-07
+    geometry_sites:
+    - -0.223
+    - 0.0
+    - 0.123
+    - -0.223
+    - 0.0
+    - -0.123
+    - -0.223
+    - -0.123
+    - 0.0
+    - -0.223
+    - 0.123
+    - 0.0
+    geometry_hinges:
+    - -0.151557
+    - 0.000257849
+    - 0.0918483
+    - -0.151557
+    - 0.000257849
+    - -0.0921517
+    - -0.15156
+    - -0.091742
+    - -0.00015166
+    - -0.15156
+    - 0.092258
+    - -0.00015166
+    geometry_axes:
+    - 0.0
+    - 0.0
+    - 1.0
+    - 0.0
+    - 0.0
+    - -1.0
+    - 0.0
+    - -1.0
+    - 0.0
+    - -0.0
+    - -1.0
+    - -0.0
+    geometry_child_centers:
+    - 0.00323697
+    - 3.54399e-05
+    - -0.00306885
+    - 0.00322808
+    - 0.000242322
+    - 0.00306885
+    - 0.00323572
+    - 0.00306885
+    - 9.68801e-05
+    - 0.00323572
+    - -0.00306885
+    - 9.68761e-05
+    geometry_mass_fractions:
+    - 0.0005364806866952788
+    - 0.0005364806866952788
+    - 0.0005364806866952788
+    - 0.0005364806866952788
 hardware_node:
   ros__parameters:
+    camera_direction: 1    # 若十字键上实际逆转，改为-1；摄像头0°为1500us
     port: /dev/ttyTHS2
     baud: 115200
-    dry_run: true                   # 调试仿真模式：true=不发真实串口指令；实物下false
+    dry_run: true
     command_timeout_s: 0.15
     depth_timeout_s: 1.5
-    # 深度数据源切换：
-    # false：深度由depth_node(Orin I2C MS5837)独占发布；true：回退STM32回传深度
+    # 深度改由 depth_node 经 Orin 的 I2C 直读 MS5837 后独占发布 depth/state，
+    # 因此 STM32 默认不发布深度；整机回退用 depth_source:=stm32，由 launch 统一覆盖。
     publish_depth: false
-
-# -------------------------- 深度传感器节点 depth_node -------------------------
 depth_node:
   ros__parameters:
-    bus: 7  # 实物已验证 I2C-7；扫描无应答时用复位/PROM 实际读写确认。
-    address: 118                    # MS5837 I2C地址 0x76
-    model: 30ba  # 已验证 MS5837-30BA。
-    oversampling: 4096              # 02BA/30BA 均支持到 8192，当前使用 4096
-    fluid_density: 997.0            # 淡水997，海水1029，用于压力→深度换算
-    surface_pressure_mbar: 0.0      # 0=开机自动水面标定；给定值=跳过标定，直接使用该气压
-    zero_time_s: 3.0                # 水面零点标定采集时长
-    allow_zero_fallback: false     # 标定失败默认保持无效，避免估计零点参与定深
-    zero_attempts: 3                # 标定失败最大重试次数
-    expected_surface_mbar: 1013.25  # 标定失败兜底标准大气压
-    rate_hz: 20.0                   # 深度输出频率
+    # 总线号随 Orin 型号与载板而变，先 i2cdetect -l 列出、再 i2cdetect -y -r N 扫到 0x76。
+    bus: 7
+    address: 118            # 0x76
+    # auto：启动时用同一组原始值按 02BA/30BA 各算一次，取接近水面气压者。
+    # 自动判型要求开机时传感器处在空气中；已在水下请显式写 02ba 或 30ba。
+    model: 30ba
+    oversampling: 4096      # 02BA/30BA 均可到 8192，4096 转换延迟较低
+    fluid_density: 997.0    # 淡水 997，海水 1029
+    # 0 表示上电后按 zero_time_s 自动标定水面零点；给定正值则跳过标定。
+    surface_pressure_mbar: 0.0
+    zero_time_s: 3.0
+    # 标定失败（典型场景：已在水下上电）时最多重试几轮，
+    # 超过后保持 valid=false；显式允许 allow_zero_fallback 才使用估计零点。
+    zero_attempts: 3
+    # 默认拒绝估计零点；仅调试时显式允许回退到 expected_surface_mbar。
+    allow_zero_fallback: false
+    expected_surface_mbar: 1013.25
+    rate_hz: 20.0
     stale_timeout_s: 0.5
     max_failures: 5
-    heartbeat_hz: 1.0               # 传感器失效时，valid=false心跳帧频率，下游区分无数据/故障
+    # 无效时（标定中/读失败/未接传感器）以该频率发 valid=false 心跳帧，
+    # 让下游能区分"没有数据"和"传感器故障"，而不是只看到话题静默。
+    heartbeat_hz: 1.0
     frame_id: base_link
-
-# ----------------------------- IMU解算节点 imu_node ---------------------------
 imu_node:
   ros__parameters:
     port: /dev/ttyCH341USB0
     rate_hz: 100
-    algorithm: 6                    # 姿态解算算法ID，适配板卡固件
-    zero_time_s: 2.0                # IMU上电静止标定时间
+    algorithm: 6
+    zero_time_s: 2.0
     stale_timeout_s: 0.1
     frame_id: base_link
+system_monitor_node:
+  ros__parameters:
+    thermal_root: /sys/class/thermal
+    cpu_zone: auto       # Inspect type; do not assume thermal_zone0 is CPU.
+    rate_hz: 1.0
 
-# -------------------------- TCP手柄桥接节点 tcp_bridge_node --------------------
 tcp_bridge_node:
   ros__parameters:
-    bind_address: 0.0.0.0           # 监听所有网卡，上位机跨网访问
-    port: 8888                      # TCP端口，手柄上位机连接
-
+    bind_address: 0.0.0.0
+    port: 8888
     telemetry_rate_hz: 1.0
     cpu_temp_timeout_s: 3.0
     voltage_timeout_s: 3.0
     rpm_timeout_s: 3.0
-    publish_legacy_temp: true       # TEMP 是 Orin CPU 温度兼容别名
-
-# ---------------------------- 双目相机节点 camera_node -------------------------
+    publish_legacy_temp: true  # TEMP aliases Orin CPU_TEMP, never STM32 TEMP.
 camera_node:
   ros__parameters:
     device: /dev/video0
@@ -200,20 +242,14 @@ camera_node:
     height: 720
     fps: 30.0
     jpeg_quality: 80
-    swap_eyes: true                 # 左右目图像交换开关
+    swap_eyes: true
     stale_timeout_s: 2.0
     http_host: 0.0.0.0
-    http_port: 8080                 # MJPG推流网页端口
-    publish_rate_hz: 15.0           # ROS话题发布帧率，低于采集帧率降低负载
-    synthetic: false                # false=真实相机；true=仿真虚拟图像
+    http_port: 8080
+    publish_rate_hz: 15.0
+    synthetic: false
     left_frame_id: camera_left_optical_frame
     right_frame_id: camera_right_optical_frame
-
-system_monitor_node:
-  ros__parameters:
-    thermal_root: /sys/class/thermal
-    cpu_zone: auto
-    rate_hz: 1.0
 
 # 独立试验日志：整机默认启用；logging:=false 可关闭，不影响控制链。
 flight_logger_node:

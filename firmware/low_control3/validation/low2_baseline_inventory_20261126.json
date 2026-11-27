@@ -1,0 +1,937 @@
+{
+  "backup": "E:\\uw-robot\\backups\\low_control3_before_low2_rebase_20261126_142641.zip",
+  "baseline_sha256": {
+    ".clangd": "3e788df0058b4662d40b9859b93848e2052237f1aba9cfec227507c12dbbd8f6",
+    ".gitignore": "5e85d5d84c2aba38463e941e25866843cf6c2e0016284479d9e277d619b70c12",
+    ".mxproject": "18f6e83fe66384cb5dd6c073a102850ff288b0475de968cb10d3b20d5d204763",
+    "CMakeLists.txt": "7ef92932c2b52d1a2d14c5db723dea1bf52c01b8de12abadc8e1e64fcfaa943e",
+    "CMakePresets.json": "5cfd04cb98883899a9e70bb39dc70f74ee610b88ae34625dafac65f18f322a94",
+    "low_control.ioc": "7fdedc8ccc9d7ae67c11327cb7875f082317aee8e5ec13da9279853db930ea65",
+    "startup_stm32f407xx.s": "430f14fd00db0f7aa88f354aee54064efb582ddc4cc264fb8e435dc7d7a2f53d",
+    "STM32F407XX_FLASH.ld": "a0308939b22dfa7a7a8bb7665573f655786f001452d03b59709c10638bb8c03f",
+    ".settings\\bundles-lock.store.json": "414c69db0c02723974ab95837d18cc8a9c2951e133d9e7428b4aad070c3a2318",
+    ".settings\\bundles.store.json": "72f212c958bd31f0ac49372bea4218864a36f66482b637cb5363626a3bbc94c2",
+    ".settings\\ide.store.json": "574f2dfc18519310b656e9b7ca46b7c6f829a1777bfcb8de04f0b245a13186a3",
+    ".vscode\\c_cpp_properties.json": "1d40a921a6f28b9ac3dfcd2613d0a666dd3d9a9a7f6f626028132db735fe020f",
+    ".vscode\\launch.json": "d8984badfacb259e90ecc5fb1a14e3b98b4c8f70d62c73d41948f712eae963d0",
+    ".vscode\\settings.json": "f7eaedb8cbc48fe7715ade8b79146b5d919c5e5cebd50eb5cce9320a7f67e9cd",
+    "cmake\\gcc-arm-none-eabi.cmake": "2daa0a42985a6f5a51350e88e810c8c4762726cabf749fe2cfd819d9f8ebd95d",
+    "cmake\\starm-clang.cmake": "8ab93ad157343e2fff570f55639347cc24c6714e5c1a4cfe8e909275b23aba91",
+    "cmake\\stm32cubemx\\CMakeLists.txt": "681bad51e75964b5366e0af05a5ef9abe5c6a26eec5e1bb83cf7af2b44a50e95",
+    "Core\\Inc\\adc.h": "58ad0985117d0736ee1297a940901b5d54911df23a0c403e2c2e2cba7f641ed0",
+    "Core\\Inc\\dma.h": "7cf6f7450a29d26303cbba5a3ca8c6cb24a02635d6a5ba4d05141fdfc75c4c49",
+    "Core\\Inc\\gpio.h": "ee9414615e5d84c87c4ad7bd3ce5ba6977928e75af235d6b9bea481b3008b73e",
+    "Core\\Inc\\i2c.h": "9218150138d11cc9914e6ed7edefda8959d836f3bc968eb2e1defd46a111e194",
+    "Core\\Inc\\main.h": "071a2371437cb64acf85101e8c13a9832d13ab1ccdb81213f1abf93f57fb99fa",
+    "Core\\Inc\\spi.h": "fb2f4e27b4b7579ecd947c5fdadaa3c26553635da08f5e42bd55eb26594586f8",
+    "Core\\Inc\\stm32f4xx_hal_conf.h": "60076658295699509d23faaa690b01da06efd8027e9a2be8ac1943ec2c9a974b",
+    "Core\\Inc\\stm32f4xx_it.h": "ff50eaa495a53e81bc8bfadd9c63f0fc9573b21517a42f93bf333a348a5e458f",
+    "Core\\Inc\\tim.h": "73ad25afe1c9cfd42cd6604f76f12691333a93e678b8bc9164816caf69677c39",
+    "Core\\Inc\\usart.h": "2570ac164a1ea6bca4a211054762aa83d5ad42caebe38fd3526f929991239588",
+    "Core\\Src\\adc.c": "6df0574fc811d78f195744111dbad2fea44daa8093296e814671b49714b225f5",
+    "Core\\Src\\dma.c": "0555d923596c62c0c4a375bb74f1def2e2b99949f3f01cf995978a28d4c965ad",
+    "Core\\Src\\gpio.c": "847fde63d489da6c12e8de8dc4d3ff02cd6799a23afa50f47cecbb319f68de00",
+    "Core\\Src\\i2c.c": "388e22ad6cf05f9b3c511ca6ff22ff957f716ff89f6e659f6947190f880025be",
+    "Core\\Src\\main.c": "1b8aa85a4561cc30d4eb1b2d7ea9fb1e6442011a3ea3e4c56805419664ce8718",
+    "Core\\Src\\spi.c": "eb3b400a5d449648b70e6154dcc840c3f417a2cc0a1f0d8c9693992fe109710f",
+    "Core\\Src\\stm32f4xx_hal_msp.c": "3217d99dc7006dc46ac384717641fe84386f05fc71db0a3340fa0eae810bc1b7",
+    "Core\\Src\\stm32f4xx_it.c": "74aad1fe3bb3240dfa33f2733335f275a097faa09130255e968afebb49836d15",
+    "Core\\Src\\syscalls.c": "03c06c72eafb44b499814cf9234aba57dd830f345d9b8779b5d7090e78517600",
+    "Core\\Src\\sysmem.c": "ad20f7b1fa1e7c73330727747222cf2ffa3245ebf035230ee9a157545e79df95",
+    "Core\\Src\\system_stm32f4xx.c": "a31929eab936ac98db060c18917118acf79dc96e1f03ed4b57d614535dd06d70",
+    "Core\\Src\\tim.c": "b88dab30b5d13be1857823663bb48971645a6db988dbd23002436f07ded19e54",
+    "Core\\Src\\usart.c": "8c4bdcad26c13664dcfef962ece523562fcd3aad24a68ed68bcdcc7a1530e797",
+    "docs\\\u8f6c\u901f\u53cd\u9988\u8bca\u65ad.md": "083448ffa488eb2fe225dc9aa7d38120c0a56ed4c29121f68b79c60441f6c9e8",
+    "Drivers\\CMSIS\\LICENSE.txt": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\LICENSE.txt": "135fb2d86e9ecdf6824cc3bba21c72b8e380c07b055fbebb6b995463eb609baf",
+    "Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f407xx.h": "bd21220ea8b6858c2d727cca1d2a5f1077f8a81717acdac583a1e9165d858160",
+    "Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h": "a19edea6b2f4df2ab3c567782c4d313a52319c4303bd56ad7dd1d0e077014657",
+    "Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\system_stm32f4xx.h": "02c067d5a135f540c03215dc834b1e60a97bbd4e55bfd3994b0c82a15ea3012a",
+    "Drivers\\CMSIS\\Include\\cachel1_armv7.h": "2e336a64f60a9c0eaf5a08e2c4845d94da86c3fd84d219d0d0c9f530e63bc9c3",
+    "Drivers\\CMSIS\\Include\\cmsis_armcc.h": "5bc0d7ed8e36e9bcb868c4042fff350c702eca305df4162fb00384789e35ee1c",
+    "Drivers\\CMSIS\\Include\\cmsis_armclang.h": "d5da2b48204f0d0cf1ff38ffccb527e5706cd0a091ff0a331eb41d6596c33fe5",
+    "Drivers\\CMSIS\\Include\\cmsis_armclang_ltm.h": "3e8ffb284f4f155de3ea93841cca853b41d5e812b53e52c64c3d4a67b7f1ec7c",
+    "Drivers\\CMSIS\\Include\\cmsis_compiler.h": "b51963d271c1571ca3463654c76aa7ea50c4eac5d0a2710df10414ac64d9e0f8",
+    "Drivers\\CMSIS\\Include\\cmsis_gcc.h": "43bfd1fe69fbbc2ca70aaf7d43cc3e20f16e0c7f66e1bdef9b51af6dc14b2617",
+    "Drivers\\CMSIS\\Include\\cmsis_iccarm.h": "2d255c8429e507e52cb603f2970bed4cc4a6cdcc3eb7fc7997385abad7364837",
+    "Drivers\\CMSIS\\Include\\cmsis_version.h": "184c19fd3ee73632edf35a0b4d49cd48be75fbf49e6ccb19d9db05fa83bea4b3",
+    "Drivers\\CMSIS\\Include\\core_armv81mml.h": "a40954bccbf202bd65ee721ea688122561e005c9f9f9d18e082280c5b897d0e4",
+    "Drivers\\CMSIS\\Include\\core_armv8mbl.h": "458b1e6788079ded52adc7d06383701c865ca97b67c5e7a0a44884194f91a842",
+    "Drivers\\CMSIS\\Include\\core_armv8mml.h": "5a68204fa31cda7d04d41c9ceaf3f4b1217908f59366f757ee778181c7cc8cb9",
+    "Drivers\\CMSIS\\Include\\core_cm0.h": "ac13cb645f108666a0e57c93467872660d6bc860a839f840dc870b7a5863b4bf",
+    "Drivers\\CMSIS\\Include\\core_cm0plus.h": "a09fa9c6b8b21d1920bce15b98aa56182b027e9278cca0b154812bac2aea3cfa",
+    "Drivers\\CMSIS\\Include\\core_cm1.h": "944bf0c4f940eef30a632cd99d5dcfe8270e8a8431eb98c0f081bcf4f61f728e",
+    "Drivers\\CMSIS\\Include\\core_cm23.h": "77822e9738885394ec52fca6f617452b823a0b55e2664ee225e65576cf0e8f2d",
+    "Drivers\\CMSIS\\Include\\core_cm3.h": "c9937781259a8897adf514445441c68570087d6a72a558d8a4afe75cdb62dbd2",
+    "Drivers\\CMSIS\\Include\\core_cm33.h": "225c47c36230edaa314f1e7a45b38279f6ab4d58faeb132226db35f7007d58aa",
+    "Drivers\\CMSIS\\Include\\core_cm35p.h": "206b427589981b78169c1d9b73e898e4e8de4efbd76fd0c2df7df81d645b9fa2",
+    "Drivers\\CMSIS\\Include\\core_cm4.h": "f5b63d52dd1557b15ca414cb59c264f595a7b5669db2a5878dffe22f4caedc8c",
+    "Drivers\\CMSIS\\Include\\core_cm55.h": "5707f716cf03f7e80151108ae94601fcfdf362dd2d830876040213318f6dee3a",
+    "Drivers\\CMSIS\\Include\\core_cm7.h": "e974d0a91752487d0154457cd422c37667328e9ddb7ba4fa2fed479a63577f63",
+    "Drivers\\CMSIS\\Include\\core_cm85.h": "75bc123889f0f5ca33c4d16b6cbdd580a3572663c899fadb2c8e28f6a5e6fead",
+    "Drivers\\CMSIS\\Include\\core_sc000.h": "c81377a69a4ea8ecaead42194f2ce8ab59bd4ee7bd638e423f5b1f5ec283d154",
+    "Drivers\\CMSIS\\Include\\core_sc300.h": "73dd461c12c7d3a693840df3084fd8f85122095c6f21fa3d779b0f3eceaebad5",
+    "Drivers\\CMSIS\\Include\\core_starmc1.h": "92d8661f2947d00da91653d04794cde0593fdaafb3438842a0477775716aafc5",
+    "Drivers\\CMSIS\\Include\\mpu_armv7.h": "29206b52ee02290ed6f5a5415ebd4187de802cf176d9b3cb844390d8e5571372",
+    "Drivers\\CMSIS\\Include\\mpu_armv8.h": "2c7d22a344cedcc1e35380d1f76f0e6c55da5e3101e6a41fd85497d1841fe8c9",
+    "Drivers\\CMSIS\\Include\\pac_armv81.h": "d76f5cc0c59a59e035115f700b8e8d95b7b98ecb99a2924e885f82a94903d984",
+    "Drivers\\CMSIS\\Include\\pmu_armv8.h": "cea8c105c5f41ba831fe4d9e8e39758068cd4c414383348dc2835d6be447cca0",
+    "Drivers\\CMSIS\\Include\\tz_context.h": "45565c8cb04c653aabaf3cceddfc848b6a0de28c20d4f7e3d475a992c7eee788",
+    "Drivers\\STM32F4xx_HAL_Driver\\LICENSE.txt": "d5a162f3eaf2b7b6762f00700017cae5695ebbdce7932fead8316448baafd9c1",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h": "6942f40453fee331e026179cfac4c0f24ffe6313fedcb68af9c3382f702dbaf5",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc.h": "88e59477af1b4c2bafaf21b98288d8f3989c5f1f5d25c07f3fa843a2324bb14c",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc_ex.h": "099a5e7d00f542e7240417605961f40325b9690a485533a8900ebef00230cf5b",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_cortex.h": "d96dba22903abda49d66cad29ac0c49357e6a27cf9cb03dfd8c6db71b61a7fca",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h": "c8eb3f7b393f8c5a0c32e16ccfa101c83ddb59e96bd42239b8a5c5d4da83e97f",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma.h": "71c38dfd65c5415b388375147e5317c7ac018b39893d6fd0ac1c897f4313329c",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma_ex.h": "3ee15423d73ac394de39e7b65821775966389b13749ff0849894548ab6968676",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_exti.h": "61e8f76bdb45dedf38fef592504e10418ca410952c7a209cd271b45ac835833a",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash.h": "10be06c6e06fcf4eb11e236641948aed861898fea235c606ae221fa72bc46638",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ex.h": "7c206f5dbed3c147a6f090ab808933132a1b06b8339623ad7174fd0a222e981c",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ramfunc.h": "f18a6eabc99f56483566f9231ca33c780afa98bc93929e60bb419b5e544eee2a",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio.h": "0b40fc83363b64d3c7396a202be7a914ceaa7735ab0fa81d566ed320102b23fb",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio_ex.h": "4091beefc5bf8b250f376d400f43ca028ef7378e1c7ba5c9eb5de64ec74231c0",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c.h": "80d2996918dc151f7d0c17a025f13571cb60916ac560996471872dc3dfa58342",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c_ex.h": "d46fb65afdc6181b0cea8f80db433d102099734183b1dbcffee4c0682f4ee112",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr.h": "d6f6abc4af3d5a1ca59d886f5a9154e44f257a43af77c7f18173f160825ed6b5",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr_ex.h": "1794b88c5e080858c0205a2e94340c0250ac9171b3a3f01cad6d050005a1b09d",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc.h": "eb6911d964b1cf8a83993b19c8feb9845e8793d7c0e5d643390b53207c8b078e",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc_ex.h": "49f0c8068524e1de248738530cff3bbe630dc4784b6e8b5568fbc7e1a154f772",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_spi.h": "330803c32d1d5ec40df5a827a74cb1d850ec60b207eda5bf6299c57d575795a6",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim.h": "63f00354e2a5e8d3a8d211fc736517273e12b99a1eb782aa7a2670cb1264a16d",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim_ex.h": "aa6695d64677e8a7b46d719da3d81049290f42383c17e76271605bc68143fd1e",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_uart.h": "42528bc9caa6e2fe96b7e6d7b3fcdf35d8d85ae38d33195a233e18a072f157a1",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_adc.h": "2dbc4142faed047296000bf78066a3b948b388c8044b9b6bf7d7a7ee09309399",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_bus.h": "95a518139f74d14a4477519b5172675347990e9fa637bd3948c69bd475bd7c88",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_cortex.h": "d8b268ca207e51864d1a71ce14fff316c57d09e62a04d0c28310b4a1008e6f17",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_dma.h": "39e89050700e16304e04643e29c162b6aaa9f3bfe53880cd78c255ce46104e82",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_exti.h": "6da580d41ebdcfd7349e29666a2e561c8e2c2e01f6e7ef29dfec6ebf6ae237df",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_gpio.h": "e46857f5f9a5f5a2d13ca2d6925dc9e66dfa7fc56a2cc72e54b891bdb88e2f16",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_i2c.h": "3e2af1eab1a3e6f4c59f24b3c880b8de8b5deb03086bad482417230551c97a34",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_pwr.h": "229af558bfeef8bb88d2224277b083c3b927c5c2612991fdeba00dad56255abc",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_rcc.h": "605960f2e8e57a702b912475f9c154bb58711b58c8f2ff27dd4e75b5d767dc4e",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_spi.h": "3b053ed6c58bc9ae4de03fcae86f64a14fb86ad4a36ef27a3bdf1524e93e9b54",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_system.h": "d634a419a55e99b4a641fecc055e1f602d8a418bd7d822cf2f812a0965ac9a3e",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_tim.h": "0d7eb3fd74100ee33cf592c6edb2e340d85ac320364702a6cc1d0e9d22da66d2",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_usart.h": "982c4448c49ddc7c6c71bd788e5354f05e96aca5e98edd0626f8ffcaefc65e79",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_utils.h": "535cb625cfcd461d6054549bf04d25ef939ec5754f77731a5f9fd92728280ded",
+    "Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy\\stm32_hal_legacy.h": "8c2d2feb90e8ed88fe5756f3f1616a2b67aa1cd0858da8b130ed69607688c8c0",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal.c": "97e715cda2a34bd564b59ce4ba9b16bd29651f8f229161105aaec666d76ea91a",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc.c": "af050dc5f3f50dfc5d4caff3b52348e70578b007e181b580108b19fb18347b26",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_cortex.c": "9aaa0f19137d700616bec01a5a806786c24e3f3386120365c5d2addaa4055505",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma.c": "a345a1b1fe0221c827d5ad21d5a0f5387296bc2c075e06e5b8539c23da5678e4",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma_ex.c": "90cafb5a5b17a46b478770ef4abdc9a641cb395419abbb80f288138a63d44582",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_exti.c": "f56651f86e5d89e8bba3bcb331353e00f291db15c902927a205d81bbe8951e6d",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash.c": "8bf12eeb6e6cfc12a17587ed6d761724e0835a4a3dc0f6b14a8d1ca068bcb55b",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ex.c": "51a70deb9b19dd43f6f202430fae052f2deb26c39232c09c79230c8d8a61f773",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ramfunc.c": "d3b426e8cb9d617f9064d2b0cea2a1d02b7bb6a74cba3f094779d6e922e477e3",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_gpio.c": "408908b15477b6ce2b0b9703caabcb053293d98f2f109d6e6940e076a6a3902b",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_i2c.c": "d3686886a87d018a6a5f26c9760fc7a80ad2d520b9e856916a983302fc6a3442",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_i2c_ex.c": "6f0863aaf210e9f446f194c34035b59b7de4ad617743e7e94a0f7a4232c96596",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr.c": "d779468a95df34421bf6c8417136a79aa910753381a644afa9ed10b185ae18b5",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr_ex.c": "4409dddc0d2019f918d0ddebecf659f06d4de3f9aa28566621a16ea47203331f",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc.c": "f3ac468e2f415adb74281107c0dec1448008950b64a7bb11c14cbe3ee1a936de",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc_ex.c": "526324811fa113c3eadfa84cd24ea5e607ad8e8bf003a2085456c04b734ca25e",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_spi.c": "641ad467e834c17a83c445cf8eea7c8317a71976d7e0c77da740be999251efe4",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim.c": "a7dea3b10a771a380915007b9ece123654c6bd2a40f611102220df9bfdd143e4",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim_ex.c": "4471b582d56545fbd48725401249b4a2a728ccc0d933b3f1a02e2b09dda8d8fa",
+    "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_uart.c": "a74ed3a9a13a4fcbaada9e6f88f7d4fcabe2a75852a6ce4c09f8d4314a2e851a",
+    "tests\\rpm_diagnostics\\CMakeLists.txt": "b4955d5523a37882d4030d4fcfc51f844e0e05b89f11b06b5ebbccda289d7f12",
+    "tests\\rpm_diagnostics\\diagnostics_test.cpp": "57adfe41aa9cdab3df2b879b6051d419fda4cc7a5580c10a4cfc0640ef0a9ec5",
+    "tests\\rpm_diagnostics\\uart_sender_test.cpp.in": "1336f12a263bf5eaeb012aacd13eec0d53579b6ce66a6a7ae457f6d6203ba45c",
+    "tests\\rpm_diagnostics\\stubs\\adc.h": "e8469c6e184758f40dda21ffd47be75602d05f6f8498b476550f5d249b56bb5e",
+    "tests\\rpm_diagnostics\\stubs\\fake_hal.h": "0e77a4bb654ff1d4e3fb1c87843d4f1abc4478fc30f7328d0faeffb844136557",
+    "tests\\rpm_diagnostics\\stubs\\gpio.h": "f9858737d78f0c5f29878e6dfccf02f7dc3680d70992e8cf1336ea6da35d00d0",
+    "tests\\rpm_diagnostics\\stubs\\main.h": "8fd6298f7fe8719bbcf70037fae23e8175b9bc39392c6f2ea86b7ef05e9f7b17",
+    "tests\\rpm_diagnostics\\stubs\\spi.h": "cfd092886b21d83eee7b4bbd5474a27cb18f7f3b6e7763ffe1db8b568c56381b",
+    "tests\\rpm_diagnostics\\stubs\\tim.h": "e85a2dc513dbc3b266436a8482c787f86cf9eeeadd7a5819b72bde48aaa6a35e",
+    "tests\\rpm_diagnostics\\stubs\\usart.h": "6d51312353b7675b1d6605c43706dac63a4a93ce4c867c38e8abb6c95680c94b",
+    "userCode\\algorithms\\Inc\\MahonyAHRS.h": "65fc79c7346657962a8b57a17d151ad877cb46a2c5d6a1cf03c97337aacb712e",
+    "userCode\\algorithms\\Src\\MahonyAHRS.cpp": "af19d5f1c3e0ff0a96bf2a80479947532d3364ec9d4742c062ca694d094952e4",
+    "userCode\\bsp\\Inc\\bsp_spi.h": "9c3ef4d27d8acc605629bb485ce0115abdea880aa5c65cb81b9dd05de1bd7405",
+    "userCode\\bsp\\Src\\bsp_spi.cpp": "b76f8d9bf050c42ac9171254aff410d5b03fdc656f3c884c12406d5bd2449803",
+    "userCode\\control\\Inc\\MotionController.h": "798b1334f68a13541e6703027f496dbf4ebccee51378e1eb0f261961e53dd463",
+    "userCode\\control\\Src\\MotionController.cpp": "be60ea9570fe75983a07c23717544182b73535f05da2b9e055dbf3ff9590d61e",
+    "userCode\\devices\\Inc\\Buzzer.h": "1c1778cd5d4657649f5f4de5694618f05ec5a50eb3059bd60d9d60abd64ec711",
+    "userCode\\devices\\Inc\\CH9434.h": "90606ce5cc06b889f65ab71e24b36496f477c9f4029c10d63ed5ea898cc69391",
+    "userCode\\devices\\Inc\\CommUART1.h": "b7f585bb322a39f14521fc8c244b5bf771469214d5f2e63c16a022548af8f8ec",
+    "userCode\\devices\\Inc\\DepthSensor.h": "1aa0d77c7fc8861b251de4a5645a77f302183cec24bc132b9660cc79e47b3bf4",
+    "userCode\\devices\\Inc\\IMU.h": "121f6da9f112a6c8c9b4cb7df63afe9ada7f1ad4848c472a3877ee042ce3c4d7",
+    "userCode\\devices\\Inc\\LED.h": "59b9f4526207417e4d6b079be7853a2c8770658bd737c70bb24f35f9e5c8f12d",
+    "userCode\\devices\\Inc\\Motor.h": "0f45a576d5912c49a9e2c13e84218adaff5960fce651fcf4c22543f270ac5d53",
+    "userCode\\devices\\Inc\\Servo.h": "234fbee194052e2e6cd5a790179095aac7c0dc16c1f296bd2811d5c92196554b",
+    "userCode\\devices\\Inc\\usermain.h": "b4bfdcf177cd4424027203ac4f177407206a2a9e331afef96682f6f70eb3e8a3",
+    "userCode\\devices\\Inc\\VectorControl.h": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "userCode\\devices\\Inc\\VoltageMonitor.h": "3815d34c490ec3e65657095bd8d600e2b452031aa2fc847bf93ce8978a320565",
+    "userCode\\devices\\Src\\Buzzer.cpp": "6e7531214942bd9ff5f2ca6c2ef2803522c11472c75e6b5702e18424a28d5560",
+    "userCode\\devices\\Src\\CH9434.cpp": "00f32ed73c8f336cd4107e050b91f1e861539e7f3403cbed41785729332e3937",
+    "userCode\\devices\\Src\\CommUART1.cpp": "d2ae2891db2f5eef7a42e17e0d94ab9bddf60c9a962d279ec8c0bb318c84629a",
+    "userCode\\devices\\Src\\DepthSensor.cpp": "4fc4c77e13ea6c8bdc5bd2ceae085d8990f23d4cda28f28262d8a7a5fcc1ec13",
+    "userCode\\devices\\Src\\IMU.cpp": "9ebfb3403f3ac933fa2a30968650d510532db9efb4f0d6013509ac35c33cb3ce",
+    "userCode\\devices\\Src\\LED.cpp": "b99cb04a0001c61a865be17f1608494888666d5923f656a00e3d73283d81ed01",
+    "userCode\\devices\\Src\\Motor.cpp": "32448d6a78b487ef305d369fe0706e2b61aea34393d4768a39e89fd12dba4869",
+    "userCode\\devices\\Src\\Servo.cpp": "59f92941f5d0368fc196fd9c48b785c167dc267c231ac501e21c32a89d49dfde",
+    "userCode\\devices\\Src\\usermain.cpp": "f4e512e3eb2f5b47ee7f4308fbf5b537a5b39bf5f00e0c4479106d84fea06d75",
+    "userCode\\devices\\Src\\VectorControl.cpp": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "userCode\\devices\\Src\\VoltageMonitor.cpp": "8d15f02c075a7497fe1c02639eabb039950da6f4ad5a3027b94872913e33fb16",
+    "userCode\\drivers\\Inc\\BMI088driver.h": "100acc223181be0af9053f2c96471c0a9520eab9da167fadf3a3f2716aea37aa",
+    "userCode\\drivers\\Inc\\BMI088reg.h": "d800681e6ccd77b1a8bdcd227deb36b660e8c1c74fd8e72555845d29128d09e0",
+    "userCode\\drivers\\Inc\\ist8310driver.h": "936d43ff2274e578296b49a4f503d461b70301ad7af8f0d47ab6779a40e769de",
+    "userCode\\drivers\\Src\\BMI088driver.cpp": "98988712ae800fa350af71a05ed5d7bf7d252a25f49d36bed717bd5f96524b18",
+    "userCode\\drivers\\Src\\ist8310driver.cpp": "0d13ea95b82b9293ddad025866aa9aae6a7bc9f89816eeb8682602b99082836d",
+    "userCode\\MiddleWares\\Inc\\BMI088Middleware.h": "9316da797e9e6f53ca71c0e23db6933e10b9e6e47c21c6d4cb81841c9822a666",
+    "userCode\\MiddleWares\\Inc\\ist8310driver_middleware.h": "4d81421974f7e7131fba8ec5d675b23da998ed8f935ecc668d9e00f4ed327a97",
+    "userCode\\MiddleWares\\Src\\BMI088Middleware.cpp": "c59b37a1f612748a26acd5ec6264adcfc4fc169e0451fdd65c7c148d67368bed",
+    "userCode\\MiddleWares\\Src\\ist8310driver_middleware.cpp": "c55e3b6063288c1d413bc3c97a7c0eca0c1767330428a6967ea03f1c1738cade",
+    "validation\\compact_rpm_diagnostics_20261126.json": "a2ef4728f73190813dec87d9418c972ee11f387cf22e6c9bf68fbf767082aa0c",
+    "validation\\conservative_spi_20261126.json": "bf5f319db533def530229d3f7ccee6d37a5213911c2d85281db59630744168e3",
+    "validation\\rpm_diagnostics_20261126.json": "83cb48c3d96c278851c1febaf3c2c383913468b6467c50a135fe7d99a36a983d",
+    "validation\\uart_init_diagnostics_20261126.json": "6c9b8bb1da0e9afad56621e1f0d5152fcf3757420c1b879a8191bc8507d23765"
+  },
+  "comparison_before": [
+    {
+      "path": ".clangd",
+      "state": "identical"
+    },
+    {
+      "path": ".gitignore",
+      "state": "identical"
+    },
+    {
+      "path": ".mxproject",
+      "state": "identical"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "state": "different"
+    },
+    {
+      "path": "CMakePresets.json",
+      "state": "identical"
+    },
+    {
+      "path": "low_control.ioc",
+      "state": "identical"
+    },
+    {
+      "path": "startup_stm32f407xx.s",
+      "state": "identical"
+    },
+    {
+      "path": "STM32F407XX_FLASH.ld",
+      "state": "different"
+    },
+    {
+      "path": ".settings\\bundles-lock.store.json",
+      "state": "low2_only"
+    },
+    {
+      "path": ".settings\\bundles.store.json",
+      "state": "low2_only"
+    },
+    {
+      "path": ".settings\\ide.store.json",
+      "state": "low2_only"
+    },
+    {
+      "path": ".vscode\\c_cpp_properties.json",
+      "state": "identical"
+    },
+    {
+      "path": ".vscode\\launch.json",
+      "state": "different"
+    },
+    {
+      "path": ".vscode\\settings.json",
+      "state": "different"
+    },
+    {
+      "path": "cmake\\gcc-arm-none-eabi.cmake",
+      "state": "different"
+    },
+    {
+      "path": "cmake\\starm-clang.cmake",
+      "state": "identical"
+    },
+    {
+      "path": "cmake\\stm32cubemx\\CMakeLists.txt",
+      "state": "different"
+    },
+    {
+      "path": "Core\\Inc\\adc.h",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Inc\\dma.h",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Inc\\gpio.h",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Inc\\i2c.h",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Inc\\main.h",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Inc\\spi.h",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Inc\\stm32f4xx_hal_conf.h",
+      "state": "different"
+    },
+    {
+      "path": "Core\\Inc\\stm32f4xx_it.h",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Inc\\tim.h",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Inc\\usart.h",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Src\\adc.c",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Src\\dma.c",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Src\\gpio.c",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Src\\i2c.c",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Src\\main.c",
+      "state": "different"
+    },
+    {
+      "path": "Core\\Src\\spi.c",
+      "state": "different"
+    },
+    {
+      "path": "Core\\Src\\stm32f4xx_hal_msp.c",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Src\\stm32f4xx_it.c",
+      "state": "different"
+    },
+    {
+      "path": "Core\\Src\\syscalls.c",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Src\\sysmem.c",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Src\\system_stm32f4xx.c",
+      "state": "identical"
+    },
+    {
+      "path": "Core\\Src\\tim.c",
+      "state": "different"
+    },
+    {
+      "path": "Core\\Src\\usart.c",
+      "state": "identical"
+    },
+    {
+      "path": "docs\\\u8f6c\u901f\u53cd\u9988\u8bca\u65ad.md",
+      "state": "low2_only"
+    },
+    {
+      "path": "Drivers\\CMSIS\\LICENSE.txt",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\LICENSE.txt",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f407xx.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\system_stm32f4xx.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\cachel1_armv7.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\cmsis_armcc.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\cmsis_armclang.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\cmsis_armclang_ltm.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\cmsis_compiler.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\cmsis_gcc.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\cmsis_iccarm.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\cmsis_version.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_armv81mml.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_armv8mbl.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_armv8mml.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm0.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm0plus.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm1.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm23.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm3.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm33.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm35p.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm4.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm55.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm7.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_cm85.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_sc000.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_sc300.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\core_starmc1.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\mpu_armv7.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\mpu_armv8.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\pac_armv81.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\pmu_armv8.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\CMSIS\\Include\\tz_context.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\LICENSE.txt",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc_ex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_cortex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma_ex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_exti.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ramfunc.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio_ex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c_ex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr_ex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc_ex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_spi.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim_ex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_uart.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_adc.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_bus.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_cortex.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_dma.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_exti.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_gpio.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_i2c.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_pwr.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_rcc.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_spi.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_system.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_tim.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_usart.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_utils.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy\\stm32_hal_legacy.h",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_cortex.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma_ex.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_exti.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ex.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ramfunc.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_gpio.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_i2c.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_i2c_ex.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr_ex.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc_ex.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_spi.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim_ex.c",
+      "state": "identical"
+    },
+    {
+      "path": "Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_uart.c",
+      "state": "identical"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\CMakeLists.txt",
+      "state": "low2_only"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\diagnostics_test.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\uart_sender_test.cpp.in",
+      "state": "low2_only"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\stubs\\adc.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\stubs\\fake_hal.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\stubs\\gpio.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\stubs\\main.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\stubs\\spi.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\stubs\\tim.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "tests\\rpm_diagnostics\\stubs\\usart.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\algorithms\\Inc\\MahonyAHRS.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\algorithms\\Src\\MahonyAHRS.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\bsp\\Inc\\bsp_spi.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\bsp\\Src\\bsp_spi.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\control\\Inc\\MotionController.h",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\control\\Src\\MotionController.cpp",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\Buzzer.h",
+      "state": "identical"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\CH9434.h",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\CommUART1.h",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\DepthSensor.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\IMU.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\LED.h",
+      "state": "identical"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\Motor.h",
+      "state": "identical"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\Servo.h",
+      "state": "identical"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\usermain.h",
+      "state": "identical"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\VectorControl.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\devices\\Inc\\VoltageMonitor.h",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\devices\\Src\\Buzzer.cpp",
+      "state": "identical"
+    },
+    {
+      "path": "userCode\\devices\\Src\\CH9434.cpp",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\devices\\Src\\CommUART1.cpp",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\devices\\Src\\DepthSensor.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\devices\\Src\\IMU.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\devices\\Src\\LED.cpp",
+      "state": "identical"
+    },
+    {
+      "path": "userCode\\devices\\Src\\Motor.cpp",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\devices\\Src\\Servo.cpp",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\devices\\Src\\usermain.cpp",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\devices\\Src\\VectorControl.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\devices\\Src\\VoltageMonitor.cpp",
+      "state": "different"
+    },
+    {
+      "path": "userCode\\drivers\\Inc\\BMI088driver.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\drivers\\Inc\\BMI088reg.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\drivers\\Inc\\ist8310driver.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\drivers\\Src\\BMI088driver.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\drivers\\Src\\ist8310driver.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\MiddleWares\\Inc\\BMI088Middleware.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\MiddleWares\\Inc\\ist8310driver_middleware.h",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\MiddleWares\\Src\\BMI088Middleware.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "userCode\\MiddleWares\\Src\\ist8310driver_middleware.cpp",
+      "state": "low2_only"
+    },
+    {
+      "path": "validation\\compact_rpm_diagnostics_20261126.json",
+      "state": "low2_only"
+    },
+    {
+      "path": "validation\\conservative_spi_20261126.json",
+      "state": "low2_only"
+    },
+    {
+      "path": "validation\\rpm_diagnostics_20261126.json",
+      "state": "low2_only"
+    },
+    {
+      "path": "validation\\uart_init_diagnostics_20261126.json",
+      "state": "low2_only"
+    }
+  ]
+}

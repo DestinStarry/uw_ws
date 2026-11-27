@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-26",
+  "feature": "Xbox D-pad camera servo on physical channel 7",
+  "initial_angle_deg": 0,
+  "angle_limits_deg": [
+    -90,
+    90
+  ],
+  "step_deg": 10,
+  "input": "D-pad hat0 Y edges; holding does not repeat",
+  "locked_camera_control": true,
+  "hold_camera_on_OFF_estop_CTRL_timeout": true,
+  "default_camera_direction": 1,
+  "wire": "CMD optional camera_deg field; CTRL last value=camera_deg/90; OFF:<camera_deg/90>",
+  "ROS_topic": "camera/servo_target_deg std_msgs/Float64",
+  "ROS_messages_changed": false,
+  "protected_spi_motor_steering_files_unchanged": {
+    "E:\\uw-robot\\stm32\\low_control2\\Core\\Src\\spi.c": "eb3b400a5d449648b70e6154dcc840c3f417a2cc0a1f0d8c9693992fe109710f",
+    "E:\\uw-robot\\stm32\\low_control2\\Core\\Src\\tim.c": "b88dab30b5d13be1857823663bb48971645a6db988dbd23002436f07ded19e54",
+    "E:\\uw-robot\\stm32\\low_control2\\userCode\\devices\\Src\\CH9434.cpp": "00f32ed73c8f336cd4107e050b91f1e861539e7f3403cbed41785729332e3937",
+    "E:\\uw-robot\\stm32\\low_control2\\userCode\\devices\\Inc\\CH9434.h": "90606ce5cc06b889f65ab71e24b36496f477c9f4029c10d63ed5ea898cc69391",
+    "E:\\uw-robot\\stm32\\low_control2\\userCode\\devices\\Src\\Motor.cpp": "32448d6a78b487ef305d369fe0706e2b61aea34393d4768a39e89fd12dba4869",
+    "E:\\uw-robot\\stm32\\low_control2\\userCode\\devices\\Src\\Servo.cpp": "59f92941f5d0368fc196fd9c48b785c167dc267c231ac501e21c32a89d49dfde",
+    "E:\\uw-robot\\stm32\\low_control3\\Core\\Src\\spi.c": "b1eb52fae1c64a5231edb6eef3b61851921793940b77b920fcca6485acdffbdd",
+    "E:\\uw-robot\\stm32\\low_control3\\Core\\Src\\tim.c": "944d56e922123ea3bc9ba40c0b8357dbfa1e17dc290b350a89c874b1f4d73d77",
+    "E:\\uw-robot\\stm32\\low_control3\\userCode\\devices\\Src\\CH9434.cpp": "ab145ac8bc25a6bf0273703be296f60287ad318e122cf5f4f6f8107229e541cf",
+    "E:\\uw-robot\\stm32\\low_control3\\userCode\\devices\\Inc\\CH9434.h": "65505168b736db669c10367c966044c3019e1a5eb2dd6993648f4daffd9bdcc7",
+    "E:\\uw-robot\\stm32\\low_control3\\userCode\\devices\\Src\\Motor.cpp": "7964f466e1dda86ef69141bd4c194a8932d4bd54494d65aa7b7826ffc8de3854",
+    "E:\\uw-robot\\stm32\\low_control3\\userCode\\devices\\Src\\Servo.cpp": "82771785723bbb2ed71a9071754e40900ee1afc7d8560cc028b8a3964eb4e0de"
+  },
+  "tests": {
+    "UI_unittest": "14 passed",
+    "low2_ctest": "3/3 passed",
+    "low3_ctest": "7/7 passed",
+    "ROS_control_and_communication": "6/6 passed",
+    "logger": "19 passed",
+    "TCP_ROS_PTY_camera_integration": "passed",
+    "direct_control_safety_regression": "passed",
+    "verify_tree": "128 text files LF; passed"
+  },
+  "UI_preview": "offline rendering inspected; mocked video/OpenCV, no physical camera",
+  "builds": {
+    "E:\\uw-robot\\stm32\\low_control2\\build\\Debug\\low_control.elf": {
+      "size": 1959644,
+      "sha256": "23e56710c7d56582da86fcdfcd0bdd4c40d0f3f29c44dfe1adc6d6a1fcc85aed"
+    },
+    "E:\\uw-robot\\stm32\\low_control3\\build\\Debug\\low_control3.elf": {
+      "size": 1854628,
+      "sha256": "5d4735c83e08c6b9137fb911114444899328f0bfd836b9f8ca4b4f895d4748e9"
+    },
+    "E:\\uw-robot\\stm32\\low_control3\\build\\Release\\low_control3.hex": {
+      "size": 109980,
+      "sha256": "e1d9899632d34cb4deb63aa7da931b2f8c527297a2036e01452459ca40337ae8"
+    }
+  },
+  "flashed": false,
+  "physical_rotation_direction_verified": false,
+  "source_sync": [
+    "uw_ws",
+    "uw_ws_orin",
+    "stm32/joy/Joystick_Over_Ethernet",
+    "stm32/low_control2",
+    "stm32/low_control3"
+  ],
+  "backup": "E:/uw-robot/backups/before_camera_pan_20261126_150704.zip"
+}

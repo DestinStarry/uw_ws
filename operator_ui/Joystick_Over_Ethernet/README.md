@@ -7,7 +7,7 @@
 沿用已安装 pygame、opencv-python、numpy 的 Python 环境：
 
 ```powershell
-cd E:\uw-robot\uw_ws\operator_ui\Joystick_Over_Ethernet
+cd E:\uw-robot\stm32\joy\Joystick_Over_Ethernet
 python main.py
 ```
 
@@ -66,3 +66,8 @@ python tools/check_video.py
 ```
 
 离线测试通过不代表已连接真实 Orin/相机验收。实际相机应在 Orin 配置为正确的左右拼接分辨率，仅启动一个 camera_node；不要继续用临时单目 1280×720 覆盖参数。
+
+
+## 摄像头（第七路）
+
+Xbox左下十字键上/下每按一次±10°，长按不重复，范围±90°，初始0°。画面控制栏显示摄像头目标角度。`camera_pan.py`记录按键边沿，`command_mapper.py`将绝对角度附在CMD第11字段。锁定时同样可调整，不随A解锁跳动。需要配套更新Orin及STM32；实际顺转方向可用robot.yaml的hardware_node.camera_direction=−1反向校准。

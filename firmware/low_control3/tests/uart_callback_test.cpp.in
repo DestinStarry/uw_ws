@@ -1,0 +1,46 @@
+#include <cstdint>
+#include <stdexcept>
+#include <iostream>
+static const int USART6=6, HAL_OK=0, HAL_BUSY=1;
+static const uint32_t HAL_UART_ERROR_NONE=0;
+struct UART_HandleTypeDef { int Instance; uint32_t ErrorCode; };
+static UART_HandleTypeDef huart6{USART6,0};
+static uint8_t rx_byte='A';
+static bool system_init_flag=true,rearm_rx=false,receive_fails=false;
+static unsigned receive_calls=0;
+struct FakeComm {
+ unsigned bytes=0,errors=0,rearm_errors=0; uint32_t flags=0;
+ void RxByteISR(uint8_t){++bytes;}
+ void RxErrorISR(uint32_t f,bool rearm=false){flags|=f;if(rearm)++rearm_errors;else ++errors;}
+} g_comm;
+static int HAL_UART_Receive_IT(UART_HandleTypeDef *uart,uint8_t *,int) {
+ ++receive_calls;
+ // This is the important real HAL side effect: Start_Receive_IT clears ErrorCode.
+ uart->ErrorCode=0;
+ return receive_fails ? HAL_BUSY : HAL_OK;
+}
+@UART_CALLBACKS@
+static void check(bool value,const char *why){if(!value)throw std::runtime_error(why);}
+int main(){try{
+ HAL_UART_RxCpltCallback(&huart6);
+ check(g_comm.bytes==1 && receive_calls==1 && !rearm_rx,"healthy byte immediately rearms");
+ for(uint32_t flag : {1u,2u,4u,8u}) {
+  huart6.ErrorCode=flag;rearm_rx=false;
+  const unsigned before=receive_calls,bytes=g_comm.bytes;
+  // Simulate HAL_UART_IRQHandler: RXNE+error calls completion before error callback.
+  HAL_UART_RxCpltCallback(&huart6);
+  check(receive_calls==before,"must not call Receive_IT while HAL is processing an error");
+  check(huart6.ErrorCode==flag && rearm_rx,"original HAL error survives until ErrorCallback");
+  check(g_comm.bytes==bytes,"error-marked byte must not enter command parser");
+  HAL_UART_ErrorCallback(&huart6);
+  check((g_comm.flags&flag)==flag,"PE/NE/FE/ORE captured before HAL clears flags");
+ }
+ check(g_comm.errors==4,"one error callback per injected hardware error");
+ huart6.ErrorCode=0;receive_fails=true;rearm_rx=false;
+ HAL_UART_RxCpltCallback(&huart6);
+ check(g_comm.rearm_errors==1 && rearm_rx,"rearm failure retains independent fault path");
+ UART_HandleTypeDef other{1,8};const unsigned before=receive_calls;
+ HAL_UART_RxCpltCallback(&other);HAL_UART_ErrorCallback(&other);
+ check(receive_calls==before && g_comm.errors==4,"unrelated UART ignored");
+ std::cout<<"UART error callback order passed\n";
+}catch(const std::exception &e){std::cerr<<e.what()<<'\n';return 1;}}

@@ -37,7 +37,7 @@ std::optional<Command> parse_command(const std::string &line) {
       return std::nullopt;
     v.push_back(x);
   }
-  if (v.size() != 10 || line.back() == ',')
+  if ((v.size() != 10 && v.size() != 11) || line.back() == ',')
     return std::nullopt;
   for (int i = 0; i < 3; ++i)
     if (std::abs(v[i]) > max_linear_mps)
@@ -48,7 +48,10 @@ std::optional<Command> parse_command(const std::string &line) {
   for (int i = 6; i < 10; ++i)
     if (v[i] != 0 && v[i] != 1)
       return std::nullopt;
+  if (v.size()==11 && std::abs(v[10])>90) return std::nullopt;
   Command c;
+  c.camera_command=v.size()==11;
+  if (c.camera_command) c.camera_angle_deg=v[10];
   for (int i = 0; i < 6; ++i)
     c.velocity[i] = v[i];
   c.arm = v[6];

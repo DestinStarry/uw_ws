@@ -17,13 +17,21 @@ static uint8_t rx_byte;
 static volatile bool rearm_rx=false;
 extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *uart) {
     if (uart->Instance != USART6) return;
+    // HAL_UART_IRQHandler may call RxCplt BEFORE ErrorCallback for RXNE+error.
+    // Receive_IT clears ErrorCode, which would hide ORE/FE/NE/PE and change
+    // the HAL error branch. Drop this byte and let HAL finish error handling;
+    // the main loop rearms only after ErrorCallback has captured the flags.
+    if (uart->ErrorCode != HAL_UART_ERROR_NONE) {
+        rearm_rx = true;
+        return;
+    }
     if (system_init_flag) g_comm.RxByteISR(rx_byte);
     if (HAL_UART_Receive_IT(&huart6,&rx_byte,1) != HAL_OK) {
-        rearm_rx=true;g_comm.RxErrorISR();
+        rearm_rx=true;g_comm.RxErrorISR(uart->ErrorCode, true);
     }
 }
 extern "C" void HAL_UART_ErrorCallback(UART_HandleTypeDef *uart) {
-    if (uart->Instance == USART6) { g_comm.RxErrorISR();rearm_rx=true; }
+    if (uart->Instance == USART6) { g_comm.RxErrorISR(uart->ErrorCode);rearm_rx=true; }
 }
 extern "C" void HAL_UART_TxCpltCallback(UART_HandleTypeDef *uart) {
     if (uart->Instance == USART6) g_telemetry.TxCompleteISR();
@@ -50,6 +58,7 @@ int main() {
             HAL_UART_AbortReceive(&huart6);
             __HAL_UART_CLEAR_OREFLAG(&huart6);
             rearm_rx=HAL_UART_Receive_IT(&huart6,&rx_byte,1) != HAL_OK;
+            if (rearm_rx) g_comm.RxErrorISR(huart6.ErrorCode, true);
             __set_PRIMASK(mask);
         }
         // Highest priority task every loop. Only valid complete CTRL feeds deadman.

@@ -16,6 +16,12 @@ import subprocess
 import tempfile
 import time
 import signal
+import rclpy
+from std_msgs.msg import String
+rclpy.init()
+diagnostic_node=rclpy.create_node("telemetry_smoke_observer")
+raw_samples=[]
+diagnostic_node.create_subscription(String,"hardware/rx",lambda m:raw_samples.append(m.data),100)
 
 processes = []
 client = None
@@ -55,10 +61,11 @@ with tempfile.TemporaryDirectory() as directory:
             wire=""
             while time.monotonic()<end:
                 if voltage is not None:
-                    os.write(master,(voltage+"\r\n").encode())
+                    os.write(master,(voltage+"\r\nSAFETY SEQ:1 MS:100 ACTIVE:0 NEUTRAL:1 SYNC:0 FAULTS:0 REASON:2\r\nRXSTAT UART:0 FLAGS:0\r\n").encode())
                 # Drain the node's OFF output; never attach to a physical UART.
                 while select.select([master],[],[],0)[0]:
                     os.read(master,65536)
+                for _ in range(4):rclpy.spin_once(diagnostic_node,timeout_sec=0)
                 try: wire+=client.recv(65536).decode()
                 except BlockingIOError: pass
                 time.sleep(.02)
@@ -90,6 +97,8 @@ with tempfile.TemporaryDirectory() as directory:
         assert "CPU_TEMP:--\nCPU_TEMP_VALID:0" in data,data
         print("PASS: CPU/voltage/RPM forwarding, compatibility, injection rejection, invalidation, recovery, publisher timeout")
     except Exception:
+        print("Raw samples:",len(raw_samples),raw_samples[:2],raw_samples[-2:])
+        print("RX graph:",diagnostic_node.get_publishers_info_by_topic("hardware/rx"),diagnostic_node.get_subscriptions_info_by_topic("hardware/rx"))
         for p,log in processes:
             log.flush()
             print(Path(log.name).read_text())
@@ -105,3 +114,4 @@ with tempfile.TemporaryDirectory() as directory:
             log.close()
         os.close(master)
         os.close(slave)
+        diagnostic_node.destroy_node();rclpy.shutdown()

@@ -30,7 +30,7 @@ void Servo::SetAngle(uint8_t ch, float angle_deg)
     if (!std::isfinite(angle_deg)) angle_deg = 0.f;
     if (angle_deg > 90.0f) angle_deg = 90.0f;
     if (angle_deg < -90.0f) angle_deg = -90.0f;
-    data[ch] = SERVO_MID + (int32_t)std::lround(angle_deg * (500.0f / 90.0f));
+    data[ch] = SERVO_MID + (int32_t)(angle_deg * (500.0f / 90.0f));
 }
 
 /* ===== Device 接口 ===== */

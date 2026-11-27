@@ -10,21 +10,33 @@
 static void require(bool value,const char *reason) { if(!value) throw std::runtime_error(reason); }
 static low::Command control(const char *s="CTRL:0,0,0,0,0,0,-0.5") { return low::ParseCommand(s); }
 static void commands() {
+    require(low::ParseCommand("SYNC:123").type==low::CommandType::Invalid,"simple protocol has no SYNC");
     require(control().type==low::CommandType::Control,"neutral decode");
     require(low::ParseCommand("CTRL:1,-1,0.2,-0.2,1,-1,0.5").type==low::CommandType::Control,"ranges");
     for(const char *bad:{"CTRL:nan,0,0,0,0,0,0","CTRL:inf,0,0,0,0,0,0",
         "CTRL:1.01,0,0,0,0,0,0","CTRL:1e99,0,0,0,0,0,0","CTRL:1e-999,0,0,0,0,0,0",
         "CTRL:0,0,0,0,0,0,0extra","CTRL:0,0,0,0,0,0,0,0","CTRL:0,0,0,0,0,0",
-        "CTRL:0x1p0,0,0,0,0,0,0","CTRL: 0,0,0,0,0,0,0","OFFwhatever","BUZZx","1 1900"})
+        "CTRL:0x1p0,0,0,0,0,0,0","CTRL: 0,0,0,0,0,0,0","OFFwhatever","BUZZx"})
         require(low::ParseCommand(bad).type==low::CommandType::Invalid,bad);
+    const auto raw=low::ParseCommand("1 1600");
+    require(raw.type==low::CommandType::RawPwm && raw.pwm_id==1 && raw.pwm_us==1600,"low2 raw motor compatibility");
+    require(low::ParseCommand("5 1600").pwm_id==5,"low2 servo compatibility");
+    require(low::ParseCommand("8 1").type==low::CommandType::Buzz,"legacy buzzer");
+    for(const char *bad:{"0 1600","9 1600","1 1600junk","1 nan","1 99999999999999999999999999","1 ","1 +"})
+        require(low::ParseCommand(bad).type==low::CommandType::Invalid,bad);
+    const auto camera=low::ParseCommand("OFF:0.1111");
+    require(camera.type==low::CommandType::Off && camera.camera_target,"stop with independent camera target");
+    for(const char *bad:{"OFF:nan","OFF:2","OFF:0.1junk","OFF:"}) {
+        auto stop=low::ParseCommand(bad);require(stop.type==low::CommandType::Off && !stop.camera_target,"invalid camera preserves motor stop");
+    }
     low::ControlGuard guard;
     auto moving=control("CTRL:0.1,0,0,0,0,0,0");
-    require(!guard.Accept(moving,10,10),"boot must require neutral");
+    require(guard.Accept(moving,10,10),"first valid CTRL accepted without handshake");
     require(guard.Accept(control(),10,10),"neutral handshake");
     require(guard.Accept(moving,20,20),"active control");
     require(!guard.Expire(220),"200ms boundary");
     require(guard.Expire(221),"timeout stop");
-    require(!guard.Accept(moving,222,222),"must neutral after timeout");
+    require(guard.Accept(moving,222,222),"next valid CTRL resumes without recovery state");
     require(!guard.Accept(control(),400,200),"stale queued command rejected");
     require(guard.Accept(control(),UINT32_MAX-30,UINT32_MAX-30),"wrap neutral");
     require(!guard.Expire(50),"wrap recent");

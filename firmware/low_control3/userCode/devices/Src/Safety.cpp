@@ -11,7 +11,7 @@ static IWDG_HandleTypeDef watchdog;
 static void neutral_pwm() {
     if (!ready) return;
     TIM1->CCR1 = 1500; TIM1->CCR2 = 1500; TIM1->CCR3 = 1500; TIM1->CCR4 = 1500;
-    TIM8->CCR1 = 1500; TIM8->CCR2 = 1500; TIM8->CCR3 = 1500;
+    TIM8->CCR1 = 1500; TIM8->CCR2 = 1500; // Camera position intentionally held.
 }
 extern "C" void Safety_Init() {
     active = false; pending_fault = 0; last_reason = SAFETY_BOOT;

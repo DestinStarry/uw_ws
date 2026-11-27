@@ -40,8 +40,14 @@ std::optional<double> parse_depth(const std::string &line) {
 // 内部推力 [1上,3下,2右,4左] -> 串口物理顺序 [1,2,3,4]。
 // 正反转最大推力不同，分别归一化；舵机角度除以 pi/2。
 std::string encode_stm32(const Actuators &a) {
-  if (!a.enabled || !a.forces.allFinite() || !a.angles.allFinite())
+  if (!std::isfinite(a.camera_angle_deg) || std::abs(a.camera_angle_deg)>90)
     return "OFF\n";
+  const double camera=a.camera_angle_deg/90.;
+  if (!a.enabled || !a.forces.allFinite() || !a.angles.allFinite()) {
+    std::ostringstream stop;stop.imbue(std::locale::classic());
+    stop << "OFF:" << std::fixed << std::setprecision(4) << camera << '\n';
+    return stop.str();
+  }
   std::ostringstream out;
   out.imbue(std::locale::classic());
   out << "CTRL:" << std::fixed << std::setprecision(4);
@@ -52,7 +58,7 @@ std::string encode_stm32(const Actuators &a) {
   }
   out << clamp(a.angles[0] / servo_limit, -1., 1.) << ','
       << clamp(a.angles[1] / servo_limit, -1., 1.) << ',';
-  out << (a.gripper ? .5 : -.5) << '\n';
+  out << camera << '\n';
   return out.str();
 }
 } // namespace uw

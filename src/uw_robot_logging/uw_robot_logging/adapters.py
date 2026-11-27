@@ -60,11 +60,15 @@ def adapt(source, m):
     if source == "tx":
         raw = m.data.strip()[:2048]
         values = [None]*7
-        kind = "OFF" if raw == "OFF" else ("CTRL" if raw.startswith("CTRL:") else "OTHER")
+        kind = "OFF" if raw == "OFF" or raw.startswith("OFF:") else ("CTRL" if raw.startswith("CTRL:") else ("SYNC" if raw.startswith("SYNC:") else "OTHER"))
         if kind == "CTRL":
             parts = raw[5:].split(",")
             if len(parts) == 7: values = list(map(number,parts))
+        if kind == "OFF" and raw.startswith("OFF:"):
+            camera=number(raw[4:])
+            if camera is not None and -1 <= camera <= 1: values[6]=camera
         return {"hardware_tx": raw, "serial_command": kind,
+                "tx_sync_token": number(raw[5:]) if kind=="SYNC" else None,
                 **dict(zip(("ctrl_"+k for k in ("f1","f2","f3","f4","s1","s2","gripper")),values))}
     if source == "rx": return {"hardware_rx": m.data.strip()[:2048]}
     raise ValueError("unknown source: "+source)

@@ -54,6 +54,8 @@ template <class V> V bounded(const V &x, double lo, double hi) {
 /// 单位：线速度 m/s（+X 前进、+Y 左舷、+Z 上浮），角速度 rad/s（REP-103）。
 struct Command {
   V6 velocity = V6::Zero();
+  double camera_angle_deg = 0;
+  bool camera_command = false;
   bool arm = false;          ///< 解锁/上锁切换，边沿有效。
   bool estop = false;        ///< 急停，电平有效且优先于其他输入。
   bool depth_toggle = false; ///< 定深切换，边沿有效。
@@ -89,7 +91,8 @@ struct Depth {
 struct Actuators {
   V4 forces = V4::Zero();
   V2 angles = V2::Zero();
-  bool enabled = false, gripper = false;
+  bool enabled = false, gripper = false; // gripper retained for old aggregate initializers only
+  double camera_angle_deg = 0;
 };
 
 /// 控制节点输出的机体系六维目标及其会话信息。

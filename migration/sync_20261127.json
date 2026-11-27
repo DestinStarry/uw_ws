@@ -1,0 +1,1329 @@
+{
+  "date": "2026-11-27",
+  "scope": "uw_ws source synchronization audit and current README update",
+  "comparisons": [
+    {
+      "source": "E:\\uw-robot\\uw_ws_orin\\src",
+      "destination": "E:\\uw-robot\\uw_ws\\src",
+      "kind": "ROS",
+      "verified": [
+        {
+          "file": "src/uw_robot_bringup/CMakeLists.txt",
+          "sha256": "c777e50ea0df74e5b991c47759191f08a471737b0995ca6db786bd46070efa0f"
+        },
+        {
+          "file": "src/uw_robot_bringup/config/robot.yaml",
+          "sha256": "39373f2d3bdbba7720b32c49a81ae813a38d5bdaeda5e365d71999ff19fa1253"
+        },
+        {
+          "file": "src/uw_robot_bringup/launch/camera.launch.py",
+          "sha256": "b732e4df1fbe997c1778bf4eba4935e3e1aba24774dbf94395813b0df670cf53"
+        },
+        {
+          "file": "src/uw_robot_bringup/launch/depth.launch.py",
+          "sha256": "7d86f314a391ea8eac1b630dbb4498381be176e25bb8c4dd307cdd3a544f9bc6"
+        },
+        {
+          "file": "src/uw_robot_bringup/launch/logger.launch.py",
+          "sha256": "b05c7e96ba6658621b25310e766e45c081e56c80b18b104e3afc3656d6413f4c"
+        },
+        {
+          "file": "src/uw_robot_bringup/launch/robot.launch.py",
+          "sha256": "19bb1c9e5098a261c4f1a3a7c2e9d16f19fdacc165a2eaa4d29d65f2422e2242"
+        },
+        {
+          "file": "src/uw_robot_communication/.clang-format",
+          "sha256": "d52ea74eb8c332d116e37fa3efc7e3fc3299e4f5eb0efa834e71409dc11bffc6"
+        },
+        {
+          "file": "src/uw_robot_communication/CMakeLists.txt",
+          "sha256": "7f4fd39be3bcbd826ca99048a7cabd30ac377551f542a7806ad2cf48480f478f"
+        },
+        {
+          "file": "src/uw_robot_communication/package.xml",
+          "sha256": "363d84d3e33c1a18b3d1e7a48beb47f63335e8dcc1c8592e81ad8d75dc3ef5cb"
+        },
+        {
+          "file": "src/uw_robot_communication/README.md",
+          "sha256": "9f12f1ba0674013f11bf6ec299fc5650739176b8fa29895d7f4097e0aa18a71d"
+        },
+        {
+          "file": "src/uw_robot_communication/include/uw_robot_communication/stm32/protocol.hpp",
+          "sha256": "9a958e9cb10040951190c34f6999b2a97ca1c5045712f43acecdc96ff577557b"
+        },
+        {
+          "file": "src/uw_robot_communication/include/uw_robot_communication/stm32/serial_port.hpp",
+          "sha256": "0b0185b8ad6703a89a7edce181318f2739d23704379663cceff2127428e32726"
+        },
+        {
+          "file": "src/uw_robot_communication/include/uw_robot_communication/tcp/protocol.hpp",
+          "sha256": "b52cff51b94181ba903b504935fcb3f89f190bc9c258a30f41afef94f1a6228c"
+        },
+        {
+          "file": "src/uw_robot_communication/include/uw_robot_communication/tcp/tcp_server.hpp",
+          "sha256": "5a1d5d8cfd5cf1a4afd72e2a9fc5661c08a04aa592ac574ecfdbc721846c7500"
+        },
+        {
+          "file": "src/uw_robot_communication/include/uw_robot_communication/tcp/telemetry.hpp",
+          "sha256": "5f77801932a63f5c810a1015faf42363abfc35198966fe08eeb39d71101218a2"
+        },
+        {
+          "file": "src/uw_robot_communication/src/stm32/hardware_node.cpp",
+          "sha256": "dd47ea0bb32c85f13247e84d825ac5ad053f54f4d3f5a2e30c184e0f353590ce"
+        },
+        {
+          "file": "src/uw_robot_communication/src/stm32/protocol.cpp",
+          "sha256": "99ac68778667e58e06bacf391ccc310260dcea4fcf9cd0b9f2480c97343ee503"
+        },
+        {
+          "file": "src/uw_robot_communication/src/stm32/serial_port.cpp",
+          "sha256": "2c95da43d5f5c9b666c0e322ca4f83cd89fb3dcd1df3e8439e39e92fb566bdce"
+        },
+        {
+          "file": "src/uw_robot_communication/src/tcp/protocol.cpp",
+          "sha256": "8ecf497fdf0f867adc5e1b322fc213812be738511e58f041185501cbba2f45e7"
+        },
+        {
+          "file": "src/uw_robot_communication/src/tcp/tcp_bridge_node.cpp",
+          "sha256": "485dd253dc9e49738d9a900826ee05693ac652630d9471b1085c03d66a3736c6"
+        },
+        {
+          "file": "src/uw_robot_communication/src/tcp/tcp_server.cpp",
+          "sha256": "c09e375c73424fa060467c320602d20acd7be0ba767af30874f812851f53ee9c"
+        },
+        {
+          "file": "src/uw_robot_communication/src/tcp/telemetry.cpp",
+          "sha256": "e10abf0150432956e161c3b45707e1cd3496b002a66d676e0b4ba1aa9ae9e13f"
+        },
+        {
+          "file": "src/uw_robot_communication/test/stm32/hardware_test.cpp",
+          "sha256": "a5a43ef9157ca904f0c6757451412dae0ad9552caeff64291db647b5284c690b"
+        },
+        {
+          "file": "src/uw_robot_communication/test/tcp/telemetry_test.cpp",
+          "sha256": "de7bf08cd78e3f4d52b4badf1cf95b0ba6ea5ec0b76364fbdd757987ef884ff3"
+        },
+        {
+          "file": "src/uw_robot_communication/test/tcp/teleop_test.cpp",
+          "sha256": "fe460be5a87956bd5d39b33d175caa65dd12012b8321bc612fa2746240d29830"
+        },
+        {
+          "file": "src/uw_robot_control/.clang-format",
+          "sha256": "d52ea74eb8c332d116e37fa3efc7e3fc3299e4f5eb0efa834e71409dc11bffc6"
+        },
+        {
+          "file": "src/uw_robot_control/CMakeLists.txt",
+          "sha256": "cad756bc4dcebe43be2bcaa5f9be5c13f5f895c30a44a217bbca3e3da69d3e7f"
+        },
+        {
+          "file": "src/uw_robot_control/package.xml",
+          "sha256": "7a4823794eaa5fa7859fc75d4e1b7050c79925daa516e3c59b3d39dcc56ee2c8"
+        },
+        {
+          "file": "src/uw_robot_control/README.md",
+          "sha256": "a7753640826807717c5c517291f55353f588e15fc61d20b6c5a1653face4d758"
+        },
+        {
+          "file": "src/uw_robot_control/include/uw_robot_control/allocation/allocation_controller.hpp",
+          "sha256": "b9255e895c97619a1bce05ad4f2f7db0ed9e42009a90ce37fad598f752e6bfb7"
+        },
+        {
+          "file": "src/uw_robot_control/include/uw_robot_control/allocation/allocator.hpp",
+          "sha256": "115a9c560072995cfe8927e41928e9adf14215e49ae006cb914371a527b11685"
+        },
+        {
+          "file": "src/uw_robot_control/include/uw_robot_control/closed_loop/config.hpp",
+          "sha256": "e03dba9488dbef745fc761ac330a4e3050e5b1b175f030865a8e5ebf1097caef"
+        },
+        {
+          "file": "src/uw_robot_control/include/uw_robot_control/closed_loop/controller.hpp",
+          "sha256": "5d7a34f6f0b745cd5ee08bd508c888b5aaa8f45521eea9c88d392ff1b7bfcb31"
+        },
+        {
+          "file": "src/uw_robot_control/src/allocation/allocation_controller.cpp",
+          "sha256": "4908bc6c1785c50b8c5ba22f7431df0a2da73524028829c0f9d1c70803783a76"
+        },
+        {
+          "file": "src/uw_robot_control/src/allocation/allocation_node.cpp",
+          "sha256": "07c2891ff9958f4d6b870dd6f315309f026b24758431a280d1c6a598212adf23"
+        },
+        {
+          "file": "src/uw_robot_control/src/allocation/allocator.cpp",
+          "sha256": "c17ef2ace7293f5f05738e79b3aafbb35c650141044e164d5380afc3aa9fe04d"
+        },
+        {
+          "file": "src/uw_robot_control/src/closed_loop/config.cpp",
+          "sha256": "6a059e405c908b205f6a88be016e65b67026159da252f170c042666345f2d4dd"
+        },
+        {
+          "file": "src/uw_robot_control/src/closed_loop/controller.cpp",
+          "sha256": "26d26c167cc4bd65a572d924bd0bed5740a885e78f6e62f6f6d4943381a7a6d7"
+        },
+        {
+          "file": "src/uw_robot_control/src/closed_loop/controller_attitude.cpp",
+          "sha256": "31edbcd41c4009f261e9bd37464e381420b6856b7295c9292e805522413ffd5f"
+        },
+        {
+          "file": "src/uw_robot_control/src/closed_loop/controller_depth.cpp",
+          "sha256": "c92c48325d7500979108ccd023d80c115891bec4f122a0879948ca5ed76208fe"
+        },
+        {
+          "file": "src/uw_robot_control/src/closed_loop/control_node.cpp",
+          "sha256": "a90c15db1dc9294a4b8d9a08b6a6c310d7828de5c5825066f23054e22b4baf6c"
+        },
+        {
+          "file": "src/uw_robot_control/test/allocation/allocation_test.cpp",
+          "sha256": "cec1366722ff2ebaf76017f6433d77a3c5f6256f5230f39d013aff40e9ea4008"
+        },
+        {
+          "file": "src/uw_robot_control/test/allocation/parity_cli.cpp",
+          "sha256": "5dd406224d21218a0412044d26179ded98d1e28ca4f59a8f4c10f632c70629ae"
+        },
+        {
+          "file": "src/uw_robot_control/test/closed_loop/control_cli.cpp",
+          "sha256": "d4a86b40ab2da4ce1b50c5581daf8c10c773b35d7909ff181ac77a2c4ff8f51a"
+        },
+        {
+          "file": "src/uw_robot_control/test/closed_loop/control_test.cpp",
+          "sha256": "f5b49e2dd8da75f0e21d820bd84aac364c00a1169fef96d0ea1c43136a730624"
+        },
+        {
+          "file": "src/uw_robot_control/test/closed_loop/mode_switch_test.cpp",
+          "sha256": "d13a0581e30241af0cdfbdc744ccf4557f13056dc8a413df96cfab0e503510af"
+        },
+        {
+          "file": "src/uw_robot_interfaces/.clang-format",
+          "sha256": "d52ea74eb8c332d116e37fa3efc7e3fc3299e4f5eb0efa834e71409dc11bffc6"
+        },
+        {
+          "file": "src/uw_robot_interfaces/CMakeLists.txt",
+          "sha256": "5c66d2044f40c6e8041a98fc7a001ae406b184968eef67ebc976e7cf3c7d4f84"
+        },
+        {
+          "file": "src/uw_robot_interfaces/package.xml",
+          "sha256": "ef392bc5222aaa2bcbf2b8f8e8b44243aea490122e2f44d36aca4ed32bff1448"
+        },
+        {
+          "file": "src/uw_robot_interfaces/README.md",
+          "sha256": "91edc99c40068c8d40bef8da510112c704a7f3983d35611246ebba35271d8131"
+        },
+        {
+          "file": "src/uw_robot_interfaces/include/uw_robot_interfaces/robot_types.hpp",
+          "sha256": "9ecc37350dfe54f6a72a66a84178e0c175cba7b34dc0f7bef35da7f42976e4f1"
+        },
+        {
+          "file": "src/uw_robot_interfaces/msg/AllocationStatus.msg",
+          "sha256": "e9ad264a27d6b829769028d613b968b3e48d991db5ebbbf79325307f9fc1f94d"
+        },
+        {
+          "file": "src/uw_robot_interfaces/msg/ControlCommand.msg",
+          "sha256": "8265a781c3cc37510c079f586fc45e6c1734e0f59861888a2f2b0e9412c2dec2"
+        },
+        {
+          "file": "src/uw_robot_interfaces/msg/DepthState.msg",
+          "sha256": "d23b5c29651d5f802758451f9a5a95070a9e4c63d7f9222c4bcf89fbdc3eea63"
+        },
+        {
+          "file": "src/uw_robot_interfaces/msg/RobotStatus.msg",
+          "sha256": "7b45f6172889845577af990ee389a31ce9fa9b4d31fbd85b1580593f265580cb"
+        },
+        {
+          "file": "src/uw_robot_interfaces/msg/ThrusterCommand.msg",
+          "sha256": "b4c28eba191b93bcbc0c3363b936bf83e1eca456f907fde2d87b4e110c90e7ae"
+        },
+        {
+          "file": "src/uw_robot_interfaces/msg/WrenchCommand.msg",
+          "sha256": "a3095506d3f58d01ad37ca2a008b1815f32eaee639d28f097d37eb1e7e713d45"
+        },
+        {
+          "file": "src/uw_robot_logging/package.xml",
+          "sha256": "432e7b3681688964f10e82308c8fd631764bfe49e4e96181825b87099fef525b"
+        },
+        {
+          "file": "src/uw_robot_logging/README.md",
+          "sha256": "9223f05540e7307d6678e02991c6c81c3fa2647cdb273a863efbecc95518d725"
+        },
+        {
+          "file": "src/uw_robot_logging/setup.cfg",
+          "sha256": "48e27f71e4227d3d122d745294b5710e79ead9e988add669224d06a71e5972df"
+        },
+        {
+          "file": "src/uw_robot_logging/setup.py",
+          "sha256": "dc53b4a5b26c6bb3512cfcfe2f698c93ff07dc475295df294d755ce2ccb45311"
+        },
+        {
+          "file": "src/uw_robot_logging/resource/uw_robot_logging",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "file": "src/uw_robot_logging/test/test_logging_core.py",
+          "sha256": "8471b08878e9a8150c3e6765ac49dd9cf9d49402f38c6da8159c89b630757f3e"
+        },
+        {
+          "file": "src/uw_robot_logging/uw_robot_logging/adapters.py",
+          "sha256": "22277be5b054d2ba39a6b835dc95b08097b6ca953e768aa16ca4a2858d65dbfa"
+        },
+        {
+          "file": "src/uw_robot_logging/uw_robot_logging/node.py",
+          "sha256": "16865caa688db67f5357c999669565cd0841864311606fd368395cbe6e5ced32"
+        },
+        {
+          "file": "src/uw_robot_logging/uw_robot_logging/schema.py",
+          "sha256": "4ca0e6044e3c51ba5ca393382331b3de03ebcd4eee8128f5531020f1b444a8a3"
+        },
+        {
+          "file": "src/uw_robot_logging/uw_robot_logging/summarize.py",
+          "sha256": "1cd31dc0375472e1d3851a7ac415093ae020b20d204d31bfe77d4cf2f625e94d"
+        },
+        {
+          "file": "src/uw_robot_logging/uw_robot_logging/writer.py",
+          "sha256": "9a59bd14af651ae7b571ed8e33ae2d6439666be11bae3f1962d0d496bf773669"
+        },
+        {
+          "file": "src/uw_robot_logging/uw_robot_logging/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "file": "src/uw_robot_sensors/package.xml",
+          "sha256": "14ef51e22c87180e6f69a877c83a873bb01c91550ce22a46c4e2279d73b3ce26"
+        },
+        {
+          "file": "src/uw_robot_sensors/setup.cfg",
+          "sha256": "25b052b0f41b99c2abd74d985f43112b320e7c0b1510ac0357c65a9d67078465"
+        },
+        {
+          "file": "src/uw_robot_sensors/setup.py",
+          "sha256": "0af23919a2def80e77503fc39e1a0504b0ad8c3df812020aa2894e629c2fb0ba"
+        },
+        {
+          "file": "src/uw_robot_sensors/resource/uw_robot_sensors",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "file": "src/uw_robot_sensors/test/test_camera.py",
+          "sha256": "6492ea50e34471ba25b35b8ce3fe2e936a54ea5f9a7167122afae0b5fb7f4f62"
+        },
+        {
+          "file": "src/uw_robot_sensors/test/test_depth.py",
+          "sha256": "bcfd4d59e47e518538b1924c21acdf8153b775f70b81552218cdf3cd62abe33b"
+        },
+        {
+          "file": "src/uw_robot_sensors/test/test_depth_ros.py",
+          "sha256": "ebe138d583fc9129e0634a95089155ed8cb724c43682166a24d14a8e32be9e39"
+        },
+        {
+          "file": "src/uw_robot_sensors/test/test_imu.py",
+          "sha256": "e5efab0a9766c4213daac350643c7d970577fa281a24aeefbaf5c555f5941455"
+        },
+        {
+          "file": "src/uw_robot_sensors/test/test_ros_adapter.py",
+          "sha256": "bca4d4ccb70aca765d6664926ca6556fe64d1e4fee4670b11b140ac2d36752f4"
+        },
+        {
+          "file": "src/uw_robot_sensors/test/test_system_monitor.py",
+          "sha256": "2b1fd42775694a7f73e3eeb6d9444febb0a2012787c2e645438d9384b31cd8ee"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/system_monitor.py",
+          "sha256": "2e42fe40f9b9ad11797b1681280d2063b6f56a6c775a174278b7926435f469df"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/__init__.py",
+          "sha256": "9e95b4685fdc048a6989ce2d8fd92d29e0166ea5f2d4338f75827baf7669e7dd"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/camera/camera_node.py",
+          "sha256": "2f4d4aafa0a68847ecaa013e7ab3027e43e2a9bc4504746fc6a7251910ee3b6b"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/camera/capture.py",
+          "sha256": "55d1cf826a3a6c12a9bf3dfcbb6e9001dc401c6801a667ebddff9467b7a08555"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/camera/stream.py",
+          "sha256": "925c646cfd889d20cba007422cfaf99e8885eb90099afcf1331e3a2cb505f1c7"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/camera/__init__.py",
+          "sha256": "cf97b3c80560f06a9e1c3466a40852a7a43b7cba68b09db5501d0da9d3552e20"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/depth/depth_node.py",
+          "sha256": "4df0a8ad05894e378f763d664b1c6b779404504b08a21670e3a49609a281da82"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/depth/driver.py",
+          "sha256": "24049667acab0d208fd5baafdb7045ab7d2af08fcb16db03e68e18743634854d"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/depth/ms5837.py",
+          "sha256": "ceedb63740757f71d99597df0e46822cdd22db9e4bdf2a91972e19d847008337"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/depth/__init__.py",
+          "sha256": "ad36c25e5f2588d339ec47a63791c7cb56ec6225ac7b63e71a7ef649119b36b9"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/imu/driver.py",
+          "sha256": "3917af33abb87deef5b787678bee44b2760fbb8d518cbcac3b50ff34e44effcc"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/imu/imu_node.py",
+          "sha256": "efa1dddfe09891e15128c2ba48b7160231ecb7a0191ac950a9db37bf33a58f1b"
+        },
+        {
+          "file": "src/uw_robot_sensors/uw_robot_sensors/imu/__init__.py",
+          "sha256": "75c40d43e355932a03cdfcf43dd79102b1ad0891a9117a739060c5e425297636"
+        }
+      ],
+      "preserved_repository_differences": [
+        "src/uw_robot_bringup/package.xml",
+        "src/uw_robot_bringup/README.md",
+        "src/uw_robot_sensors/README.md"
+      ]
+    },
+    {
+      "source": "E:\\uw-robot\\stm32\\low_control3",
+      "destination": "E:\\uw-robot\\uw_ws\\firmware\\low_control3",
+      "kind": "STM32",
+      "verified": [
+        {
+          "file": "firmware/low_control3/.clangd",
+          "sha256": "3e788df0058b4662d40b9859b93848e2052237f1aba9cfec227507c12dbbd8f6"
+        },
+        {
+          "file": "firmware/low_control3/.gitignore",
+          "sha256": "5e85d5d84c2aba38463e941e25866843cf6c2e0016284479d9e277d619b70c12"
+        },
+        {
+          "file": "firmware/low_control3/.mxproject",
+          "sha256": "18f6e83fe66384cb5dd6c073a102850ff288b0475de968cb10d3b20d5d204763"
+        },
+        {
+          "file": "firmware/low_control3/CMakeLists.txt",
+          "sha256": "4bd3f05bd9858204cbf976dfe6892d2d479aa52f516f8b4a46c1936eb7889224"
+        },
+        {
+          "file": "firmware/low_control3/CMakePresets.json",
+          "sha256": "5cfd04cb98883899a9e70bb39dc70f74ee610b88ae34625dafac65f18f322a94"
+        },
+        {
+          "file": "firmware/low_control3/low_control.ioc",
+          "sha256": "7fdedc8ccc9d7ae67c11327cb7875f082317aee8e5ec13da9279853db930ea65"
+        },
+        {
+          "file": "firmware/low_control3/README.md",
+          "sha256": "e422800adbd3bc4e8da2f9349edb5a8a4d6710f71f3e55ab1aa8812eca16616e"
+        },
+        {
+          "file": "firmware/low_control3/startup_stm32f407xx.s",
+          "sha256": "430f14fd00db0f7aa88f354aee54064efb582ddc4cc264fb8e435dc7d7a2f53d"
+        },
+        {
+          "file": "firmware/low_control3/STM32F407XX_FLASH.ld",
+          "sha256": "5131386d4112cf0196538bbd712a55bda086bbb66add957982994a73c8361a05"
+        },
+        {
+          "file": "firmware/low_control3/.vscode/c_cpp_properties.json",
+          "sha256": "1d40a921a6f28b9ac3dfcd2613d0a666dd3d9a9a7f6f626028132db735fe020f"
+        },
+        {
+          "file": "firmware/low_control3/.vscode/launch.json",
+          "sha256": "e92bfe8aa3341f844f5e8655d19453eaed11ab13ffdf53e2de01ed22a40501ec"
+        },
+        {
+          "file": "firmware/low_control3/.vscode/settings.json",
+          "sha256": "d3b5f890eb2b4aa871570623fd1ff0f74df08d55199516af00d42abce67d2756"
+        },
+        {
+          "file": "firmware/low_control3/.vscode/tasks.json",
+          "sha256": "8c76c7648757343212ed8c141e7c074c1793cd3d1221676890e64f54adf52561"
+        },
+        {
+          "file": "firmware/low_control3/cmake/gcc-arm-none-eabi.cmake",
+          "sha256": "6f5b7b5aca0cee2ecdfc57d1a9939ea04d25ca3fcaf0057c5754bafae28a19d8"
+        },
+        {
+          "file": "firmware/low_control3/cmake/starm-clang.cmake",
+          "sha256": "8ab93ad157343e2fff570f55639347cc24c6714e5c1a4cfe8e909275b23aba91"
+        },
+        {
+          "file": "firmware/low_control3/cmake/stm32cubemx/CMakeLists.txt",
+          "sha256": "6a03941306ea419cfb4829c91e00894ac1c2f0bcae7108b33e1eee546abbf32e"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/adc.h",
+          "sha256": "58ad0985117d0736ee1297a940901b5d54911df23a0c403e2c2e2cba7f641ed0"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/dma.h",
+          "sha256": "7cf6f7450a29d26303cbba5a3ca8c6cb24a02635d6a5ba4d05141fdfc75c4c49"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/gpio.h",
+          "sha256": "ee9414615e5d84c87c4ad7bd3ce5ba6977928e75af235d6b9bea481b3008b73e"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/i2c.h",
+          "sha256": "9218150138d11cc9914e6ed7edefda8959d836f3bc968eb2e1defd46a111e194"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/main.h",
+          "sha256": "071a2371437cb64acf85101e8c13a9832d13ab1ccdb81213f1abf93f57fb99fa"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/spi.h",
+          "sha256": "fb2f4e27b4b7579ecd947c5fdadaa3c26553635da08f5e42bd55eb26594586f8"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/stm32f4xx_hal_conf.h",
+          "sha256": "d23228fb884530c3f94687e6524a331b6a274dc4988d633f8531066074b0e373"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/stm32f4xx_it.h",
+          "sha256": "ff50eaa495a53e81bc8bfadd9c63f0fc9573b21517a42f93bf333a348a5e458f"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/tim.h",
+          "sha256": "73ad25afe1c9cfd42cd6604f76f12691333a93e678b8bc9164816caf69677c39"
+        },
+        {
+          "file": "firmware/low_control3/Core/Inc/usart.h",
+          "sha256": "2570ac164a1ea6bca4a211054762aa83d5ad42caebe38fd3526f929991239588"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/adc.c",
+          "sha256": "6df0574fc811d78f195744111dbad2fea44daa8093296e814671b49714b225f5"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/dma.c",
+          "sha256": "0555d923596c62c0c4a375bb74f1def2e2b99949f3f01cf995978a28d4c965ad"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/gpio.c",
+          "sha256": "847fde63d489da6c12e8de8dc4d3ff02cd6799a23afa50f47cecbb319f68de00"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/i2c.c",
+          "sha256": "388e22ad6cf05f9b3c511ca6ff22ff957f716ff89f6e659f6947190f880025be"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/main.c",
+          "sha256": "73d32a9527cb99991ff0735b1581679cff5005745acd5356d9897124a098cd90"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/spi.c",
+          "sha256": "b1eb52fae1c64a5231edb6eef3b61851921793940b77b920fcca6485acdffbdd"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/stm32f4xx_hal_msp.c",
+          "sha256": "3217d99dc7006dc46ac384717641fe84386f05fc71db0a3340fa0eae810bc1b7"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/stm32f4xx_it.c",
+          "sha256": "3a80c72cbb5728318f72d86b1994b5daf7789dec1f21c345b9deb73a026c9519"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/syscalls.c",
+          "sha256": "03c06c72eafb44b499814cf9234aba57dd830f345d9b8779b5d7090e78517600"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/sysmem.c",
+          "sha256": "ad20f7b1fa1e7c73330727747222cf2ffa3245ebf035230ee9a157545e79df95"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/system_stm32f4xx.c",
+          "sha256": "a31929eab936ac98db060c18917118acf79dc96e1f03ed4b57d614535dd06d70"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/tim.c",
+          "sha256": "944d56e922123ea3bc9ba40c0b8357dbfa1e17dc290b350a89c874b1f4d73d77"
+        },
+        {
+          "file": "firmware/low_control3/Core/Src/usart.c",
+          "sha256": "8c4bdcad26c13664dcfef962ece523562fcd3aad24a68ed68bcdcc7a1530e797"
+        },
+        {
+          "file": "firmware/low_control3/docs/low2与low3对比及重构.md",
+          "sha256": "a9f24ff7cd2e2a1a970dd3d0003632dae4e65c65e8102ca34bbb4fefa3ca255b"
+        },
+        {
+          "file": "firmware/low_control3/docs/low_control2_source_hashes.json",
+          "sha256": "d39fea9b418d18873e1144dc907bfe96683a321fb3217b42a665e86f1f4ec3df"
+        },
+        {
+          "file": "firmware/low_control3/docs/validation.json",
+          "sha256": "08680586d039889076274f29aef3eb49dae1cfcecc60cce5cafa8f9640d1f963"
+        },
+        {
+          "file": "firmware/low_control3/docs/上机验收.md",
+          "sha256": "e2f136b87d05106b4e9519f51090693a80baf5b4efbb6c428411453961d23b45"
+        },
+        {
+          "file": "firmware/low_control3/docs/协议与安全行为.md",
+          "sha256": "41b18d1d270bdb98e7cf247a064902449e513525aa918c11270c931ff1d779e3"
+        },
+        {
+          "file": "firmware/low_control3/docs/摄像头舵机控制.md",
+          "sha256": "0e956703df6d0b6dc0a19bd12652fb44b63a7d5bce09fecae0e4a4e02474eff9"
+        },
+        {
+          "file": "firmware/low_control3/docs/烧录后运行与电调初始化.md",
+          "sha256": "dd6e6700f4d635324d6ce95f12e42b696a7bdc0f6385c46b023bb061115f0716"
+        },
+        {
+          "file": "firmware/low_control3/docs/精简遥测.md",
+          "sha256": "8d26732cad060c8ab656b92fb5be3cde4b640b64cba1ca9050c13476645029cb"
+        },
+        {
+          "file": "firmware/low_control3/docs/验证记录.md",
+          "sha256": "38a78eb4a161c7acbe16160b70751efd6a2b0f35a6fe4a9b553a699d6c57ce8e"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/LICENSE.txt",
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Device/ST/STM32F4xx/LICENSE.txt",
+          "sha256": "135fb2d86e9ecdf6824cc3bba21c72b8e380c07b055fbebb6b995463eb609baf"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h",
+          "sha256": "bd21220ea8b6858c2d727cca1d2a5f1077f8a81717acdac583a1e9165d858160"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h",
+          "sha256": "a19edea6b2f4df2ab3c567782c4d313a52319c4303bd56ad7dd1d0e077014657"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h",
+          "sha256": "02c067d5a135f540c03215dc834b1e60a97bbd4e55bfd3994b0c82a15ea3012a"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/cachel1_armv7.h",
+          "sha256": "2e336a64f60a9c0eaf5a08e2c4845d94da86c3fd84d219d0d0c9f530e63bc9c3"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/cmsis_armcc.h",
+          "sha256": "5bc0d7ed8e36e9bcb868c4042fff350c702eca305df4162fb00384789e35ee1c"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/cmsis_armclang.h",
+          "sha256": "d5da2b48204f0d0cf1ff38ffccb527e5706cd0a091ff0a331eb41d6596c33fe5"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/cmsis_armclang_ltm.h",
+          "sha256": "3e8ffb284f4f155de3ea93841cca853b41d5e812b53e52c64c3d4a67b7f1ec7c"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/cmsis_compiler.h",
+          "sha256": "b51963d271c1571ca3463654c76aa7ea50c4eac5d0a2710df10414ac64d9e0f8"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/cmsis_gcc.h",
+          "sha256": "43bfd1fe69fbbc2ca70aaf7d43cc3e20f16e0c7f66e1bdef9b51af6dc14b2617"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/cmsis_iccarm.h",
+          "sha256": "2d255c8429e507e52cb603f2970bed4cc4a6cdcc3eb7fc7997385abad7364837"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/cmsis_version.h",
+          "sha256": "184c19fd3ee73632edf35a0b4d49cd48be75fbf49e6ccb19d9db05fa83bea4b3"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_armv81mml.h",
+          "sha256": "a40954bccbf202bd65ee721ea688122561e005c9f9f9d18e082280c5b897d0e4"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_armv8mbl.h",
+          "sha256": "458b1e6788079ded52adc7d06383701c865ca97b67c5e7a0a44884194f91a842"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_armv8mml.h",
+          "sha256": "5a68204fa31cda7d04d41c9ceaf3f4b1217908f59366f757ee778181c7cc8cb9"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm0.h",
+          "sha256": "ac13cb645f108666a0e57c93467872660d6bc860a839f840dc870b7a5863b4bf"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm0plus.h",
+          "sha256": "a09fa9c6b8b21d1920bce15b98aa56182b027e9278cca0b154812bac2aea3cfa"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm1.h",
+          "sha256": "944bf0c4f940eef30a632cd99d5dcfe8270e8a8431eb98c0f081bcf4f61f728e"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm23.h",
+          "sha256": "77822e9738885394ec52fca6f617452b823a0b55e2664ee225e65576cf0e8f2d"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm3.h",
+          "sha256": "c9937781259a8897adf514445441c68570087d6a72a558d8a4afe75cdb62dbd2"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm33.h",
+          "sha256": "225c47c36230edaa314f1e7a45b38279f6ab4d58faeb132226db35f7007d58aa"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm35p.h",
+          "sha256": "206b427589981b78169c1d9b73e898e4e8de4efbd76fd0c2df7df81d645b9fa2"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm4.h",
+          "sha256": "f5b63d52dd1557b15ca414cb59c264f595a7b5669db2a5878dffe22f4caedc8c"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm55.h",
+          "sha256": "5707f716cf03f7e80151108ae94601fcfdf362dd2d830876040213318f6dee3a"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm7.h",
+          "sha256": "e974d0a91752487d0154457cd422c37667328e9ddb7ba4fa2fed479a63577f63"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_cm85.h",
+          "sha256": "75bc123889f0f5ca33c4d16b6cbdd580a3572663c899fadb2c8e28f6a5e6fead"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_sc000.h",
+          "sha256": "c81377a69a4ea8ecaead42194f2ce8ab59bd4ee7bd638e423f5b1f5ec283d154"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_sc300.h",
+          "sha256": "73dd461c12c7d3a693840df3084fd8f85122095c6f21fa3d779b0f3eceaebad5"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/core_starmc1.h",
+          "sha256": "92d8661f2947d00da91653d04794cde0593fdaafb3438842a0477775716aafc5"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/mpu_armv7.h",
+          "sha256": "29206b52ee02290ed6f5a5415ebd4187de802cf176d9b3cb844390d8e5571372"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/mpu_armv8.h",
+          "sha256": "2c7d22a344cedcc1e35380d1f76f0e6c55da5e3101e6a41fd85497d1841fe8c9"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/pac_armv81.h",
+          "sha256": "d76f5cc0c59a59e035115f700b8e8d95b7b98ecb99a2924e885f82a94903d984"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/pmu_armv8.h",
+          "sha256": "cea8c105c5f41ba831fe4d9e8e39758068cd4c414383348dc2835d6be447cca0"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/CMSIS/Include/tz_context.h",
+          "sha256": "45565c8cb04c653aabaf3cceddfc848b6a0de28c20d4f7e3d475a992c7eee788"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/LICENSE.txt",
+          "sha256": "d5a162f3eaf2b7b6762f00700017cae5695ebbdce7932fead8316448baafd9c1"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h",
+          "sha256": "6942f40453fee331e026179cfac4c0f24ffe6313fedcb68af9c3382f702dbaf5"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h",
+          "sha256": "88e59477af1b4c2bafaf21b98288d8f3989c5f1f5d25c07f3fa843a2324bb14c"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h",
+          "sha256": "099a5e7d00f542e7240417605961f40325b9690a485533a8900ebef00230cf5b"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h",
+          "sha256": "d96dba22903abda49d66cad29ac0c49357e6a27cf9cb03dfd8c6db71b61a7fca"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h",
+          "sha256": "c8eb3f7b393f8c5a0c32e16ccfa101c83ddb59e96bd42239b8a5c5d4da83e97f"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h",
+          "sha256": "71c38dfd65c5415b388375147e5317c7ac018b39893d6fd0ac1c897f4313329c"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h",
+          "sha256": "3ee15423d73ac394de39e7b65821775966389b13749ff0849894548ab6968676"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h",
+          "sha256": "61e8f76bdb45dedf38fef592504e10418ca410952c7a209cd271b45ac835833a"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h",
+          "sha256": "10be06c6e06fcf4eb11e236641948aed861898fea235c606ae221fa72bc46638"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h",
+          "sha256": "7c206f5dbed3c147a6f090ab808933132a1b06b8339623ad7174fd0a222e981c"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h",
+          "sha256": "f18a6eabc99f56483566f9231ca33c780afa98bc93929e60bb419b5e544eee2a"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h",
+          "sha256": "0b40fc83363b64d3c7396a202be7a914ceaa7735ab0fa81d566ed320102b23fb"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h",
+          "sha256": "4091beefc5bf8b250f376d400f43ca028ef7378e1c7ba5c9eb5de64ec74231c0"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h",
+          "sha256": "80d2996918dc151f7d0c17a025f13571cb60916ac560996471872dc3dfa58342"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h",
+          "sha256": "d46fb65afdc6181b0cea8f80db433d102099734183b1dbcffee4c0682f4ee112"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_iwdg.h",
+          "sha256": "5a0259ec13549adf9a21224c7698b14479b777ec95a3996b4527f2abb295d484"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h",
+          "sha256": "d6f6abc4af3d5a1ca59d886f5a9154e44f257a43af77c7f18173f160825ed6b5"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h",
+          "sha256": "1794b88c5e080858c0205a2e94340c0250ac9171b3a3f01cad6d050005a1b09d"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h",
+          "sha256": "eb6911d964b1cf8a83993b19c8feb9845e8793d7c0e5d643390b53207c8b078e"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h",
+          "sha256": "49f0c8068524e1de248738530cff3bbe630dc4784b6e8b5568fbc7e1a154f772"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h",
+          "sha256": "330803c32d1d5ec40df5a827a74cb1d850ec60b207eda5bf6299c57d575795a6"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h",
+          "sha256": "63f00354e2a5e8d3a8d211fc736517273e12b99a1eb782aa7a2670cb1264a16d"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h",
+          "sha256": "aa6695d64677e8a7b46d719da3d81049290f42383c17e76271605bc68143fd1e"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h",
+          "sha256": "42528bc9caa6e2fe96b7e6d7b3fcdf35d8d85ae38d33195a233e18a072f157a1"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h",
+          "sha256": "2dbc4142faed047296000bf78066a3b948b388c8044b9b6bf7d7a7ee09309399"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h",
+          "sha256": "95a518139f74d14a4477519b5172675347990e9fa637bd3948c69bd475bd7c88"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_cortex.h",
+          "sha256": "d8b268ca207e51864d1a71ce14fff316c57d09e62a04d0c28310b4a1008e6f17"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dma.h",
+          "sha256": "39e89050700e16304e04643e29c162b6aaa9f3bfe53880cd78c255ce46104e82"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_exti.h",
+          "sha256": "6da580d41ebdcfd7349e29666a2e561c8e2c2e01f6e7ef29dfec6ebf6ae237df"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_gpio.h",
+          "sha256": "e46857f5f9a5f5a2d13ca2d6925dc9e66dfa7fc56a2cc72e54b891bdb88e2f16"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_i2c.h",
+          "sha256": "3e2af1eab1a3e6f4c59f24b3c880b8de8b5deb03086bad482417230551c97a34"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_pwr.h",
+          "sha256": "229af558bfeef8bb88d2224277b083c3b927c5c2612991fdeba00dad56255abc"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_rcc.h",
+          "sha256": "605960f2e8e57a702b912475f9c154bb58711b58c8f2ff27dd4e75b5d767dc4e"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_spi.h",
+          "sha256": "3b053ed6c58bc9ae4de03fcae86f64a14fb86ad4a36ef27a3bdf1524e93e9b54"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h",
+          "sha256": "d634a419a55e99b4a641fecc055e1f602d8a418bd7d822cf2f812a0965ac9a3e"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_tim.h",
+          "sha256": "0d7eb3fd74100ee33cf592c6edb2e340d85ac320364702a6cc1d0e9d22da66d2"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usart.h",
+          "sha256": "982c4448c49ddc7c6c71bd788e5354f05e96aca5e98edd0626f8ffcaefc65e79"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_utils.h",
+          "sha256": "535cb625cfcd461d6054549bf04d25ef939ec5754f77731a5f9fd92728280ded"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h",
+          "sha256": "8c2d2feb90e8ed88fe5756f3f1616a2b67aa1cd0858da8b130ed69607688c8c0"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c",
+          "sha256": "97e715cda2a34bd564b59ce4ba9b16bd29651f8f229161105aaec666d76ea91a"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c",
+          "sha256": "af050dc5f3f50dfc5d4caff3b52348e70578b007e181b580108b19fb18347b26"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c",
+          "sha256": "9aaa0f19137d700616bec01a5a806786c24e3f3386120365c5d2addaa4055505"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c",
+          "sha256": "a345a1b1fe0221c827d5ad21d5a0f5387296bc2c075e06e5b8539c23da5678e4"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c",
+          "sha256": "90cafb5a5b17a46b478770ef4abdc9a641cb395419abbb80f288138a63d44582"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c",
+          "sha256": "f56651f86e5d89e8bba3bcb331353e00f291db15c902927a205d81bbe8951e6d"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c",
+          "sha256": "8bf12eeb6e6cfc12a17587ed6d761724e0835a4a3dc0f6b14a8d1ca068bcb55b"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c",
+          "sha256": "51a70deb9b19dd43f6f202430fae052f2deb26c39232c09c79230c8d8a61f773"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c",
+          "sha256": "d3b426e8cb9d617f9064d2b0cea2a1d02b7bb6a74cba3f094779d6e922e477e3"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c",
+          "sha256": "408908b15477b6ce2b0b9703caabcb053293d98f2f109d6e6940e076a6a3902b"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c",
+          "sha256": "d3686886a87d018a6a5f26c9760fc7a80ad2d520b9e856916a983302fc6a3442"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c",
+          "sha256": "6f0863aaf210e9f446f194c34035b59b7de4ad617743e7e94a0f7a4232c96596"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_iwdg.c",
+          "sha256": "98b792938f989c9c92dcb6b156a0a8ee8dfc553ef907b4a87a7f44867bc52343"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c",
+          "sha256": "d779468a95df34421bf6c8417136a79aa910753381a644afa9ed10b185ae18b5"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c",
+          "sha256": "4409dddc0d2019f918d0ddebecf659f06d4de3f9aa28566621a16ea47203331f"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c",
+          "sha256": "f3ac468e2f415adb74281107c0dec1448008950b64a7bb11c14cbe3ee1a936de"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c",
+          "sha256": "526324811fa113c3eadfa84cd24ea5e607ad8e8bf003a2085456c04b734ca25e"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c",
+          "sha256": "641ad467e834c17a83c445cf8eea7c8317a71976d7e0c77da740be999251efe4"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c",
+          "sha256": "a7dea3b10a771a380915007b9ece123654c6bd2a40f611102220df9bfdd143e4"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c",
+          "sha256": "4471b582d56545fbd48725401249b4a2a728ccc0d933b3f1a02e2b09dda8d8fa"
+        },
+        {
+          "file": "firmware/low_control3/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c",
+          "sha256": "a74ed3a9a13a4fcbaada9e6f88f7d4fcabe2a75852a6ce4c09f8d4314a2e851a"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/algorithms/Inc/MahonyAHRS.h",
+          "sha256": "65fc79c7346657962a8b57a17d151ad877cb46a2c5d6a1cf03c97337aacb712e"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/algorithms/Src/MahonyAHRS.cpp",
+          "sha256": "af19d5f1c3e0ff0a96bf2a80479947532d3364ec9d4742c062ca694d094952e4"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/bsp/Inc/bsp_spi.h",
+          "sha256": "9c3ef4d27d8acc605629bb485ce0115abdea880aa5c65cb81b9dd05de1bd7405"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/bsp/Src/bsp_spi.cpp",
+          "sha256": "b76f8d9bf050c42ac9171254aff410d5b03fdc656f3c884c12406d5bd2449803"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/devices/Inc/DepthSensor.h",
+          "sha256": "aa8951eb6e83acf257f2f443951d242c51bed4b6b09e4072bf41f950624c5435"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/devices/Inc/IMU.h",
+          "sha256": "121f6da9f112a6c8c9b4cb7df63afe9ada7f1ad4848c472a3877ee042ce3c4d7"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/devices/Inc/VectorControl.h",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/devices/Src/DepthSensor.cpp",
+          "sha256": "452f04b10f26006ea6876d5e6cc351626442bebd39a51f47c46f6faefe509917"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/devices/Src/IMU.cpp",
+          "sha256": "9ebfb3403f3ac933fa2a30968650d510532db9efb4f0d6013509ac35c33cb3ce"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/devices/Src/VectorControl.cpp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/drivers/Inc/BMI088driver.h",
+          "sha256": "100acc223181be0af9053f2c96471c0a9520eab9da167fadf3a3f2716aea37aa"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/drivers/Inc/BMI088reg.h",
+          "sha256": "d800681e6ccd77b1a8bdcd227deb36b660e8c1c74fd8e72555845d29128d09e0"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/drivers/Inc/ist8310driver.h",
+          "sha256": "936d43ff2274e578296b49a4f503d461b70301ad7af8f0d47ab6779a40e769de"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/drivers/Src/BMI088driver.cpp",
+          "sha256": "98988712ae800fa350af71a05ed5d7bf7d252a25f49d36bed717bd5f96524b18"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/drivers/Src/ist8310driver.cpp",
+          "sha256": "0d13ea95b82b9293ddad025866aa9aae6a7bc9f89816eeb8682602b99082836d"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/MiddleWares/Inc/BMI088Middleware.h",
+          "sha256": "9316da797e9e6f53ca71c0e23db6933e10b9e6e47c21c6d4cb81841c9822a666"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/MiddleWares/Inc/ist8310driver_middleware.h",
+          "sha256": "4d81421974f7e7131fba8ec5d675b23da998ed8f935ecc668d9e00f4ed327a97"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/MiddleWares/Src/BMI088Middleware.cpp",
+          "sha256": "c59b37a1f612748a26acd5ec6264adcfc4fc169e0451fdd65c7c148d67368bed"
+        },
+        {
+          "file": "firmware/low_control3/reference/legacy/userCode/MiddleWares/Src/ist8310driver_middleware.cpp",
+          "sha256": "c55e3b6063288c1d413bc3c97a7c0eca0c1767330428a6967ea03f1c1738cade"
+        },
+        {
+          "file": "firmware/low_control3/scripts/build.ps1",
+          "sha256": "dda7fd7506801ff5ec0fab462107070c804b389889e916f49f490b3d32eaa574"
+        },
+        {
+          "file": "firmware/low_control3/tests/ch9434_baseline_tests.cpp",
+          "sha256": "be27f42bc3140b50b357b2f3cad474393beb3b89405dc2aeb1ea8e6f6083fce3"
+        },
+        {
+          "file": "firmware/low_control3/tests/CMakeLists.txt",
+          "sha256": "c928a634c5092b3e3c974fc005c6b6ec558180e1d320d20c90a1566979dadc7e"
+        },
+        {
+          "file": "firmware/low_control3/tests/core_tests.cpp",
+          "sha256": "464319b577e414e014e4a5784207e19c540081aa6b2bec9a67ea82ec0adb12dc"
+        },
+        {
+          "file": "firmware/low_control3/tests/fake_hal.cpp",
+          "sha256": "962e5aab14dc99846ffacfb8e1ad252169e96c8a245192c37cca976a75404d1c"
+        },
+        {
+          "file": "firmware/low_control3/tests/firmware_tests.cpp",
+          "sha256": "7e39d1a89d2df58818d34d8227a3b5c6dbdfb9359633e292787848fe5ef13e65"
+        },
+        {
+          "file": "firmware/low_control3/tests/uart_callback_test.cpp.in",
+          "sha256": "1f2e5220d2ad22afdeb1cc9f838d82ba25cfa12d4de8ca40c56a0cc46eff8226"
+        },
+        {
+          "file": "firmware/low_control3/tests/stubs/adc.h",
+          "sha256": "e8469c6e184758f40dda21ffd47be75602d05f6f8498b476550f5d249b56bb5e"
+        },
+        {
+          "file": "firmware/low_control3/tests/stubs/fake_hal.h",
+          "sha256": "dca771a02be5ddf5bdd08e3c277b0f46dd7d361e049e4fbfc01b777e0e46cf3f"
+        },
+        {
+          "file": "firmware/low_control3/tests/stubs/gpio.h",
+          "sha256": "f9858737d78f0c5f29878e6dfccf02f7dc3680d70992e8cf1336ea6da35d00d0"
+        },
+        {
+          "file": "firmware/low_control3/tests/stubs/main.h",
+          "sha256": "ef9a6bc51a0135735e67f58175759359338aa0923b5a2cb01a0e2f6537f12c60"
+        },
+        {
+          "file": "firmware/low_control3/tests/stubs/spi.h",
+          "sha256": "cfd092886b21d83eee7b4bbd5474a27cb18f7f3b6e7763ffe1db8b568c56381b"
+        },
+        {
+          "file": "firmware/low_control3/tests/stubs/tim.h",
+          "sha256": "e85a2dc513dbc3b266436a8482c787f86cf9eeeadd7a5819b72bde48aaa6a35e"
+        },
+        {
+          "file": "firmware/low_control3/tests/stubs/usart.h",
+          "sha256": "6d51312353b7675b1d6605c43706dac63a4a93ce4c867c38e8abb6c95680c94b"
+        },
+        {
+          "file": "firmware/low_control3/userCode/control/Inc/MotionController.h",
+          "sha256": "500d851619d09012a199c814b240c9f9cda9a795d6f11e0f7532c224d75dbce1"
+        },
+        {
+          "file": "firmware/low_control3/userCode/control/Src/MotionController.cpp",
+          "sha256": "0481c511b4b5ea994668b621bd2ada9790e71de72233ff045e2a6e58f3b946a1"
+        },
+        {
+          "file": "firmware/low_control3/userCode/core/Inc/BoardConfig.h",
+          "sha256": "2d24cce7249f0d34266ea46aa37d1f5c6c07bfed618e6aab378ee498da9fbd1e"
+        },
+        {
+          "file": "firmware/low_control3/userCode/core/Inc/ControlProtocol.h",
+          "sha256": "3caf0a02f4527f1486b60abde6890254e73083427ab4c42f28d05416527d7d9b"
+        },
+        {
+          "file": "firmware/low_control3/userCode/core/Inc/RpmDecoder.h",
+          "sha256": "9a3bf9706821e499ea574a40ff6695592725003c728888efa9d14c7cd6e63c57"
+        },
+        {
+          "file": "firmware/low_control3/userCode/core/Inc/TelemetryProtocol.h",
+          "sha256": "9150e436bdded0216ee84e48e13afd156e960f6be50f194d8abb1b50acfcd0a3"
+        },
+        {
+          "file": "firmware/low_control3/userCode/core/Src/ControlProtocol.cpp",
+          "sha256": "8ec9fd1538b14e337c276655e8868d6061c12dbd07fab875228354945598677e"
+        },
+        {
+          "file": "firmware/low_control3/userCode/core/Src/RpmDecoder.cpp",
+          "sha256": "989bdaa365b692209c474afb1a58d913e5b3c2a868d8ddba59aedd4d7cccd5a1"
+        },
+        {
+          "file": "firmware/low_control3/userCode/core/Src/TelemetryProtocol.cpp",
+          "sha256": "5c0a5d1feae0f354bff60f0626da7408b4f6dd455a5f1f67411813b53fead933"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/Buzzer.h",
+          "sha256": "1c1778cd5d4657649f5f4de5694618f05ec5a50eb3059bd60d9d60abd64ec711"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/CH9434.h",
+          "sha256": "65505168b736db669c10367c966044c3019e1a5eb2dd6993648f4daffd9bdcc7"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/CommUART1.h",
+          "sha256": "ccaa2874220c0ec04462ed06bd544ee1787e94970a528ed64ce5c27e5f9843e9"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/LED.h",
+          "sha256": "59b9f4526207417e4d6b079be7853a2c8770658bd737c70bb24f35f9e5c8f12d"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/Motor.h",
+          "sha256": "0f45a576d5912c49a9e2c13e84218adaff5960fce651fcf4c22543f270ac5d53"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/Safety.h",
+          "sha256": "16465c204f8932dc2cd3696973223384005ccc49852a4ba2fc43c503c820eccc"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/Servo.h",
+          "sha256": "234fbee194052e2e6cd5a790179095aac7c0dc16c1f296bd2811d5c92196554b"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/TelemetryService.h",
+          "sha256": "bfe282452347e03f6379ebe42f3794fa250f342ebc44754f9325747e1fe908d4"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/usermain.h",
+          "sha256": "b4bfdcf177cd4424027203ac4f177407206a2a9e331afef96682f6f70eb3e8a3"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Inc/VoltageMonitor.h",
+          "sha256": "82a0ab58b2f362354a21044ba00d07d585dfdaba54db7e367dfb2e44922151a7"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/Buzzer.cpp",
+          "sha256": "6e7531214942bd9ff5f2ca6c2ef2803522c11472c75e6b5702e18424a28d5560"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/CH9434.cpp",
+          "sha256": "ab145ac8bc25a6bf0273703be296f60287ad318e122cf5f4f6f8107229e541cf"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/CommUART1.cpp",
+          "sha256": "b411606f52054406cb40a9e0f5200846d112900b6c4bd7774f975b9a7b1d32a6"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/LED.cpp",
+          "sha256": "b99cb04a0001c61a865be17f1608494888666d5923f656a00e3d73283d81ed01"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/Motor.cpp",
+          "sha256": "7964f466e1dda86ef69141bd4c194a8932d4bd54494d65aa7b7826ffc8de3854"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/Safety.cpp",
+          "sha256": "a5a0fb4268beaf678a1d1fd2938af2cfbe5f24fe0dc4ca750df4a17d0881a662"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/Servo.cpp",
+          "sha256": "82771785723bbb2ed71a9071754e40900ee1afc7d8560cc028b8a3964eb4e0de"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/TelemetryService.cpp",
+          "sha256": "2191b813cae80a0819be263b3a261514fd6c3650b8a04339e0eeaa0f407b6fb6"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/usermain.cpp",
+          "sha256": "938925fc5e260a2e986559452feeecc979ed17ded3612043759c136e113a3847"
+        },
+        {
+          "file": "firmware/low_control3/userCode/devices/Src/VoltageMonitor.cpp",
+          "sha256": "dfb08d5acba8570fac9ffb56e026aa617aec304294ad2b5d5d1c346120b26af5"
+        },
+        {
+          "file": "firmware/low_control3/validation/camera_pan_20261126.json",
+          "sha256": "f2c51810d264815a4c45c01024594af660b04be0c05c8e963441d30e5e9dd89e"
+        },
+        {
+          "file": "firmware/low_control3/validation/flash_run_task_20261126.json",
+          "sha256": "4fca8da1ff1669df8428f9647c492a759cd5d246b334731171bb2ec28ce027a8"
+        },
+        {
+          "file": "firmware/low_control3/validation/low2_baseline_inventory_20261126.json",
+          "sha256": "d0b8f1734c0e29b2f38b6dc3c313ff89a8540e8df76efee5f14be6223722a4c2"
+        },
+        {
+          "file": "firmware/low_control3/validation/low2_rebase_20261126.json",
+          "sha256": "c91621709d2aed84fce077f77622b2b25be1bc4609530b3d47783949b7d337f5"
+        }
+      ],
+      "preserved_repository_differences": []
+    },
+    {
+      "source": "E:\\uw-robot\\stm32\\joy\\Joystick_Over_Ethernet",
+      "destination": "E:\\uw-robot\\uw_ws\\operator_ui\\Joystick_Over_Ethernet",
+      "kind": "UI",
+      "verified": [
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/camera_pan.py",
+          "sha256": "6a70329d25bbffb50a36f451ba2a40dc71f619169ff195f2139b7081f99c038a"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/command_mapper.py",
+          "sha256": "b6a7a4820fb9f482a24bb52d37d6d4adf06442ec400deb012380137b20420983"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/config.py",
+          "sha256": "ff4cf92883cb6ff5e3c0961eebbd5367b0e196fda83115fee2f53aae663c843d"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/main.py",
+          "sha256": "4ed67048ce0ae0da0a24e6d56706ec89521711ab8a85f60ddaeb7b1d1630c65d"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/network.py",
+          "sha256": "31c2e6998fa81e3b3639c13d33c21cc8eddf9ce89ca97171aa460ae61c11443d"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/README.md",
+          "sha256": "4e13be1564479e439f04446ef8a934ce6fde17df82d68914908eca33dde82017"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/telemetry_display.py",
+          "sha256": "3b9dd992c6883f819659e177d1f71c5f7c2798906d76471c68e226bdbc2e9660"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/test_joystick.py",
+          "sha256": "298899b5b88e5d8f4528b8ca06653429fa25c2108b497f737729369894942638"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/test_joystick_simple.py",
+          "sha256": "41044ea48c6f6ef92e8e2cb909263e9fc139e729f543b804fa5722997bca99c2"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/tests/test_camera_pan.py",
+          "sha256": "e191559046621ebb07603f046dc24e9536bc93b4c156a03eaaa236fb30fefe2b"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/tests/test_telemetry_display.py",
+          "sha256": "987224cd47f5d3c8e6e15c363355779a59829f059103dbe8145028d3befa1219"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/tools/check_video.py",
+          "sha256": "dddecc0849086c467f55f316b5dc886f38074dc53fe93bb22b8636a53f088842"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/tools/preview_ui.py",
+          "sha256": "3d522bb761c9fedf61f5cbd19e3a57286cf208e859ff44d0cf1adc30842afb97"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/validation/camera_pan_20261126.json",
+          "sha256": "f2c51810d264815a4c45c01024594af660b04be0c05c8e963441d30e5e9dd89e"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/validation/camera_pan_preview.png",
+          "sha256": "ba0c2dc5430fee5f71d602e810e75c032157cdaef10bce897820b566f5a48086"
+        },
+        {
+          "file": "operator_ui/Joystick_Over_Ethernet/validation/ui_validation.json",
+          "sha256": "d2d65abfe2a7804af752a14bc05e816e33433d5fe4f40f25bd32ffabd7803a4e"
+        }
+      ],
+      "preserved_repository_differences": []
+    }
+  ],
+  "retained": [
+    "uw_robot_mujoco",
+    "uw-hello",
+    "simulation.launch.py",
+    "plant.yaml",
+    "uw_robot_mujoco dependency in bringup"
+  ],
+  "runtime_sources_changed_this_turn": false,
+  "README_relative_links_checked": 21,
+  "tests": {
+    "UI_unittest": "14 passed",
+    "low3_host_ctest": "7/7 passed",
+    "verify_tree": "passed: 180 text files LF/no BOM, 79 Python, 5 YAML, 6 ROS messages",
+    "git_diff_check": "passed",
+    "readme_links": "passed"
+  },
+  "hardware_connected": false,
+  "flashed": false,
+  "git_staged": false,
+  "git_committed": false,
+  "git_pushed": false,
+  "README_sha256": "3489b0e37008cb407091288510480b6391fbbe0bf1c727c0ed46c7634d4c5013",
+  "validation_report": "validation/sync_20261127.json"
+}

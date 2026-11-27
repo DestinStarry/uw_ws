@@ -70,7 +70,9 @@ with tempfile.TemporaryDirectory() as directory:
                 pubs["system/cpu_temperature"].publish(cpu)
                 pubs["hardware/tx"].publish(String(data="OFF\n"))
                 pubs["hardware/rx"].publish(String(data="VOLT:15.23 CH0:1200 CH1:0 CH2:-- CH3:--"))
-                executor.spin_once(timeout_sec=.02)
+                # Service the ten subscriptions and timers before the next batch.
+                # One spin_once per ten publications creates a test-only backlog.
+                for _ in range(24): executor.spin_once(timeout_sec=0)
                 time.sleep(.01)
         def trigger(name):
             client=node.create_client(Trigger,"logging/"+name)

@@ -10,6 +10,7 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
+#include <std_msgs/msg/float64.hpp>
 #include <uw_robot_interfaces/msg/depth_state.hpp>
 #include <uw_robot_interfaces/msg/thruster_command.hpp>
 
@@ -36,6 +37,13 @@ class HardwareNode : public rclcpp::Node {
 public:
   HardwareNode() : Node("hardware_node") {
     dry_ = declare_parameter("dry_run", true);
+    camera_direction_=declare_parameter("camera_direction",1);
+    if (camera_direction_!=1 && camera_direction_!=-1)
+      throw std::runtime_error("camera_direction must be 1 or -1");
+    camera_sub_=create_subscription<std_msgs::msg::Float64>("camera/servo_target_deg",1,
+      [this](std_msgs::msg::Float64::ConstSharedPtr m) {
+        if (std::isfinite(m->data) && std::abs(m->data)<=90) camera_angle_deg_=m->data;
+      });
     device_ = declare_parameter<std::string>("port", "/dev/ttyTHS2");
     const int baud = declare_parameter("baud", 115200);
     timeout_ = declare_parameter("command_timeout_s", .15);
@@ -45,7 +53,7 @@ public:
       throw std::runtime_error("requires 115200 baud and positive timeouts");
 
     tx_pub_ = create_publisher<std_msgs::msg::String>("hardware/tx", 1);
-    rx_pub_ = create_publisher<std_msgs::msg::String>("hardware/rx", 1);
+    rx_pub_ = create_publisher<std_msgs::msg::String>("hardware/rx", 100);
     if (publish_depth_)
       depth_pub_ = create_publisher<msg::DepthState>("depth/state", 1);
 
@@ -54,8 +62,9 @@ public:
         "actuators/command", 1,
         [this](msg::ThrusterCommand::ConstSharedPtr m) {
           const double age = (now() - rclcpp::Time(m->header.stamp)).seconds();
-          if (age < -.05 || age > timeout_)
-            return;
+          if (!std::isfinite(age) || age < -.05 || age > timeout_) {
+            latest_=uw::Actuators{};last_command_=-1e9;return;
+          }
           uw::Actuators a;
           a.enabled = m->enabled;
           a.gripper = m->gripper_closed;
@@ -66,12 +75,12 @@ public:
               a.forces.minCoeff() < uw::reverse_limit - 1e-6 ||
               a.forces.maxCoeff() > uw::forward_limit + 1e-6 ||
               a.angles.cwiseAbs().maxCoeff() > uw::servo_limit + 1e-6) {
-            latest_ = "OFF\n";
+            latest_ = uw::Actuators{};
             last_command_ = -1e9;
             return;
           }
           // disabled 帧天然就是停机帧，encode_stm32 会输出 OFF。
-          latest_ = uw::encode_stm32(a);
+          latest_ = a;
           last_command_ = monotonic();
         });
 
@@ -115,7 +124,10 @@ private:
 
   void tick() {
     const double t = monotonic();
-    const std::string wanted = t - last_command_ <= timeout_ ? latest_ : "OFF\n";
+    uw::Actuators command=latest_;
+    if (t-last_command_>timeout_) command.enabled=false;
+    command.camera_angle_deg=camera_direction_*camera_angle_deg_;
+    const std::string wanted=uw::encode_stm32(command);
 
     std_msgs::msg::String tx;
     tx.data = wanted;
@@ -131,7 +143,11 @@ private:
 
   bool dry_ = true;
   bool publish_depth_ = true;
-  std::string device_, latest_ = "OFF\n";
+  std::string device_;
+  uw::Actuators latest_;
+  double camera_angle_deg_=0;
+  int camera_direction_=1;
+  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr camera_sub_;
   double timeout_ = .15, depth_timeout_ = 1.5;
   double last_command_ = -1e9, depth_time_ = -1, depth_ = 0, rate_ = 0;
 
